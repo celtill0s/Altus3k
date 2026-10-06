@@ -11,7 +11,8 @@ const CLOSABLES = [
   ['#crampon-view:not([hidden])', '#crampon-view-close'],
   ['#settings-panel:not([hidden])', '#settings-close'],
   ['#peak-panel:not([hidden])', '#peak-panel-close'],
-  ['#app.mobile-list-open', '#mobile-list-toggle'],
+  ['#mine-view:not([hidden])', '#mine-close'],
+  ['#app.mobile-list-open', '#tab-map'],
 ];
 
 function appBack() {

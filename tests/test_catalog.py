@@ -57,6 +57,13 @@ def test_peak_entry_is_valid(peak):
     # L'id sert de clé dans data/progress.json ET de nom de dossier (photos, gpx) : format
     # strict, et il ne doit JAMAIS changer une fois publié (même si le nom est corrigé).
     assert re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", peak["id"]), "id invalide (a-z, 0-9, tirets)"
+    if "image" in peak:
+        # Photo libre de droits (static/img/peaks/), avec son crédit affiché dans la fiche.
+        image = peak["image"]
+        assert image["url"] == f"img/peaks/{peak['id']}.jpg"
+        assert (CATALOG_PATH.parent / image["url"]).is_file(), "fichier image manquant"
+        assert image["author"].strip() and image["license"].strip()
+        assert image["source"].startswith("https://commons.wikimedia.org/")
     if "crampon" in peak:
         c = peak["crampon"]
         assert set(c) == {"grade", "confirmed", "season", "note"}

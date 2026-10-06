@@ -1,11 +1,12 @@
 // Panneau flottant de détail d'un sommet (fait, commentaire, médias, GPX).
-import { escapeHtml, safeUrl } from './util.js';
+import { escapeHtml, formatDate, safeUrl, todayIso } from './util.js';
 import { DIFF_COLORS, DIFF_CRITERIA } from './config.js';
-import { doneSet, session, PEAKS } from './store.js';
+import { doneSet, session, PEAKS, wishSet } from './store.js';
 import { apiDelete, apiPost, peakApiBase } from './api.js';
 import { map, refreshPeakMarker, removePeakMarker } from './map.js';
 import { bindPhotosRow, photosRowHtml } from './photos.js';
-import { bindGpxRow, clearGpxForPeak, gpxRowHtml } from './gpx.js';
+import { bindGpxRow, clearGpxForPeak, gpxRowHtml, gpxStats, hideOnMap } from './gpx.js';
+import { catalogImage, peakImageStyle } from './peak-image.js';
 import { renderList } from './sidebar.js';
 import { openPeakDialog } from './custom-peak.js';
 
@@ -39,9 +40,12 @@ function popupHtml(p) {
     ? `<ul class="pop-links">${links.map(u => `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(u)}</a></li>`).join('')}</ul>`
     : '';
   return `
+    <div class="pop-banner" style='${peakImageStyle(p, 280, 110, 1.5).replace(/'/g, '&#39;')}'></div>
+    ${imageCreditHtml(p)}
     <h3>${name}${p.custom ? ' <span class="pop-custom-tag">ajout perso</span>' : ''}</h3>
     <div class="pop-meta">${escapeHtml(p.altitude_m)} m &middot; ${p.massif ? `${escapeHtml(p.massif)} &middot; ` : ''}${escapeHtml(p.region)} &middot; <a href="https://www.google.com/maps?q=${Number(p.lat)},${Number(p.lon)}" target="_blank" rel="noopener noreferrer">Voir sur Google Maps</a></div>
     <span class="badge" style="background:${color}">${diff}</span>
+    <div class="pop-figures">${figuresHtml(p)}</div>
     <div class="pop-notes">${notes}</div>
     ${linksHtml}
     <div class="pop-source">Source : ${source}</div>
@@ -51,7 +55,13 @@ function popupHtml(p) {
       <div class="why"><strong>Pourquoi ce sommet est coté ${diff}</strong> : ${notes}</div>
       <div class="source-link">Source : ${sourceUrl ? `<a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">${source}</a>` : source}. Voir <code>sources.md</code> dans le dépôt pour la méthodologie complète.</div>
     </div>
-    <label class="pop-done-row"><input type="checkbox" class="pop-done-checkbox" ${checked} ${session.canEdit ? '' : 'disabled'}/> Sommet fait</label>
+    <div class="pop-actions">
+      <label class="pop-done-row pop-action ${checked ? 'on' : ''}"><input type="checkbox" class="pop-done-checkbox" ${checked} ${session.canEdit ? '' : 'disabled'}/> Sommet fait</label>
+      <button type="button" class="pop-action pop-wish-btn ${wishSet.has(p.id) ? 'on' : ''}" aria-pressed="${wishSet.has(p.id)}" ${session.canEdit ? '' : 'disabled'}>${wishSet.has(p.id) ? '&#9733;' : '&#9734;'} Envie</button>
+    </div>
+    <label class="pop-date-row" ${checked ? '' : 'hidden'}>Date d'ascension
+      <input type="date" class="pop-done-date" value="${escapeHtml(p.done_date || '')}" max="${todayIso()}" ${session.canEdit ? '' : 'disabled'} />
+    </label>
     <div class="pop-comment-row">
       <label>${session.viewingOther ? `Commentaire de ${escapeHtml(session.space)}` : 'Mon commentaire'}</label>
       <textarea class="pop-comment-input" placeholder="Notes perso : conditions, ressenti, conseils…" ${session.canEdit ? '' : 'readonly'}>${escapeHtml(p.comment || '')}</textarea>
@@ -67,20 +77,98 @@ function popupHtml(p) {
   `;
 }
 
-function setDone(p, done) {
-  if (done) doneSet.add(p.id); else doneSet.delete(p.id);
-  refreshPeakMarker(p);
-  renderList();
+// Crédit de la photo du catalogue (Wikimedia Commons, licences libres CC BY / BY-SA / CC0).
+function imageCreditHtml(p) {
+  const img = catalogImage(p);
+  if (!img) return '';
+  const source = safeUrl(img.source);
+  const text = `Photo : ${escapeHtml(img.author)} · ${escapeHtml(img.license)}`;
+  return `<div class="pop-banner-credit">${source ? `<a href="${escapeHtml(source)}" target="_blank" rel="noopener noreferrer">${text}</a>` : text}</div>`;
 }
 
+// Rangée de chiffres sous le titre : altitude, D+ et distance (si trace GPX), date d'ascension.
+function figuresHtml(p) {
+  const figs = [[`${p.altitude_m} m`, 'altitude']];
+  const g = gpxStats(p.id);
+  if (g && g.hasElevation) figs.push([`+${Math.round(g.elevGainM)} m`, 'dénivelé']);
+  if (g && g.distanceKm > 0) figs.push([`${g.distanceKm.toFixed(1)} km`, 'distance']);
+  if (doneSet.has(p.id) && p.done_date) figs.push([formatDate(p.done_date), 'fait le']);
+  return figs.map(([v, k]) => `<div class="fig"><strong>${escapeHtml(v)}</strong><span>${escapeHtml(k)}</span></div>`).join('');
+}
+
+// Met à jour, dans le panneau ouvert, ce qui dépend de l'état fait/envie (sans régénérer le
+// panneau : un commentaire en cours d'édition serait perdu).
+function refreshPanelState(p) {
+  if (activePeakId !== p.id) return;
+  const root = document.getElementById('peak-panel-body');
+  const done = doneSet.has(p.id), wish = wishSet.has(p.id);
+  const doneEl = root.querySelector('.pop-done-checkbox');
+  doneEl.checked = done;
+  doneEl.closest('.pop-action').classList.toggle('on', done);
+  const wishBtn = root.querySelector('.pop-wish-btn');
+  wishBtn.classList.toggle('on', wish);
+  wishBtn.setAttribute('aria-pressed', String(wish));
+  wishBtn.innerHTML = `${wish ? '&#9733;' : '&#9734;'} Envie`;
+  root.querySelector('.pop-date-row').hidden = !done;
+  root.querySelector('.pop-done-date').value = p.done_date || '';
+  root.querySelector('.pop-figures').innerHTML = figuresHtml(p);
+}
+
+function setDone(p, done, date) {
+  if (done) doneSet.add(p.id); else doneSet.delete(p.id);
+  if (done && date) p.done_date = date; else delete p.done_date;
+  refreshPeakMarker(p);
+  renderList();
+  refreshPanelState(p);
+}
+
+function saveFailed() {
+  alert("Impossible d'enregistrer sur le serveur — vérifie la connexion et réessaie.");
+}
+
+// Cocher « fait » enregistre la date du jour (modifiable ensuite dans la fiche).
 export function toggleDone(p) {
   if (!session.canEdit) return; // invité, ou admin consultant l'espace d'un autre
-  const wasDone = doneSet.has(p.id);
-  setDone(p, !wasDone);
-  apiPost(`${peakApiBase(p)}/done`, { done: !wasDone }).catch(() => {
-    setDone(p, wasDone); // échec réseau : on annule l'affichage optimiste
-    alert("Impossible d'enregistrer sur le serveur — vérifie la connexion et réessaie.");
+  const wasDone = doneSet.has(p.id), oldDate = p.done_date;
+  const date = wasDone ? null : todayIso();
+  setDone(p, !wasDone, date);
+  apiPost(`${peakApiBase(p)}/done`, wasDone ? { done: false } : { done: true, date }).catch(() => {
+    setDone(p, wasDone, oldDate); // échec réseau : on annule l'affichage optimiste
+    saveFailed();
   });
+}
+
+function changeDoneDate(p, date) {
+  if (!session.canEdit || !doneSet.has(p.id)) return;
+  const oldDate = p.done_date;
+  setDone(p, true, date || null);
+  apiPost(`${peakApiBase(p)}/done`, { done: true, date: date || null }).catch(() => {
+    setDone(p, true, oldDate);
+    saveFailed();
+  });
+}
+
+function setWish(p, wish) {
+  if (wish) wishSet.add(p.id); else wishSet.delete(p.id);
+  refreshPeakMarker(p);
+  renderList();
+  refreshPanelState(p);
+}
+
+export function toggleWish(p) {
+  if (!session.canEdit) return;
+  const was = wishSet.has(p.id);
+  setWish(p, !was);
+  apiPost(`${peakApiBase(p)}/wish`, { wish: !was }).catch(() => {
+    setWish(p, was);
+    saveFailed();
+  });
+}
+
+// Les statistiques GPX arrivent après coup (traces chargées en arrière-plan).
+export function refreshPanelFigures(p) {
+  if (activePeakId !== p.id) return;
+  document.querySelector('#peak-panel-body .pop-figures').innerHTML = figuresHtml(p);
 }
 
 // --- Panneau flottant de détail d'un sommet (remplace la popup Leaflet ancrée au marqueur) ---
@@ -89,6 +177,8 @@ export let activePeakId = null;
 function bindPanelContent(root, p) {
   const doneEl = root.querySelector('.pop-done-checkbox');
   if (doneEl) doneEl.addEventListener('change', () => toggleDone(p));
+  root.querySelector('.pop-wish-btn').addEventListener('click', () => toggleWish(p));
+  root.querySelector('.pop-done-date').addEventListener('change', (e) => changeDoneDate(p, e.target.value));
   const toggleBtn = root.querySelector('.cotation-detail-toggle');
   const toggleBody = root.querySelector('.cotation-detail-body');
   if (toggleBtn && toggleBody) {
@@ -162,6 +252,7 @@ async function deleteCustomPeak(p) {
   const idx = PEAKS.indexOf(p);
   if (idx >= 0) PEAKS.splice(idx, 1);
   doneSet.delete(p.id);
+  wishSet.delete(p.id);
   closePeakPanel();
   renderList();
 }
@@ -232,6 +323,7 @@ export function openPeakPanel(p, marker) {
 function closePeakPanel() {
   document.getElementById('peak-panel').hidden = true;
   activePeakId = null;
+  hideOnMap();
 }
 
 export function initPeakPanel() {

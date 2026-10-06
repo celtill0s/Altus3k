@@ -5,23 +5,36 @@ import { startsMobile } from './config.js';
 // bulles de cluster, dans un viewBox 24x24.
 export const MOUNTAIN_PATH = 'M2 20 L9 8 L13 14 L16 9 L22 20 Z';
 
-// Marqueur individuel : logo montagne colorié selon la difficulté (T2/T3/T4), coche verte en
-// haut à gauche si le sommet est fait, altitude en petit en bas à droite du logo.
+// Marqueur individuel : logo montagne, couleur = cotation (T2/T3/T4), altitude en petit en bas à
+// droite. Forme selon l'état (voir peakState dans store.js) :
+// - 'done' : plein, pastille ✓ (vert sapin) en haut à gauche ;
+// - 'wish' : plein, pastille ★ (ambre) en haut à gauche ;
+// - 'todo' : contour seul (intérieur blanc), pour que les sommets faits ressortent ;
+// - 'plain' (invité) : plein, sans pastille.
 // Plus grand sur PC (espace disponible, pas de doigt qui masque le point) qu'en mobile.
 const PEAK_ICON_SCALE = startsMobile ? 1 : 1.4;
-export function makeIcon(color, done, altitudeM) {
+const BADGES = {
+  done: { text: '&#10003;', className: 'peak-icon-check' },
+  wish: { text: '&#9733;', className: 'peak-icon-check peak-icon-wish' }
+};
+export function makeIcon(color, state, altitudeM) {
   const s = PEAK_ICON_SCALE;
   const w = Math.round(34 * s), h = Math.round(36 * s);
   const svgSize = Math.round(30 * s), svgLeft = Math.round(2 * s);
   const checkSize = Math.round(13 * s), checkFont = Math.round(9 * s), checkOff = Math.round(-2 * s);
   const altFont = Math.round(8 * s);
-  const check = done ? `<div class="peak-icon-check" style="width:${checkSize}px;height:${checkSize}px;top:${checkOff}px;left:${checkOff}px;font-size:${checkFont}px;">&#10003;</div>` : '';
+  const badge = BADGES[state];
+  const badgeHtml = badge ? `<div class="${badge.className}" style="width:${checkSize}px;height:${checkSize}px;top:${checkOff}px;left:${checkOff}px;font-size:${checkFont}px;">${badge.text}</div>` : '';
   const alt = altitudeM != null ? `<div class="peak-icon-alt" style="font-size:${altFont}px;">${altitudeM}</div>` : '';
+  const outline = state === 'todo';
+  const path = outline
+    ? `<path d="${MOUNTAIN_PATH}" fill="#fff" fill-opacity="0.9" stroke="${color}" stroke-width="2.2" stroke-linejoin="round"/>`
+    : `<path d="${MOUNTAIN_PATH}" fill="${color}" stroke="${state === 'done' ? '#1b3a2c' : '#fff'}" stroke-width="1.4" stroke-linejoin="round"/>`;
   return L.divIcon({
     className: '',
-    html: `<div class="peak-icon-wrap" style="width:${w}px;height:${h}px;">
-      <svg viewBox="0 0 24 24" class="peak-icon-svg" style="width:${svgSize}px;height:${svgSize}px;left:${svgLeft}px;"><path d="${MOUNTAIN_PATH}" fill="${color}" stroke="${done ? '#1b3a2c' : '#fff'}" stroke-width="1.4" stroke-linejoin="round"/></svg>
-      ${check}${alt}
+    html: `<div class="peak-icon-wrap peak-${state}" style="width:${w}px;height:${h}px;">
+      <svg viewBox="0 0 24 24" class="peak-icon-svg" style="width:${svgSize}px;height:${svgSize}px;left:${svgLeft}px;">${path}</svg>
+      ${badgeHtml}${alt}
     </div>`,
     iconSize: [w, h],
     iconAnchor: [w / 2, h / 2]

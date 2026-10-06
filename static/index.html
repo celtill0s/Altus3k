@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sommets &gt; 3000 m accessibles en randonnée</title>
+<title>Altus3k — sommets de plus de 3000 m</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <!-- PWA. crossorigin="use-credentials" : sans lui, le navigateur demande le manifeste SANS les
      identifiants Basic Auth, reçoit un 401, et l'installation échoue silencieusement. -->
@@ -40,6 +40,9 @@
         <!-- piolet : manche en diagonale avec sa pointe, tête (pic recourbé d'un côté, panne de l'autre) -->
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21 15.2 7.4" /><path d="M11 4.6 15.2 7.4Q19.4 10.2 20.5 15" /><path d="M9.6 6.5 12.4 2.8" /><path d="m3.6 22.6 1.4-1.6" /></svg>
       </button>
+      <button type="button" id="mine-open" class="tool-btn personal-only" title="Mes 3000" aria-label="Mes 3000" aria-expanded="false" aria-controls="mine-view">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 3a9 9 0 0 1 8.5 6" stroke-width="3.2" /><path d="m7.5 15.5 3-5 2 3 1.5-2 2.5 4z" /></svg>
+      </button>
       <button type="button" id="settings-open" class="tool-btn" title="Paramètres" aria-label="Paramètres" aria-expanded="false" aria-controls="settings-panel">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" /></svg>
       </button>
@@ -61,7 +64,21 @@
       </div>
     </div>
   </div>
-  <button type="button" id="mobile-list-toggle" title="Liste des sommets" aria-label="Liste des sommets">📋</button>
+  <!-- Mobile : barre d'onglets en bas (js/tabs.js). Masquée sur ordinateur. -->
+  <nav id="tab-bar" aria-label="Navigation">
+    <button type="button" id="tab-map" data-tab="map" class="active">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z" /><path d="M9 4v14M15 6v14" /></svg><span>Carte</span>
+    </button>
+    <button type="button" id="tab-list" data-tab="list">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11" /><circle cx="4.5" cy="6" r="1" /><circle cx="4.5" cy="12" r="1" /><circle cx="4.5" cy="18" r="1" /></svg><span>Liste</span>
+    </button>
+    <button type="button" id="tab-mine" data-tab="mine" class="personal-only">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 3a9 9 0 0 1 8.5 6" stroke-width="3.2" /><path d="m7.5 15.5 3-5 2 3 1.5-2 2.5 4z" /></svg><span>Mes 3000</span>
+    </button>
+    <button type="button" id="tab-profile" data-tab="profile">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.2-4 4.4-6 8-6s6.8 2 8 6" /></svg><span>Profil</span>
+    </button>
+  </nav>
 </div>
 
 <div id="photo-lightbox" hidden>
@@ -77,6 +94,16 @@
      glace, pas de corde) hors de leur fenêtre "randonnée normale", avec le grade alpin quand
      il a pu être confirmé sur camptocamp.org. Données : champ "crampon" des sommets concernés
      dans static/mountains.json. -->
+<!-- Mes 3000 : progression personnelle (js/mine.js). Onglet sur mobile, icône de la barre
+     d'outils sur ordinateur. -->
+<aside id="mine-view" hidden aria-labelledby="mine-title">
+  <div id="mine-header">
+    <h2 id="mine-title">Mes 3000</h2>
+    <button type="button" id="mine-close" aria-label="Fermer">&#10005;</button>
+  </div>
+  <div id="mine-body"></div>
+</aside>
+
 <!-- Paramètres (bouton ⚙) : compte, filtres d'affichage, carte, présentation -->
 <aside id="settings-panel" hidden aria-labelledby="settings-title">
   <div id="settings-header">
@@ -124,7 +151,7 @@
     </section>
     <section class="settings-section settings-about">
       <h3>À propos</h3>
-      <p><strong>Sommets de plus de 3000 m</strong> — Alpes françaises &amp; Pyrénées, accessibles à pied, sans matériel d'alpinisme (pas de glacier obligatoire, pas de corde, pas de via ferrata). Cotation randonnée CAS/SAC indicative (T2 à T4).</p>
+      <p><strong>Altus3k</strong> : les sommets de plus de 3000 m — Alpes françaises &amp; Pyrénées, accessibles à pied, sans matériel d'alpinisme (pas de glacier obligatoire, pas de corde, pas de via ferrata). Cotation randonnée CAS/SAC indicative (T2 à T4).</p>
       <p class="personal-only">Coché, commentaires, photos/vidéos et traces GPX sont enregistrés directement sur le serveur — rien à exporter ni à importer.</p>
     </section>
   </div>

@@ -10,6 +10,16 @@ export const PEAKS = [];
 //               d'un autre) — le serveur applique de toute façon les mêmes règles.
 export const session = { me: null, space: null, canEdit: false, viewingOther: false };
 export const doneSet = new Set(); // ids des sommets faits
+export const wishSet = new Set(); // ids des sommets de la liste d'envies
+
+// État d'un sommet pour l'affichage : 'done' (fait), 'wish' (envie), 'todo' (à faire) ;
+// 'plain' pour un invité, qui n'a pas d'espace personnel.
+export function peakState(p) {
+  if (session.space === null) return 'plain';
+  if (doneSet.has(p.id)) return 'done';
+  if (wishSet.has(p.id)) return 'wish';
+  return 'todo';
+}
 
 export const state = {
   regions: new Set(REGIONS),
@@ -23,6 +33,7 @@ export function passesBaseFilter(p) {
   if (!state.difficulties.has(p.difficulty)) return false;
   if (state.status === 'Fait' && !doneSet.has(p.id)) return false;
   if (state.status === 'À faire' && doneSet.has(p.id)) return false;
+  if (state.status === 'Envies' && !wishSet.has(p.id)) return false;
   if (state.query) {
     const q = state.query.toLowerCase();
     if (!(p.name.toLowerCase().includes(q) || p.massif.toLowerCase().includes(q))) return false;

@@ -2,14 +2,14 @@
 
 <img src="static/icons/icon-192.png" width="96" alt="">
 
-# Sommets de plus de 3000 m
+# Altus3k
 
 **Tous les sommets de plus de 3000 m des Alpes et des Pyrénées françaises accessibles à pied —
 sans glacier obligatoire, sans corde, sans via ferrata — sur une carte, avec ton carnet de
 courses personnel.**
 
-[![CI](https://github.com/celtill0s/project3000summitFR/actions/workflows/ci.yml/badge.svg)](https://github.com/celtill0s/project3000summitFR/actions/workflows/ci.yml)
-[![Release APK](https://img.shields.io/github/v/release/celtill0s/project3000summitFR?include_prereleases&label=APK%20Android&color=1b3a2c)](https://github.com/celtill0s/project3000summitFR/releases)
+[![CI](https://github.com/celtill0s/Altus3k/actions/workflows/ci.yml/badge.svg)](https://github.com/celtill0s/Altus3k/actions/workflows/ci.yml)
+[![Release APK](https://img.shields.io/github/v/release/celtill0s/Altus3k?include_prereleases&label=APK%20Android&color=1b3a2c)](https://github.com/celtill0s/Altus3k/releases)
 ![Python](https://img.shields.io/badge/Python-3.13%2B-3776ab?logo=python&logoColor=white)
 ![Leaflet](https://img.shields.io/badge/Leaflet-1.9-199900?logo=leaflet&logoColor=white)
 ![Auto-hébergeable](https://img.shields.io/badge/auto--h%C3%A9bergeable-Docker%20%C2%B7%20Raspberry%20Pi-2496ed?logo=docker&logoColor=white)
@@ -50,7 +50,7 @@ courses personnel.**
 Juste Python 3, sans Docker ni dépendance :
 
 ```bash
-git clone https://github.com/celtill0s/project3000summitFR.git && cd project3000summitFR
+git clone https://github.com/celtill0s/Altus3k.git && cd Altus3k
 python3 server/app.py create-admin moi   # une fois : crée ton compte
 python3 server/app.py                    # puis ouvre http://localhost:8000
 ```
@@ -142,8 +142,8 @@ en reverse proxy) prêts à l'emploi. Prérequis : Docker et Docker Compose
 installés sur le serveur.
 
 ```bash
-git clone https://github.com/celtill0s/project3000summitFR.git
-cd project3000summitFR
+git clone https://github.com/celtill0s/Altus3k.git
+cd Altus3k
 ```
 
 1. **Lancer** :
@@ -237,7 +237,7 @@ plus de 30 jours. Variables : `BACKUP_ROOT` (défaut
 Exemple de crontab (tous les jours à 3 h) :
 
 ```cron
-0 3 * * * /chemin/vers/project3000summitFR/scripts/backup.sh >> ~/backup-summit.log 2>&1
+0 3 * * * /chemin/vers/Altus3k/scripts/backup.sh >> ~/backup-summit.log 2>&1
 ```
 
 ⚠️ Les snapshots restent sur le même disque que l'appli : ils protègent

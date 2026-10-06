@@ -1,11 +1,12 @@
 // Point d'entrée : initialisation de l'interface et chargement du catalogue.
-import { PEAKS, doneSet, session } from './store.js';
+import { PEAKS, doneSet, session, wishSet } from './store.js';
 import { apiGet } from './api.js';
 import { escapeHtml } from './util.js';
 import { initAccount } from './account.js';
 import { initAdmin } from './admin.js';
 import { applyResponsiveControlPositions, buildMarkers, syncMarkers } from './map.js';
 import { initSettings } from './settings.js';
+import { initTabs } from './tabs.js';
 import { initLightbox } from './lightbox.js';
 import { initCramponView } from './crampon.js';
 import { initCustomPeak } from './custom-peak.js';
@@ -22,6 +23,7 @@ initCramponView();
 initCustomPeak();
 initSidebar();
 initSettings();
+initTabs();
 initLocateControl();
 initAppBridge();
 applyResponsiveControlPositions();
@@ -46,6 +48,7 @@ async function start() {
   const data = await apiGet(`/mountains.json${query}`);
   PEAKS.push(...data);
   PEAKS.filter(p => p.done).forEach(p => doneSet.add(p.id));
+  PEAKS.filter(p => p.wish).forEach(p => wishSet.add(p.id));
   buildMarkers();
   renderChipsAll();
   syncMarkers();

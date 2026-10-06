@@ -4,6 +4,7 @@ servi par le vrai serveur, avec des données dans un dossier temporaire.
 Ignorés si Playwright ou Chromium ne sont pas installés :
     pip install -r requirements-dev.txt && python -m playwright install chromium
 """
+import datetime
 import json
 import re
 import threading
@@ -135,7 +136,8 @@ def test_done_and_comment_are_saved(open_page):
     page.fill("#peak-panel .pop-comment-input", "  Belle course  ")
     page.locator("#peak-panel .pop-comment-input").blur()
     expect(page.locator("#peak-panel .pop-comment-status")).to_have_text("Enregistré sur le serveur.")
-    assert progress_of("bob")[peak["id"]] == {"done": True, "comment": "Belle course"}
+    today = datetime.date.today().isoformat()  # cocher « fait » enregistre la date du jour
+    assert progress_of("bob")[peak["id"]] == {"done": True, "done_date": today, "comment": "Belle course"}
 
     page.reload()
     page.wait_for_selector(".peak-item")
@@ -300,7 +302,7 @@ def test_peak_panel_centered_on_mobile_only(open_page):
     page.set_viewport_size({"width": 390, "height": 844})
     page.reload()
     page.wait_for_selector(".peak-item", state="attached")
-    page.click("#mobile-list-toggle")
+    page.click("#tab-list")
     open_peak(page, name)
     dx, dy = _panel_center_offset(page)
     assert dx <= 2 and dy <= 2, f"panneau décentré sur mobile ({dx:.0f}, {dy:.0f} px)"
@@ -317,3 +319,124 @@ def test_peak_panel_centered_on_mobile_only(open_page):
       document.getElementById('peak-panel').getBoundingClientRect().left,
       document.getElementById('sidebar').getBoundingClientRect().right]""")
     assert left >= sidebar_right, "panneau ouvert sous la liste"
+
+
+def test_wish_and_done_date(open_page):
+    page = open_page("bob")
+    peak = CATALOG[0]
+    open_peak(page, peak["name"])
+    page.click("#peak-panel .pop-wish-btn")
+    expect(page.locator("#peak-panel .pop-wish-btn")).to_have_attribute("aria-pressed", "true")
+    expect(page.locator(".peak-item.state-wish", has_text=peak["name"])).to_contain_text("Envie")
+    page.wait_for_function("() => document.querySelector('.peak-wish') !== null")
+    # Cocher « fait » enregistre la date du jour, modifiable ensuite.
+    page.check("#peak-panel .pop-done-checkbox")
+    date_input = page.locator("#peak-panel .pop-done-date")
+    expect(date_input).to_be_visible()
+    today = page.evaluate("() => new Date().toLocaleDateString('sv-SE')")
+    expect(date_input).to_have_value(today)
+    date_input.fill("2025-08-12")
+    date_input.dispatch_event("change")
+    expect(page.locator("#peak-panel .pop-figures")).to_contain_text("12/08/2025")
+    expect(page.locator(".peak-item", has_text=peak["name"]).first).to_contain_text("Fait le 12/08/2025")
+    page.wait_for_timeout(300)
+    entry = progress_of("bob")[peak["id"]]
+    assert entry["done"] is True and entry["done_date"] == "2025-08-12" and entry["wish"] is True
+    # Décocher efface la date.
+    page.uncheck("#peak-panel .pop-done-checkbox")
+    expect(date_input).to_be_hidden()
+    page.wait_for_timeout(300)
+    assert "done_date" not in progress_of("bob")[peak["id"]]
+
+
+def test_list_cards_have_thumbnails(open_page):
+    page = open_page("bob")
+    expect(page.locator(".peak-item .peak-thumb")).to_have_count(len(CATALOG))
+    # Vignettes chargées à l'affichage : la première fiche a son image.
+    expect(page.locator(".peak-item .peak-thumb").first).to_have_attribute("style", re.compile("background-image"))
+
+
+def test_mine_view_desktop(open_page):
+    page = open_page("bob")
+    open_peak(page, CATALOG[0]["name"])
+    page.check("#peak-panel .pop-done-checkbox")
+    page.click("#mine-open")
+    view = page.locator("#mine-view")
+    expect(view).to_be_visible()
+    expect(view.locator(".mine-ring-count")).to_have_text(f"1/{len(CATALOG)}")
+    expect(view).to_contain_text(CATALOG[0]["name"])
+    expect(view).not_to_contain_text("altitude cumulée")
+    # Dernière ascension : dépliable, un clic sur un sommet l'affiche sur la carte.
+    fold = view.locator("details[data-key=done]")
+    fold.locator("summary").click()
+    expect(fold.locator(".mine-peak")).to_have_count(1)
+    page.click("#peak-panel-close")
+    fold.locator(".mine-peak").click()
+    expect(view).to_be_hidden()
+    expect(page.locator("#peak-panel-body h3")).to_contain_text(CATALOG[0]["name"])
+    page.click("#mine-open")
+    expect(view.locator("details[data-key=wish] summary")).to_contain_text("0")
+    # Ouvrir ⚙ referme Mes 3000 (un seul panneau à droite).
+    page.click("#settings-open")
+    expect(view).to_be_hidden()
+    expect(page.locator("#settings-panel")).to_be_visible()
+
+
+def test_mobile_tab_bar(open_page):
+    page = open_page("bob")
+    page.set_viewport_size({"width": 390, "height": 844})
+    expect(page.locator("#tab-bar")).to_be_visible()
+    expect(page.locator("#settings-open")).to_be_hidden()
+    expect(page.locator("#sidebar")).to_be_hidden()
+    page.click("#tab-list")
+    expect(page.locator("#sidebar")).to_be_visible()
+    expect(page.locator("#tab-list")).to_have_class(re.compile("active"))
+    page.click("#tab-mine")
+    expect(page.locator("#sidebar")).to_be_hidden()
+    expect(page.locator("#mine-view")).to_be_visible()
+    expect(page.locator("#mine-view .mine-ring-count")).to_have_text(f"0/{len(CATALOG)}")
+    page.click("#tab-profile")
+    expect(page.locator("#mine-view")).to_be_hidden()
+    expect(page.locator("#settings-panel #account-bar")).to_be_visible()
+    # Fermer le panneau par sa croix revient à l'onglet Carte.
+    page.click("#settings-close")
+    expect(page.locator("#tab-map")).to_have_class(re.compile("active"))
+    # Choisir un sommet dans la liste ramène sur la carte, fiche ouverte.
+    page.click("#tab-list")
+    open_peak(page, CATALOG[0]["name"])
+    expect(page.locator("#sidebar")).to_be_hidden()
+    expect(page.locator("#tab-map")).to_have_class(re.compile("active"))
+
+
+def test_guest_has_no_mine_tab(open_page):
+    page = open_page("gus")
+    page.set_viewport_size({"width": 390, "height": 844})
+    expect(page.locator("#tab-bar")).to_be_visible()
+    expect(page.locator("#tab-mine")).to_be_hidden()
+    expect(page.locator("#tab-list")).to_be_visible()
+
+
+GPX_SAMPLE = """<?xml version="1.0"?><gpx version="1.1" creator="test"><trk><trkseg>
+<trkpt lat="45.40" lon="6.90"><ele>2000</ele></trkpt>
+<trkpt lat="45.41" lon="6.91"><ele>2400</ele></trkpt>
+<trkpt lat="45.42" lon="6.92"><ele>2900</ele></trkpt>
+<trkpt lat="45.43" lon="6.93"><ele>3300</ele></trkpt>
+</trkseg></trk></gpx>"""
+
+
+def test_gpx_profile_moves_point_on_map(open_page):
+    page = open_page("bob")
+    open_peak(page, CATALOG[0]["name"])
+    page.locator("#peak-panel .gpx-file-input").set_input_files(
+        files=[{"name": "trace.gpx", "mimeType": "application/gpx+xml", "buffer": GPX_SAMPLE.encode()}])
+    # Les chiffres de la fiche reprennent le dénivelé de la trace.
+    expect(page.locator("#peak-panel .pop-figures")).to_contain_text("+1300 m")
+    page.click("#peak-panel .gpx-detail-toggle")
+    svg = page.locator("#peak-panel .gpx-profile svg")
+    svg.scroll_into_view_if_needed()
+    box = svg.bounding_box()
+    page.mouse.move(box["x"] + box["width"] * 0.9, box["y"] + box["height"] / 2)
+    expect(page.locator("#peak-panel .gpx-cursor-label")).to_contain_text("3300 m")
+    expect(page.locator(".leaflet-overlay-pane path[fill='#c0392b']")).to_have_count(1)
+    page.mouse.move(box["x"] - 40, box["y"] - 40)
+    expect(page.locator("#peak-panel .gpx-cursor-label")).to_be_hidden()

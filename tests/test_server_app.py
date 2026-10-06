@@ -432,6 +432,7 @@ def _matrix_cases():
         (anon, "POST", "/api/peaks/pic-de-test", 401),
         (anon, "DELETE", "/api/peaks/pic-de-test", 401),
         (anon, "POST", "/api/peaks/pic-de-test/done", 401),
+        (anon, "POST", "/api/peaks/pic-de-test/wish", 401),
         (anon, "POST", "/api/peaks/pic-de-test/comment", 401),
         (anon, "POST", "/api/peaks/pic-de-test/photos", 401),
         (anon, "DELETE", "/api/peaks/pic-de-test/photos/{bob}", 401),
@@ -450,6 +451,7 @@ def _matrix_cases():
         (guest, "GET", "/thumbs/bob/480/pic-de-test/{bob}", 403),
         (guest, "GET", "/gpx/bob/pic-de-test.gpx", 403),
         (guest, "POST", "/api/peaks/pic-de-test/done", 403),
+        (guest, "POST", "/api/peaks/pic-de-test/wish", 403),
         (guest, "POST", "/api/peaks", 403),
         (guest, "POST", "/api/peaks/pic-de-test", 403),
         (guest, "DELETE", "/api/peaks/pic-de-test", 403),
@@ -1005,3 +1007,46 @@ def test_server_runs_as_script(isolated_dirs):
                             capture_output=True, text=True, timeout=30)
     assert result.returncode == 0, result.stderr
     assert re.search(r"alice\s+admin", result.stdout)
+
+
+
+# ---------------------------------------------------------------------------
+# Date d'ascension et liste d'envies
+# ---------------------------------------------------------------------------
+
+def test_done_date_roundtrip(client, users):
+    c = logged_in(client, "bob")
+    assert c.json("POST", "/api/peaks/pic-de-test/done", json_body={"done": True, "date": "2026-08-12"})[0] == 200
+    p = peak_of(c)
+    assert p["done"] is True and p["done_date"] == "2026-08-12"
+    # Sans clé « date » : la date existante est conservée.
+    assert c.json("POST", "/api/peaks/pic-de-test/done", json_body={"done": True})[0] == 200
+    assert peak_of(c)["done_date"] == "2026-08-12"
+    # date: null → fait, sans date.
+    assert c.json("POST", "/api/peaks/pic-de-test/done", json_body={"done": True, "date": None})[0] == 200
+    p = peak_of(c)
+    assert p["done"] is True and p["done_date"] is None
+    # Décoché : plus de date.
+    c.json("POST", "/api/peaks/pic-de-test/done", json_body={"done": True, "date": "2025-07-01"})
+    assert c.json("POST", "/api/peaks/pic-de-test/done", json_body={"done": False})[0] == 200
+    p = peak_of(c)
+    assert p["done"] is False and p["done_date"] is None
+
+
+@pytest.mark.parametrize("bad", ["12/08/2026", "2026-13-01", "2999-01-01", "1850-01-01", 20260812, "2026-8-1"])
+def test_done_date_rejects_invalid(client, users, bad):
+    c = logged_in(client, "bob")
+    assert c.json("POST", "/api/peaks/pic-de-test/done", json_body={"done": True, "date": bad})[0] == 400
+    assert peak_of(c)["done"] is False  # rien n'a été enregistré
+
+
+def test_wish_roundtrip_and_isolation(client, users):
+    bob = logged_in(client, "bob")
+    assert peak_of(bob)["wish"] is False
+    assert bob.json("POST", "/api/peaks/pic-de-test/wish", json_body={"wish": True})[0] == 200
+    assert peak_of(bob)["wish"] is True
+    assert peak_of(logged_in(client, "carol"))["wish"] is False  # espace de bob seulement
+    status, body = logged_in(client, "alice").json("GET", "/api/admin/users")
+    assert {u["username"]: u for u in body["users"]}["bob"]["wish"] == 1
+    assert bob.json("POST", "/api/peaks/pic-de-test/wish", json_body={"wish": False})[0] == 200
+    assert peak_of(bob)["wish"] is False

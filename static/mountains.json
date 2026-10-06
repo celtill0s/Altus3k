@@ -16,6 +16,12 @@
       "confirmed": true,
       "season": "Fin octobre – novembre",
       "note": "Selon conditions ; forum camptocamp : crampons+piolet obligatoires en fin de saison, pentes gelées même sans neige fraîche."
+    },
+    "image": {
+      "url": "img/peaks/aiguille-de-la-grande-sassiere.jpg",
+      "author": "Florian Pépellin",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Aiguille_de_la_Grande_Sassi%C3%A8re_vue_de_Tignes_(%C3%A9t%C3%A9_2018).JPG"
     }
   },
   {
@@ -35,6 +41,12 @@
       "confirmed": true,
       "season": "Fin mai – juin",
       "note": "Pente max 40° sur 100 m (camptocamp). Choix possible entre névés tardifs ou rocher selon l'année."
+    },
+    "image": {
+      "url": "img/peaks/ouille-noire.jpg",
+      "author": "Nouill",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ouille_Noire_1.jpg"
     }
   },
   {
@@ -48,7 +60,13 @@
     "difficulty": "T3",
     "notes": "Ascension facile en dehors des périodes de chutes de pierres, Saint-Paul-sur-Ubaye ; un ressaut nécessite les mains en fin de course. Attention : bien suivre l'itinéraire de randonnée d'été classique — une variante hivernale/ski (AD-) existe sur un secteur voisin, plus engagée.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Pointe-d-Aval-ou-de-Chauvet-3320m"
+    "source_url": "https://www.altituderando.com/Pointe-d-Aval-ou-de-Chauvet-3320m",
+    "image": {
+      "url": "img/peaks/pointe-d-aval-chauvet.jpg",
+      "author": "Jbcombes (téléverseur)",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Chambeyron_vallon_chauvet.jpg"
+    }
   },
   {
     "id": "grand-glaiza-punta-merciantaira",
@@ -61,7 +79,13 @@
     "difficulty": "T3",
     "notes": "Depuis Aiguilles, à la frontière italienne.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Grand-Glaiza-3293m-ou-Punta-Merciantaira-par-la-bergerie-du-Lombard-ou-les"
+    "source_url": "https://www.altituderando.com/Grand-Glaiza-3293m-ou-Punta-Merciantaira-par-la-bergerie-du-Lombard-ou-les",
+    "image": {
+      "url": "img/peaks/grand-glaiza-punta-merciantaira.jpg",
+      "author": "Jérémy Boes",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Grand_Glaiza.JPG"
+    }
   },
   {
     "id": "le-grand-galibier",
@@ -74,7 +98,13 @@
     "difficulty": "T4",
     "notes": "Depuis Valloire, quelques passages plus raides/exposés en fin de course, pas d'escalade encordée ni glacier.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Le-Grand-Galibier-3228m-par-Plan-Lachat-et-le-col-de-la-Ponsonniere"
+    "source_url": "https://www.altituderando.com/Le-Grand-Galibier-3228m-par-Plan-Lachat-et-le-col-de-la-Ponsonniere",
+    "image": {
+      "url": "img/peaks/le-grand-galibier.jpg",
+      "author": "René Beideler",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Grand_Galibier.jpg"
+    }
   },
   {
     "id": "pain-de-sucre-chambeyron",
@@ -87,7 +117,13 @@
     "difficulty": "T4",
     "notes": "Montée raide, arrivée vertigineuse mais sans passage d'escalade encordée.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Le-Pain-de-Sucre-du-Queyras-3208m-par-l-arete-sud-ouest"
+    "source_url": "https://www.altituderando.com/Le-Pain-de-Sucre-du-Queyras-3208m-par-l-arete-sud-ouest",
+    "image": {
+      "url": "img/peaks/pain-de-sucre-chambeyron.jpg",
+      "author": "O.Taris",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:PainDeSucreQueyras.JPG"
+    }
   },
   {
     "id": "mont-thabor",
@@ -100,7 +136,13 @@
     "difficulty": "T2",
     "notes": "Itinéraire classique depuis Valfréjus ou Névache, belvédère facile.",
     "source": "ffrandonnee.fr",
-    "source_url": "https://www.altituderando.com/Mont-Thabor-3178m-par-Valfrejus-et-le-Lavoir"
+    "source_url": "https://www.altituderando.com/Mont-Thabor-3178m-par-Valfrejus-et-le-Lavoir",
+    "image": {
+      "url": "img/peaks/mont-thabor.jpg",
+      "author": "David Berardan",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Mont_Thabor.JPG"
+    }
   },
   {
     "id": "la-mortice-sommet-sud",
@@ -126,7 +168,13 @@
     "difficulty": "T3",
     "notes": "Longue ascension depuis Saint-Michel-de-Chaillol via le Col de Côte Longue.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Vieux-Chaillol-3163m-par-le-Col-de-la-Pisse-et-le-Col-de-Cote-Longue"
+    "source_url": "https://www.altituderando.com/Vieux-Chaillol-3163m-par-le-Col-de-la-Pisse-et-le-Col-de-Cote-Longue",
+    "image": {
+      "url": "img/peaks/vieux-chaillol.jpg",
+      "author": "Yann Forget",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Le_Vieux_Chaillol_depuis_le_col_du_Cendri%C3%A9.jpg"
+    }
   },
   {
     "id": "signal-du-petit-mont-cenis",
@@ -139,7 +187,13 @@
     "difficulty": "T2",
     "notes": "Arête sud-ouest depuis Sollières-Sardières.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Signal-du-Petit-Mont-Cenis-3162m-voie-normale-de-l-arete-sud-ouest"
+    "source_url": "https://www.altituderando.com/Signal-du-Petit-Mont-Cenis-3162m-voie-normale-de-l-arete-sud-ouest",
+    "image": {
+      "url": "img/peaks/signal-du-petit-mont-cenis.jpg",
+      "author": "Florian Pépellin",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Signal_du_Petit_Mont-Cenis_depuis_Lac_du_Mont-Cenis_(septembre_2024).JPG"
+    }
   },
   {
     "id": "tete-de-la-frema",
@@ -152,7 +206,13 @@
     "difficulty": "T3",
     "notes": "Cirque du Lac des Neuf Couleurs, possibilité de coucher en refuge.",
     "source": "ffrandonnee.fr",
-    "source_url": "https://www.altituderando.com/Tete-de-la-Frema-3151m-par-le-col-de-la-Gypiere-retour-par-le-pas-de-la"
+    "source_url": "https://www.altituderando.com/Tete-de-la-Frema-3151m-par-le-col-de-la-Gypiere-retour-par-le-pas-de-la",
+    "image": {
+      "url": "img/peaks/tete-de-la-frema.jpg",
+      "author": "Patrick Rouzet",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Lac_des_Neuf_Couleurs_vu_du_col_de_la_Gypi%C3%A8re.jpg"
+    }
   },
   {
     "id": "tete-de-longet",
@@ -178,7 +238,13 @@
     "difficulty": "T3",
     "notes": "Depuis Saint-Véran, lacs et vestiges pastoraux sur l'itinéraire ; section finale moins marquée avec de brefs passages aériens où l'usage des mains est parfois nécessaire, hors-sentier par endroits (bon sens de l'orientation requis).",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Pic-de-la-Farneireta-3134m"
+    "source_url": "https://www.altituderando.com/Pic-de-la-Farneireta-3134m",
+    "image": {
+      "url": "img/peaks/pic-de-la-farneireta.jpg",
+      "author": "ThomasInTheSky",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_de_la_Farneireta.jpg"
+    }
   },
   {
     "id": "mont-chaberton",
@@ -191,7 +257,13 @@
     "difficulty": "T3",
     "notes": "Ancien chemin militaire jusqu'au fort sommital ; cotation officielle « Difficile » (pas facile) — hautes marches et prises de main nécessaires notamment à la descente du col, pente finale soutenue.",
     "source": "hexatrek.com",
-    "source_url": "https://www.altituderando.com/Mont-Chaberton-3131m"
+    "source_url": "https://www.altituderando.com/Mont-Chaberton-3131m",
+    "image": {
+      "url": "img/peaks/mont-chaberton.jpg",
+      "author": "Thomas Grollier",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Chaberton.jpg"
+    }
   },
   {
     "id": "tete-de-la-cula",
@@ -236,6 +308,12 @@
       "confirmed": false,
       "season": "Avant août / parfois après mi-septembre",
       "note": "Hors de la fenêtre \"à sec\" (août à mi-sept.), \"petite course de neige\" — piolet/crampons facilitent sans être strictement obligatoires."
+    },
+    "image": {
+      "url": "img/peaks/pointe-des-cerces.jpg",
+      "author": "Jérémy Boes",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pointes_des_Cerces.JPG"
     }
   },
   {
@@ -249,7 +327,13 @@
     "difficulty": "T3",
     "notes": "\"Mont-Blanc des dames\", long dôme neigeux/rocheux, classique d'acclimatation sans matériel technique.",
     "source": "hexatrek.com",
-    "source_url": "https://www.altituderando.com/Mont-Buet-3096m-par-Vallorcine-village-du-Buet"
+    "source_url": "https://www.altituderando.com/Mont-Buet-3096m-par-Vallorcine-village-du-Buet",
+    "image": {
+      "url": "img/peaks/mont-buet.jpg",
+      "author": "Guilhem Vellut from Annecy, France",
+      "license": "CC BY 2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Mont_Buet_(51051945476).jpg"
+    }
   },
   {
     "id": "pointe-des-fours",
@@ -288,7 +372,13 @@
     "difficulty": "T3",
     "notes": "Point culminant des Alpes-de-Haute-Provence, longue rando depuis Allos.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Mont-Pelat-3051m-en-boucle-par"
+    "source_url": "https://www.altituderando.com/Mont-Pelat-3051m-en-boucle-par",
+    "image": {
+      "url": "img/peaks/mont-pelat.jpg",
+      "author": "kallerna",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Mont_Pelat_%2B_Lake_Allos_tour_38.jpg"
+    }
   },
   {
     "id": "mont-clapier",
@@ -301,7 +391,13 @@
     "difficulty": "T3",
     "notes": "Sommet le plus méridional des Alpes à plus de 3000m, exactement sur la frontière franco-italienne. Depuis Pont du Countet (Belvédère) par le Refuge de Nice et les lacs du Mont Clapier ; aucun passage d'escalade, de via ferrata ni de glacier, mais éboulis instables et cairns peu fiables sur la fin, bon sens de l'orientation requis.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Mont-Clapier-3045m"
+    "source_url": "https://www.altituderando.com/Mont-Clapier-3045m",
+    "image": {
+      "url": "img/peaks/mont-clapier.jpg",
+      "author": "Iros (Wikipédia en français)",
+      "license": "CC BY-SA 2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:Mont_clapier.jpg"
+    }
   },
   {
     "id": "pointe-d-escreins",
@@ -314,7 +410,13 @@
     "difficulty": "T3",
     "notes": "Itinéraire de crête avec lacs, vallon des Houerts.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Pointe-d-Escreins-3038m-par-le-vallon-des-Houerts"
+    "source_url": "https://www.altituderando.com/Pointe-d-Escreins-3038m-par-le-vallon-des-Houerts",
+    "image": {
+      "url": "img/peaks/pointe-d-escreins.jpg",
+      "author": "Jbcombes",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Font-sancte-escreins.jpg"
+    }
   },
   {
     "id": "pointe-des-sagnes-longues",
@@ -340,7 +442,13 @@
     "difficulty": "T3",
     "notes": "Boucle de 2 jours depuis le refuge de Rabuons, non technique mais engagée par la longueur.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Mont-Tenibre-3031m-par-le-refuge-de-Rabuons"
+    "source_url": "https://www.altituderando.com/Mont-Tenibre-3031m-par-le-refuge-de-Rabuons",
+    "image": {
+      "url": "img/peaks/mont-tenibre.jpg",
+      "author": "abracaadabrate",
+      "license": "CC BY 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Tenibres_dall%27ubac_-_panoramio.jpg"
+    }
   },
   {
     "id": "pic-de-caramantran",
@@ -353,7 +461,13 @@
     "difficulty": "T2",
     "notes": "Depuis le Col Agnel, sentier large et bien tracé, aucune difficulté technique.",
     "source": "ffrandonnee.fr",
-    "source_url": "https://www.altituderando.com/Pic-de-Caramantran-3025m-par-le-col-Agnel"
+    "source_url": "https://www.altituderando.com/Pic-de-Caramantran-3025m-par-le-col-Agnel",
+    "image": {
+      "url": "img/peaks/pic-de-caramantran.jpg",
+      "author": "Pline",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic-de-Caramantran-Queyras-DSC_0750.jpg"
+    }
   },
   {
     "id": "pic-du-mas-de-la-grave",
@@ -366,7 +480,13 @@
     "difficulty": "T3",
     "notes": "Longue ascension depuis Le Chazelet, vue sur la Meije.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Pic-du-Mas-de-la-Grave-3020m-par-le-Chazelet"
+    "source_url": "https://www.altituderando.com/Pic-du-Mas-de-la-Grave-3020m-par-le-Chazelet",
+    "image": {
+      "url": "img/peaks/pic-du-mas-de-la-grave.jpg",
+      "author": "Nouill",
+      "license": "CC BY 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_du_Mas_de_la_Grave.jpg"
+    }
   },
   {
     "id": "pointe-de-l-observatoire",
@@ -385,6 +505,12 @@
       "confirmed": false,
       "season": "Fin mai",
       "note": "Névés dès 2325 m signalés fin mai ; \"aucune difficulté technique\" en l'absence de neige le reste de l'année."
+    },
+    "image": {
+      "url": "img/peaks/pointe-de-l-observatoire.jpg",
+      "author": "Pulcherus",
+      "license": "CC0",
+      "source": "https://commons.wikimedia.org/wiki/File:La_Pointe_de_l%27Observatoire_versant_sud-ouest.jpg"
     }
   },
   {
@@ -398,7 +524,13 @@
     "difficulty": "T4",
     "notes": "Arête rocheuse avec un court passage d'escalade facile (~20 m), glissant par temps humide.",
     "source": "outside.fr",
-    "source_url": "https://www.altituderando.com/Pic-de-Campbieil-3173m"
+    "source_url": "https://www.altituderando.com/Pic-de-Campbieil-3173m",
+    "image": {
+      "url": "img/peaks/pic-de-campbieil.jpg",
+      "author": "MeMyselfandI",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_Campbiel.JPG"
+    }
   },
   {
     "id": "grand-pic-de-tapou",
@@ -417,6 +549,12 @@
       "confirmed": false,
       "season": "Jusqu'à mi-juillet",
       "note": "Pentes finales larges et faciles en ascension directe. Ne pas confondre avec la traversée de crête vers le Pic du Milieu (AD-, écartée ci-dessous)."
+    },
+    "image": {
+      "url": "img/peaks/grand-pic-de-tapou.jpg",
+      "author": "Llardana",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Grand_tapou.jpg"
     }
   },
   {
@@ -430,7 +568,13 @@
     "difficulty": "T3",
     "notes": "L'un des 3000 pyrénéens les plus accessibles, passe par la Brèche de Roland.",
     "source": "outside.fr",
-    "source_url": "https://www.altituderando.com/Le-Pic-du-Taillon-3144m"
+    "source_url": "https://www.altituderando.com/Le-Pic-du-Taillon-3144m",
+    "image": {
+      "url": "img/peaks/le-taillon.jpg",
+      "author": "Tigerente",
+      "license": "CC BY 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_du_Taillon_Puerto_de_Bujaruelo_Pyrenees_France_20060820a.jpg"
+    }
   },
   {
     "id": "pica-d-estats",
@@ -443,7 +587,13 @@
     "difficulty": "T3",
     "notes": "Point culminant de l'Ariège, longue randonnée depuis Vicdessos.",
     "source": "outside.fr",
-    "source_url": "https://www.altituderando.com/Pic-du-Montcalm-3077m-Pique-d-Estats-3143m-Pic-Verdaguer-3131m"
+    "source_url": "https://www.altituderando.com/Pic-du-Montcalm-3077m-Pique-d-Estats-3143m-Pic-Verdaguer-3131m",
+    "image": {
+      "url": "img/peaks/pica-d-estats.jpg",
+      "author": "Antoni Pons Oliver",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pica_d%27Estats_-_panoramio.jpg"
+    }
   },
   {
     "id": "pic-du-milieu",
@@ -456,7 +606,13 @@
     "difficulty": "T3",
     "notes": "Secteur du massif du Vignemale, Gavarnie.",
     "source": "altituderando.com",
-    "source_url": "https://www.le-bouquetin-boiteux.fr/2018/10/topo-pic-milieu-grand-pic-tapou-barrage-ossoue-aller-retour.html"
+    "source_url": "https://www.le-bouquetin-boiteux.fr/2018/10/topo-pic-milieu-grand-pic-tapou-barrage-ossoue-aller-retour.html",
+    "image": {
+      "url": "img/peaks/pic-du-milieu.jpg",
+      "author": "Llardana",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_du_milieu.jpg"
+    }
   },
   {
     "id": "pic-de-neouvielle",
@@ -475,6 +631,12 @@
       "confirmed": true,
       "season": "Juin – juillet",
       "note": "Névé consolidé jusqu'à juillet, progression facile aux crampons ; grade F confirmé pour la section finale (topo)."
+    },
+    "image": {
+      "url": "img/peaks/pic-de-neouvielle.jpg",
+      "author": "Tournasol7",
+      "license": "CC BY 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_du_Neouvielle_(19).jpg"
     }
   },
   {
@@ -488,7 +650,13 @@
     "difficulty": "T4",
     "notes": "Sommet lui-même sans corde ni piolet nécessaire, MAIS l'accès classique au refuge de Tuquerouye passe par un couloir raide (40-45°) souvent enneigé/glacé, typiquement engagé (crampons/piolet) tant qu'il n'est pas totalement déneigé — se renseigner sur une variante d'accès et les conditions avant de partir.",
     "source": "altituderando.com",
-    "source_url": "https://www.topopyrenees.com/les-astazous-3071m-en-boucle-par-tuquerouye/"
+    "source_url": "https://www.topopyrenees.com/les-astazous-3071m-en-boucle-par-tuquerouye/",
+    "image": {
+      "url": "img/peaks/grand-astazou.jpg",
+      "author": "Tigerente",
+      "license": "CC BY 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Grand_and_Petit_Astazou_Pyreenees_France_20080819b.jpg"
+    }
   },
   {
     "id": "pic-maubic",
@@ -501,7 +669,13 @@
     "difficulty": "T3",
     "notes": "Difficulté moyenne depuis Saint-Lary-Soulan.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Pic-Maubic-3058m"
+    "source_url": "https://www.altituderando.com/Pic-Maubic-3058m",
+    "image": {
+      "url": "img/peaks/pic-maubic.jpg",
+      "author": "Fabrice742",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_Maubic.jpg"
+    }
   },
   {
     "id": "turon-de-neouvielle",
@@ -514,7 +688,13 @@
     "difficulty": "T3",
     "notes": "Depuis Barèges, secteur du massif du Néouvielle.",
     "source": "altituderando.com",
-    "source_url": "https://www.topopyrenees.com/randonnee-turon-de-neouvielle-3035m/"
+    "source_url": "https://www.topopyrenees.com/randonnee-turon-de-neouvielle-3035m/",
+    "image": {
+      "url": "img/peaks/turon-de-neouvielle.jpg",
+      "author": "Fabrice742",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Turon_de_N%C3%A9ouvielle_11.09.2022.jpg"
+    }
   },
   {
     "id": "pic-d-estaragne",
@@ -527,7 +707,13 @@
     "difficulty": "T3",
     "notes": "Circuit du Cap de Long, Aragnouet.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Lac-de-Cap-de-Long-pic-de-Campbieil-3173m-et-pic-d-Estaragne-3006m-en-boucle"
+    "source_url": "https://www.altituderando.com/Lac-de-Cap-de-Long-pic-de-Campbieil-3173m-et-pic-d-Estaragne-3006m-en-boucle",
+    "image": {
+      "url": "img/peaks/pic-d-estaragne.jpg",
+      "author": "Ccmpg",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_d%27Estaragne.jpg"
+    }
   },
   {
     "id": "la-grande-fache",
@@ -540,7 +726,13 @@
     "difficulty": "T4",
     "notes": "Accès depuis le Pont d'Espagne, itinéraire cairné ; les derniers ~350 m de dénivelé comportent un passage rocheux (niveau II) nécessitant régulièrement les mains — plus engagé qu'un simple sentier, mais non technique (pas de corde, pas de glacier obligatoire).",
     "source": "outside.fr",
-    "source_url": "https://www.topopyrenees.com/randonnee-la-grande-fache-3005m/"
+    "source_url": "https://www.topopyrenees.com/randonnee-la-grande-fache-3005m/",
+    "image": {
+      "url": "img/peaks/la-grande-fache.jpg",
+      "author": "Luap78",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Grande_Fache.jpg"
+    }
   },
   {
     "id": "la-mortice-sommet-nord",
@@ -566,7 +758,13 @@
     "difficulty": "T4",
     "notes": "Souvent enchaîné avec la Pica d'Estats voisine (déjà dans la liste) ; passages d'escalade facile (I/II) dans une petite cheminée en fin de course, pas de corde nécessaire en conditions normales/sèches, mais section impressionnante demandant de bien poser les pieds.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Pic-du-Montcalm-3077m-Pique-d-Estats-3143m-Pic-Verdaguer-3131m"
+    "source_url": "https://www.altituderando.com/Pic-du-Montcalm-3077m-Pique-d-Estats-3143m-Pic-Verdaguer-3131m",
+    "image": {
+      "url": "img/peaks/pic-du-montcalm.jpg",
+      "author": "David Edgar",
+      "license": "CC BY 2.5",
+      "source": "https://commons.wikimedia.org/wiki/File:PicDuMontcalmFromPicaDEstats1280_7.jpg"
+    }
   },
   {
     "id": "petit-vignemale",
@@ -585,6 +783,12 @@
       "confirmed": false,
       "season": "Fin d'été / tout début automne uniquement",
       "note": "⚠️ Printemps (avril-mai) explicitement déconseillé par les topos : risque d'avalanche important, pas une simple question de crampons."
+    },
+    "image": {
+      "url": "img/peaks/petit-vignemale.jpg",
+      "author": "Acer11",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Bayssellance_Vignemale.JPG"
     }
   },
   {
@@ -598,7 +802,13 @@
     "difficulty": "T4",
     "notes": "Sommet occidental (3034m), atteint depuis le Pic de Cauarère en ~45 min de crête, sans la cheminée technique (celle-ci concerne uniquement la suite de la crête vers le sommet oriental, hors de cet itinéraire) ; quelques passages hors-sentier nécessitant les mains, non technique.",
     "source": "topopyrenees.com, rando-marche.fr",
-    "source_url": "https://www.topopyrenees.com/les-3-pics-de-batoua-3034m-depuis-le-refuge-de-lhospice-de-rioumajou/"
+    "source_url": "https://www.topopyrenees.com/les-3-pics-de-batoua-3034m-depuis-le-refuge-de-lhospice-de-rioumajou/",
+    "image": {
+      "url": "img/peaks/pic-de-batoua.jpg",
+      "author": "Fabrice742",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Cauar%C3%A8re-Batoua_11.06.2008.jpg"
+    }
   },
   {
     "id": "pic-du-marbore",
@@ -611,7 +821,13 @@
     "difficulty": "T4",
     "notes": "Depuis le refuge des Sarradets. En conditions sèches d'été : pas de corde ni de piolet permanents nécessaires, deux courts passages d'escalade facile (mains, niveau II+). Névés/glace peuvent persister sur la moraine et un replat, surtout en début de saison — se renseigner sur les conditions avant de partir.",
     "source": "topopyrenees.com",
-    "source_url": "https://www.topopyrenees.com/randonnee-pic-du-marbore-3248m/"
+    "source_url": "https://www.topopyrenees.com/randonnee-pic-du-marbore-3248m/",
+    "image": {
+      "url": "img/peaks/pic-du-marbore.jpg",
+      "author": "Tigerente",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_de_Marbor%C3%A9_Pyrenees_20080821.jpg"
+    }
   },
   {
     "id": "rateau-d-aussois",
@@ -624,6 +840,12 @@
     "difficulty": "T3",
     "notes": "Depuis le plan d'Amont/Plan Sec (Aussois), bon chemin jusqu'au plateau sommital cairné ; recherche de passage dans les rochers sur les derniers mètres après le col de la Masse, sans difficulté d'escalade ni glacier.",
     "source": "randonnees-en-maurienne.fr",
-    "source_url": "https://randonnees-en-maurienne.fr/rateau-aussois.html"
+    "source_url": "https://randonnees-en-maurienne.fr/rateau-aussois.html",
+    "image": {
+      "url": "img/peaks/rateau-d-aussois.jpg",
+      "author": "Florian Pépellin",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Rateau_d%27Aussois_depuis_les_hauteurs_d%27Aussois_(ao%C3%BBt_2026).JPG"
+    }
   }
 ]
