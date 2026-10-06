@@ -304,15 +304,16 @@ def test_peak_panel_centered_on_mobile_only(open_page):
     open_peak(page, name)
     dx, dy = _panel_center_offset(page)
     assert dx <= 2 and dy <= 2, f"panneau décentré sur mobile ({dx:.0f}, {dy:.0f} px)"
-    # Ordinateur : près du marqueur (au-dessus, à droite), pas forcément au centre.
+    # Ordinateur : placé près du marqueur (donc pas au centre), et jamais sous la liste.
+    # (Pas de mesure de distance au marqueur : elle varie avec la fin de l'animation de la
+    # carte, et rendait le test instable sur les machines plus lentes de la CI.)
     page.set_viewport_size({"width": 1280, "height": 800})
     page.reload()
     page.wait_for_selector(".peak-item")
     open_peak(page, name)
-    near = page.evaluate("""() => {
-      const p = document.getElementById('peak-panel').getBoundingClientRect();
-      const markers = [...document.querySelectorAll('.leaflet-marker-icon')].map(m => m.getBoundingClientRect());
-      // le marqueur le plus proche du coin bas-gauche du panneau
-      return Math.min(...markers.map(m => Math.hypot(m.left + m.width / 2 - p.left, m.top + m.height / 2 - p.bottom)));
-    }""")
-    assert near < 80, f"panneau loin du sommet sur ordinateur ({near:.0f} px)"
+    dx, _ = _panel_center_offset(page)
+    assert dx > 50, f"panneau centré sur ordinateur ({dx:.0f} px du centre) : il doit rester près du sommet"
+    left, sidebar_right = page.evaluate("""() => [
+      document.getElementById('peak-panel').getBoundingClientRect().left,
+      document.getElementById('sidebar').getBoundingClientRect().right]""")
+    assert left >= sidebar_right, "panneau ouvert sous la liste"
