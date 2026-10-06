@@ -1,7 +1,7 @@
 // Carte Leaflet : fond, clusters, calques, contrôles, légende, marqueurs.
 import { DIFF_COLORS, DIFF_LABELS, DIFFS } from './config.js';
-import { PEAKS, doneSet, passesBaseFilter } from './store.js';
-import { clusterIcon, makeIcon } from './icons.js';
+import { PEAKS, passesBaseFilter, peakState } from './store.js';
+import { MOUNTAIN_PATH, clusterIcon, makeIcon } from './icons.js';
 import { openPeakPanel } from './panel.js';
 
 // Contrôles de la carte : à droite sur ordinateur (la liste occupe tout le côté gauche), sous la
@@ -229,7 +229,7 @@ export function buildMarkers() {
 }
 
 function peakIcon(p) {
-  return makeIcon(DIFF_COLORS[p.difficulty] || '#555', doneSet.has(p.id), p.altitude_m);
+  return makeIcon(DIFF_COLORS[p.difficulty] || '#555', peakState(p), p.altitude_m);
 }
 
 export function addPeakMarker(p) {
@@ -271,6 +271,15 @@ export function syncMarkers() {
 // Légende (rappel des couleurs), repliée par défaut : juste « Cotation randonnée ▾ » ; un clic
 // déplie le détail T2/T3/T4. En bas à droite sur ordinateur, en haut à gauche sur mobile (le
 // bouton « Liste » occupe le bas à droite).
+// Mini-marqueur (même dessin que sur la carte, en gris neutre) pour la légende des états.
+function legendMarker(state) {
+  const path = state === 'todo'
+    ? `<path d="${MOUNTAIN_PATH}" fill="#fff" stroke="#6b7280" stroke-width="2.2" stroke-linejoin="round"/>`
+    : `<path d="${MOUNTAIN_PATH}" fill="#6b7280" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/>`;
+  const badge = { done: '<span class="legend-badge">&#10003;</span>', wish: '<span class="legend-badge wish">&#9733;</span>' }[state] || '';
+  return `<span class="legend-marker"><svg viewBox="0 0 24 24">${path}</svg>${badge}</span>`;
+}
+
 function legendContentHtml() {
   return `
     <button type="button" class="legend-toggle" aria-expanded="false" aria-controls="legend-body">
@@ -278,7 +287,11 @@ function legendContentHtml() {
     </button>
     <div class="legend-body" id="legend-body" hidden>
       ${DIFFS.map(d => `<div class="legend-row"><span class="legend-dot" style="background:${DIFF_COLORS[d]}"></span>${DIFF_LABELS[d]}</div>`).join('')}
-      <div class="legend-row" style="margin-top:6px;"><span style="color:#1b3a2c">&#10003;</span>&nbsp;Sommet fait</div>
+      <div class="legend-states personal-only">
+        <div class="legend-row">${legendMarker('done')}Sommet fait</div>
+        <div class="legend-row">${legendMarker('wish')}Envie</div>
+        <div class="legend-row">${legendMarker('todo')}À faire</div>
+      </div>
     </div>
   `;
 }

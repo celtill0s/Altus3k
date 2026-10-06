@@ -87,14 +87,14 @@ jobs:
           APK=android/app/build/outputs/apk/release/app-release.apk
           BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
           "$BT/apksigner" verify --print-certs "$APK"
-          cp "$APK" "sommets3000-$VERSION_NAME.apk"
+          cp "$APK" "altus3k-$VERSION_NAME.apk"
 
       - name: Release GitHub
         uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
-          name: Sommets 3000 ${{ env.VERSION_NAME }}
+          name: Altus3k ${{ env.VERSION_NAME }}
           prerelease: ${{ env.PRERELEASE == 'true' }}
-          files: sommets3000-${{ env.VERSION_NAME }}.apk
+          files: altus3k-${{ env.VERSION_NAME }}.apk
           generate_release_notes: true
           body: |
-            **Installation sur Android** : télécharger `sommets3000-${{ env.VERSION_NAME }}.apk` ci-dessous et l'ouvrir sur le téléphone (autoriser l'installation d'applis de sources inconnues pour le navigateur ou le gestionnaire de fichiers). Une nouvelle version s'installe par-dessus l'ancienne, sans perdre la connexion.
+            **Installation sur Android** : télécharger `altus3k-${{ env.VERSION_NAME }}.apk` ci-dessous et l'ouvrir sur le téléphone (autoriser l'installation d'applis de sources inconnues pour le navigateur ou le gestionnaire de fichiers). Une nouvelle version s'installe par-dessus l'ancienne, sans perdre la connexion.

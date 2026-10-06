@@ -1,34 +1,21 @@
 // Barre latérale : filtres, recherche, liste des sommets, liste mobile.
-import { escapeHtml } from './util.js';
+import { escapeHtml, formatDate } from './util.js';
 import { DIFFS, DIFF_COLORS, REGIONS, STATUSES } from './config.js';
-import { PEAKS, doneSet, passesBaseFilter, session, state } from './store.js';
+import { PEAKS, doneSet, passesBaseFilter, peakState, session, state, wishSet } from './store.js';
+import { lazyBackground, peakImageStyle } from './peak-image.js';
 import { flyToVisible, map, markers, syncMarkers } from './map.js';
 import { openPeakPanel, toggleDone } from './panel.js';
+import { refreshMine } from './mine.js';
 
 // Bouton mobile « liste » : juste l'emoji (📋, ou ✕ quand la liste est ouverte) ; le nombre de
 // sommets affichés reste disponible en infobulle et pour les lecteurs d'écran.
-function setListButton(btn, open, count) {
-  if (!btn) return;
-  btn.textContent = open ? '✕' : '📋';
-  const label = open ? 'Fermer la liste' : `Liste des sommets (${count})`;
-  btn.title = label;
-  btn.setAttribute('aria-label', label);
+// Mobile : la liste s'affiche en plein écran (onglet « Liste », voir tabs.js).
+export function setMobileListOpen(open) {
+  document.getElementById('app').classList.toggle('mobile-list-open', open);
 }
 
-// --- Mobile : carte plein écran, barre latérale en panneau flottant (filtres), liste masquée
-// par défaut et ouverte en plein écran via ce bouton (option "b" retenue). ---
 function closeMobileList() {
-  const app = document.getElementById('app');
-  app.classList.remove('mobile-list-open');
-  const btn = document.getElementById('mobile-list-toggle');
-  setListButton(btn, false, PEAKS.filter(passesBaseFilter).length);
-}
-
-function toggleMobileList() {
-  const app = document.getElementById('app');
-  const open = app.classList.toggle('mobile-list-open');
-  const btn = document.getElementById('mobile-list-toggle');
-  setListButton(btn, open, PEAKS.filter(passesBaseFilter).length);
+  setMobileListOpen(false);
 }
 
 function renderChips(containerId, values, activeCheckFn, labelFn, colorFn, onToggle) {
@@ -72,57 +59,63 @@ export function updateDoneCount() {
   const shown = `${visible.length} sommet${visible.length > 1 ? 's' : ''} affiché${visible.length > 1 ? 's' : ''} sur ${PEAKS.length}`;
   // Invité : pas d'espace personnel, donc pas de « faits ».
   el.textContent = session.space === null ? shown : `${shown} · ${doneSet.size} fait${doneSet.size > 1 ? 's' : ''} au total`;
-  const toggleBtn = document.getElementById('mobile-list-toggle');
-  if (toggleBtn && !document.getElementById('app').classList.contains('mobile-list-open')) {
-    setListButton(toggleBtn, false, visible.length);
-  }
 }
 
 export function renderList() {
   const list = document.getElementById('list');
   list.innerHTML = '';
-  // En filtre "Tous", les sommets faits remontent en premier (regroupés), altitude décroissante
-  // dans chaque groupe ; en filtre "Fait"/"À faire" tous les éléments partagent déjà le même
-  // statut, donc l'altitude seule suffit.
-  const groupDoneFirst = state.status === 'Tous';
+  // En filtre "Tous" : sommets faits d'abord, puis les envies, puis le reste ; altitude
+  // décroissante dans chaque groupe. Avec un filtre de statut, l'altitude seule suffit.
+  const groupByState = state.status === 'Tous';
+  const rank = p => (doneSet.has(p.id) ? 2 : wishSet.has(p.id) ? 1 : 0);
   const filtered = PEAKS.filter(passesBaseFilter).sort((a, b) => {
-    if (groupDoneFirst) {
-      const doneDiff = (doneSet.has(b.id) ? 1 : 0) - (doneSet.has(a.id) ? 1 : 0);
-      if (doneDiff !== 0) return doneDiff;
-    }
+    if (groupByState && rank(a) !== rank(b)) return rank(b) - rank(a);
     return b.altitude_m - a.altitude_m;
   });
   updateDoneCount();
 
   filtered.forEach(p => {
     const item = document.createElement('div');
-    const done = doneSet.has(p.id);
-    item.className = 'peak-item' + (done ? ' is-done' : '');
+    const st = peakState(p);
+    item.className = `peak-item state-${st}` + (st === 'done' ? ' is-done' : '');
     const color = DIFF_COLORS[p.difficulty];
+    const extras = [];
+    if (st === 'done') extras.push(p.done_date ? `✓ Fait le ${formatDate(p.done_date)}` : '✓ Fait');
+    if (st === 'wish') extras.push('★ Envie');
+    const photos = (p.photos || []).length;
+    if (photos) extras.push(`${photos} photo${photos > 1 ? 's' : ''}`);
+    if (p.gpx) extras.push('GPX');
+    const badge = { done: '&#10003;', wish: '&#9733;' }[st];
     item.innerHTML = `
-      <div class="row1">
-        <span>
-          <input type="checkbox" class="done-check" ${done ? 'checked' : ''} ${session.canEdit ? '' : 'disabled'} title="Marquer comme fait" />
+      <div class="peak-thumb">${badge ? `<span class="peak-thumb-badge ${st}">${badge}</span>` : ''}</div>
+      <div class="peak-info">
+        <div class="row1">
           <span class="name">${escapeHtml(p.name)}</span>
-        </span>
-        <span class="alt">${escapeHtml(p.altitude_m)} m</span>
+          <input type="checkbox" class="done-check" ${st === 'done' ? 'checked' : ''} ${session.canEdit ? '' : 'disabled'} title="Marquer comme fait" aria-label="Marquer ${escapeHtml(p.name)} comme fait" />
+        </div>
+        <div class="meta"><span class="alt">${escapeHtml(p.altitude_m)} m</span> &middot; <span class="badge" style="background:${color}">${escapeHtml(p.difficulty)}</span> ${p.massif ? escapeHtml(p.massif) : escapeHtml(p.region)}</div>
+        ${extras.length ? `<div class="extras">${escapeHtml(extras.join(' · '))}</div>` : ''}
       </div>
-      <div class="meta"><span class="badge" style="background:${color}">${escapeHtml(p.difficulty)}</span>${escapeHtml(p.massif)} &middot; ${escapeHtml(p.region)}</div>
     `;
+    lazyBackground(item.querySelector('.peak-thumb'), peakImageStyle(p, 64, 64));
     item.querySelector('.done-check').addEventListener('click', (e) => {
       e.stopPropagation();
       toggleDone(p);
     });
-    item.addEventListener('click', () => {
-      const m = markers.get(p.id);
-      closeMobileList(); // sur mobile, sélectionner un sommet referme la liste plein écran
-      flyToVisible([p.lat, p.lon], 12, { duration: 0.6 });
-      // Attend la fin de l'animation pour positionner correctement le panneau à sa première ouverture
-      // (il est en coordonnées écran, pas géographiques, donc pas suivi automatiquement pendant le flyTo).
-      map.once('moveend', () => openPeakPanel(p, m.marker));
-    });
+    item.addEventListener('click', () => showPeak(p));
     list.appendChild(item);
   });
+  refreshMine();
+}
+
+// Centre la carte sur un sommet et ouvre sa fiche (depuis la liste ou Mes 3000).
+export function showPeak(p) {
+  const m = markers.get(p.id);
+  closeMobileList(); // sur mobile, sélectionner un sommet referme la liste plein écran
+  flyToVisible([p.lat, p.lon], 12, { duration: 0.6 });
+  // Attend la fin de l'animation pour positionner correctement le panneau à sa première ouverture
+  // (il est en coordonnées écran, pas géographiques, donc pas suivi automatiquement pendant le flyTo).
+  map.once('moveend', () => openPeakPanel(p, m.marker));
 }
 
 export function renderChipsAll() {
@@ -132,7 +125,6 @@ export function renderChipsAll() {
 }
 
 export function initSidebar() {
-  document.getElementById('mobile-list-toggle').addEventListener('click', toggleMobileList);
   document.getElementById('search').addEventListener('input', e => {
     state.query = e.target.value.trim();
     syncMarkers();

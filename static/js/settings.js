@@ -19,15 +19,17 @@ function bindOverlay(id, name) {
   input.addEventListener('change', () => setOverlayVisible(name, input.checked));
 }
 
+// Sur mobile, ce panneau est l'onglet « Profil » (plein écran) ; sur ordinateur, il s'ouvre par ⚙.
+export function setSettingsOpen(open) {
+  const openBtn = document.getElementById('settings-open');
+  document.getElementById('settings-panel').hidden = !open;
+  openBtn.setAttribute('aria-expanded', String(open));
+  openBtn.classList.toggle('active', open);
+}
+
 export function initSettings() {
   const panel = document.getElementById('settings-panel');
-  const openBtn = document.getElementById('settings-open');
-  const setOpen = (open) => {
-    panel.hidden = !open;
-    openBtn.setAttribute('aria-expanded', String(open));
-    openBtn.classList.toggle('active', open);
-  };
-  openBtn.addEventListener('click', () => setOpen(panel.hidden));
+  const setOpen = setSettingsOpen;
   document.getElementById('settings-close').addEventListener('click', () => setOpen(false));
   document.addEventListener('keydown', (e) => {
     // Échap ferme d'abord les fenêtres ouvertes par-dessus (mot de passe, utilisateurs…).

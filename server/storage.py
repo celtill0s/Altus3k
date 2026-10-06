@@ -13,6 +13,7 @@ rattachées, pas au nom — renommer un sommet dans le catalogue ne perd donc ri
 STATIC_DIR et DATA_DIR sont lus à chaque appel (jamais copiés ailleurs) : les tests les
 redirigent vers un dossier temporaire.
 """
+import datetime
 import json
 import os
 import re
@@ -144,6 +145,8 @@ def merged_peaks(space=None):
         overlay = progress.get(p["id"], {})
         merged = dict(p)
         merged["done"] = bool(overlay.get("done", False))
+        merged["done_date"] = overlay.get("done_date") if merged["done"] else None
+        merged["wish"] = bool(overlay.get("wish", False))
         merged["comment"] = overlay.get("comment", "")
         merged["photos"] = [ph["filename"] for ph in overlay.get("photos", [])]
         if overlay.get("gpx"):
@@ -158,6 +161,7 @@ def space_stats(username):
         "done": sum(1 for v in progress.values() if v.get("done")),
         "photos": sum(len(v.get("photos", [])) for v in progress.values()),
         "gpx": sum(1 for v in progress.values() if v.get("gpx")),
+        "wish": sum(1 for v in progress.values() if v.get("wish")),
         "bytes": space_usage(username),
     }
 
@@ -173,6 +177,19 @@ def space_usage(username) -> int:
 
 def storage_info(username):
     return {"used": space_usage(username), "limit": QUOTA_BYTES}
+
+
+def validate_done_date(value):
+    """Date d'ascension : None, ou une date AAAA-MM-JJ plausible (pas dans le futur)."""
+    if value is None:
+        return None
+    try:
+        day = datetime.date.fromisoformat(value) if isinstance(value, str) and len(value) == 10 else None
+    except ValueError:
+        day = None
+    if day is None or not datetime.date(1900, 1, 1) <= day <= datetime.date.today() + datetime.timedelta(days=1):
+        raise ApiError(400, "date d'ascension invalide (AAAA-MM-JJ, pas dans le futur)")
+    return day.isoformat()
 
 
 # ---- sommets ajoutés à la main (custom_peaks.json) ----

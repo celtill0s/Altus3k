@@ -21,3 +21,15 @@ export function isHeicFile(filename) {
 export function safeUrl(url) {
   return /^https?:\/\//i.test(url || '') ? url : '';
 }
+
+// « 2026-08-12 » → « 12/08/2026 » (dates d'ascension).
+export function formatDate(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : '';
+}
+
+// Date du jour (heure locale) au format AAAA-MM-JJ.
+export function todayIso() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}

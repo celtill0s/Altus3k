@@ -13,7 +13,7 @@ export const DIFF_CRITERIA = {
 };
 export const REGIONS = ['Alpes', 'Pyrénées'];
 export const DIFFS = ['T2', 'T3', 'T4'];
-export const STATUSES = ['Tous', 'Fait', 'À faire'];
+export const STATUSES = ['Tous', 'Fait', 'À faire', 'Envies'];
 
 // Replié par défaut sur mobile (petit bouton natif Leaflet, stylé en flèche via CSS — voir
 // .leaflet-control-layers-toggle), toujours déplié sur desktop comme avant. Déterminé une

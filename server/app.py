@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Backend (bibliothèque standard uniquement) pour project3000summitFR.
+"""Backend (bibliothèque standard uniquement) pour Altus3k.
 
 Sert le frontend et fusionne, à la volée, le catalogue public (static/mountains.json, versionné
 dans git) avec l'espace personnel de l'utilisateur connecté (data/users/<identifiant>/, JAMAIS
@@ -122,6 +122,7 @@ ROUTES = [
     ("POST", rf"/api/peaks/(?P<peak>{_SEG})", "member", "r_update_custom_peak"),
     ("DELETE", rf"/api/peaks/(?P<peak>{_SEG})", "member", "r_delete_custom_peak"),
     ("POST", rf"/api/peaks/(?P<peak>{_SEG})/done", "member", "r_set_done"),
+    ("POST", rf"/api/peaks/(?P<peak>{_SEG})/wish", "member", "r_set_wish"),
     ("POST", rf"/api/peaks/(?P<peak>{_SEG})/comment", "member", "r_set_comment"),
     ("POST", rf"/api/peaks/(?P<peak>{_SEG})/photos", "member", "r_add_photo"),
     ("DELETE", rf"/api/peaks/(?P<peak>{_SEG})/photos/(?P<file>{_SEG})", "member", "r_delete_photo"),
@@ -505,8 +506,25 @@ class Handler(BaseHTTPRequestHandler):
             save_progress(me, progress)
 
     def r_set_done(self, peak):
-        done = bool(self._read_json().get("done"))
-        self._update_progress(peak, lambda entry: entry.update(done=done))
+        """{"done": bool, "date": "AAAA-MM-JJ" | null (facultatif)}. Sans clé "date", la date
+        déjà enregistrée est conservée ; un sommet décoché perd sa date."""
+        body = self._read_json()
+        done = bool(body.get("done"))
+        date = storage.validate_done_date(body["date"]) if done and "date" in body else None
+
+        def change(entry):
+            entry["done"] = done
+            if not done or ("date" in body and date is None):
+                entry.pop("done_date", None)
+            elif date:
+                entry["done_date"] = date
+        self._update_progress(peak, change)
+        self._json(200, {"ok": True})
+
+    def r_set_wish(self, peak):
+        """Liste d'envies : {"wish": bool}."""
+        wish = bool(self._read_json().get("wish"))
+        self._update_progress(peak, lambda entry: entry.update(wish=wish) if wish else entry.pop("wish", None))
         self._json(200, {"ok": True})
 
     def r_set_comment(self, peak):
@@ -683,7 +701,7 @@ def main():
         if cli.legacy_data_present():
             print("   Les données existantes (progress.json, photos, gpx) lui seront rattachées.")
     server = ThreadingHTTPServer(("0.0.0.0", port), Handler)
-    print(f"project3000summitFR backend listening on :{port} (data={storage.DATA_DIR})")
+    print(f"Altus3k backend listening on :{port} (data={storage.DATA_DIR})")
     server.serve_forever()
 
 
