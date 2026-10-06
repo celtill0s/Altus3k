@@ -182,22 +182,29 @@ function leftInset() {
   return !sidebar || window.matchMedia('(max-width: 760px)').matches ? 0 : sidebar.offsetWidth;
 }
 
-// Positionne le panneau près du marqueur cliqué, toujours entièrement dans la zone carte —
-// seulement à sa toute première ouverture : ensuite il reste où l'utilisateur l'a laissé/déplacé.
-function positionPanelNear(marker) {
-  if (!marker) return;
+// Position du panneau à sa toute première ouverture (ensuite il reste où l'utilisateur l'a
+// laissé ou déplacé), toujours recadré pour tenir entièrement dans la carte :
+// - mobile : au centre de l'écran (le doigt et le petit écran rendent le placement près du
+//   marqueur peu pratique) ;
+// - ordinateur : près du marqueur cliqué (au-dessus, légèrement à droite), jamais sous la liste.
+function positionPanel(marker) {
   const panel = document.getElementById('peak-panel');
   const mapEl = document.getElementById('map');
-  const pt = map.latLngToContainerPoint(marker.getLatLng());
   const margin = 8;
+  const inset = leftInset();
   const mapW = mapEl.clientWidth, mapH = mapEl.clientHeight;
   const w = panel.offsetWidth, h = panel.offsetHeight;
-  // Position "naturelle" (au-dessus, légèrement à droite du marqueur), puis recadrage
-  // inconditionnel sur les deux axes : aucune branche ne doit pouvoir sauter ce recadrage.
-  const left = clampIntoRange(pt.x + 18, w, mapW, margin, leftInset());
-  const top = clampIntoRange(pt.y - h - 12, h, mapH, margin);
-  panel.style.left = left + 'px';
-  panel.style.top = top + 'px';
+  let left, top;
+  if (window.matchMedia('(max-width: 760px)').matches || !marker) {
+    left = inset + (mapW - inset - w) / 2;
+    top = (mapH - h) / 2;
+  } else {
+    const pt = map.latLngToContainerPoint(marker.getLatLng());
+    left = pt.x + 18;
+    top = pt.y - h - 12;
+  }
+  panel.style.left = Math.round(clampIntoRange(left, w, mapW, margin, inset)) + 'px';
+  panel.style.top = Math.round(clampIntoRange(top, h, mapH, margin)) + 'px';
 }
 
 // Filet de sécurité : si la fenêtre (ou le passage au layout mobile) redimensionne la carte
@@ -219,7 +226,7 @@ export function openPeakPanel(p, marker) {
   activePeakId = p.id;
   panel.hidden = false; // avant bindPanelContent : la zone de commentaire mesure sa hauteur
   bindPanelContent(body, p);
-  if (wasHidden) positionPanelNear(marker);
+  if (wasHidden) positionPanel(marker);
 }
 
 function closePeakPanel() {

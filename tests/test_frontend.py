@@ -282,3 +282,37 @@ def test_toolbar_and_eye_button(open_page):
     expect(eye).to_have_attribute("title", "Regrouper les sommets par zone")
     eye.click()
     expect(eye).to_have_attribute("title", "Voir tous les sommets, à leur position réelle")
+
+
+def _panel_center_offset(page):
+    """Écart (px) entre le centre du panneau d'un sommet et le centre de la carte."""
+    return page.evaluate("""() => {
+      const p = document.getElementById('peak-panel').getBoundingClientRect();
+      const m = document.getElementById('map').getBoundingClientRect();
+      return [Math.abs((p.left + p.width / 2) - (m.left + m.width / 2)), Math.abs((p.top + p.height / 2) - (m.top + m.height / 2))];
+    }""")
+
+
+def test_peak_panel_centered_on_mobile_only(open_page):
+    page = open_page("bob")
+    name = CATALOG[0]["name"]
+    # Mobile : panneau au centre de l'écran.
+    page.set_viewport_size({"width": 390, "height": 844})
+    page.reload()
+    page.wait_for_selector(".peak-item", state="attached")
+    page.click("#mobile-list-toggle")
+    open_peak(page, name)
+    dx, dy = _panel_center_offset(page)
+    assert dx <= 2 and dy <= 2, f"panneau décentré sur mobile ({dx:.0f}, {dy:.0f} px)"
+    # Ordinateur : près du marqueur (au-dessus, à droite), pas forcément au centre.
+    page.set_viewport_size({"width": 1280, "height": 800})
+    page.reload()
+    page.wait_for_selector(".peak-item")
+    open_peak(page, name)
+    near = page.evaluate("""() => {
+      const p = document.getElementById('peak-panel').getBoundingClientRect();
+      const markers = [...document.querySelectorAll('.leaflet-marker-icon')].map(m => m.getBoundingClientRect());
+      // le marqueur le plus proche du coin bas-gauche du panneau
+      return Math.min(...markers.map(m => Math.hypot(m.left + m.width / 2 - p.left, m.top + m.height / 2 - p.bottom)));
+    }""")
+    assert near < 80, f"panneau loin du sommet sur ordinateur ({near:.0f} px)"
