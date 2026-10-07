@@ -237,7 +237,7 @@ def validate_custom_peak(body):
         if not isinstance(link, str) or len(link) > 500 or not re.fullmatch(r"https?://\S+", link.strip()):
             raise ApiError(400, "lien invalide : seules les adresses http(s):// sont acceptées")
         clean_links.append(link.strip())
-    return {
+    fields = {
         "name": _text_field(body, "name", 100, required=True),
         "altitude_m": int(_number_field(body, "altitude_m", 0, 9000)),
         "lat": round(float(_number_field(body, "lat", -90, 90)), 6),
@@ -248,3 +248,10 @@ def validate_custom_peak(body):
         "notes": _text_field(body, "notes", 5000),
         "links": clean_links,
     }
+    if "activity" in body:
+        activity = body["activity"]
+        if not isinstance(activity, str) or activity not in {"crampon", "ski", "snowshoe"}:
+            raise ApiError(400, "activité invalide")
+        fields["activity"] = activity
+        fields["activity_grade"] = _text_field(body, "activity_grade", 40)
+    return fields

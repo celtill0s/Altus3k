@@ -22,6 +22,12 @@
       "author": "Florian Pépellin",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Aiguille_de_la_Grande_Sassi%C3%A8re_vue_de_Tignes_(%C3%A9t%C3%A9_2018).JPG"
+    },
+    "ski": {
+      "grade": "Ski 5.2",
+      "route": "Face Sud",
+      "note": "Topo : crampons et piolets; 40–45° puis 50° sur les 100 derniers mètres. La voie NW sur glacier, qui demande corde et matériel glacier, n’est pas retenue ici.",
+      "url": "https://skitour.fr/topos/4704"
     }
   },
   {
@@ -47,6 +53,12 @@
       "author": "Nouill",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Ouille_Noire_1.jpg"
+    },
+    "ski": {
+      "grade": "Ski 3.3",
+      "route": "Versant Ouest",
+      "note": "Course de printemps ; pentes de haute montagne.",
+      "url": "https://skitour.fr/sommets/2380"
     }
   },
   {
@@ -66,6 +78,12 @@
       "author": "Jbcombes (téléverseur)",
       "license": "CC BY-SA 3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Chambeyron_vallon_chauvet.jpg"
+    },
+    "ski": {
+      "grade": "Ski 3.1–3.2",
+      "route": "Versant SW / traversée SW–NW",
+      "note": "Sélection limitée aux itinéraires sans matériel particulier. Couloir W (5.4) et couloir S du point 3311 (5.2) écartés : les topos mentionnent une corde, et une corde avec baudrier pour le couloir S.",
+      "url": "https://skitour.fr/topos/2082"
     }
   },
   {
@@ -85,6 +103,12 @@
       "author": "Jérémy Boes",
       "license": "CC BY-SA 3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Grand_Glaiza.JPG"
+    },
+    "ski": {
+      "grade": "Ski 2.2–4.3",
+      "route": "Vallon de Pierre Rouge",
+      "note": "Plusieurs versants et niveaux de difficulté.",
+      "url": "https://skitour.fr/sommets/1132"
     }
   },
   {
@@ -123,6 +147,12 @@
       "author": "O.Taris",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:PainDeSucreQueyras.JPG"
+    },
+    "ski": {
+      "grade": "Ski 2.3",
+      "route": "Tour et sommet",
+      "note": "Itinéraire documenté en ski-alpinisme.",
+      "url": "https://www.alpes-sud.net/ski/pain-de-sucre.php"
     }
   },
   {
@@ -142,6 +172,18 @@
       "author": "David Berardan",
       "license": "CC BY-SA 3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Mont_Thabor.JPG"
+    },
+    "ski": {
+      "grade": "Ski 2.2–2.3",
+      "route": "Versants Sud et SW",
+      "note": "Classique de randonnée à ski des Cerces.",
+      "url": "https://skitour.fr/sommets/446"
+    },
+    "snowshoe": {
+      "grade": "Haute montagne · guidé",
+      "route": "Névache · col des Méandes · sommet · col des Muandes",
+      "note": "Ascension du sommet (3178 m) au cours d’un raid itinérant de 4 jours, encadré par un guide de haute montagne. Sommet conditionnel : dépend de la neige et de la météo.",
+      "url": "https://www.trekalpes.com/fr/trek-raquettes-rando-neige-cerces-claree-thabor-belvedere-des-alpes.html"
     }
   },
   {
@@ -155,7 +197,13 @@
     "difficulty": "T3",
     "notes": "Traversée de crête entre Vars et l'Ubaye.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/La-Mortice-sommets-Sud-3169m-et-Nord-3186m-par-les-Couniets-Vars"
+    "source_url": "https://www.altituderando.com/La-Mortice-sommets-Sud-3169m-et-Nord-3186m-par-les-Couniets-Vars",
+    "ski": {
+      "grade": "Ski 2.2–3.1",
+      "route": "Vallon de Serenne / Grand Caire",
+      "note": "Classique de ski de printemps du secteur.",
+      "url": "https://skitour.fr/sommets/2858"
+    }
   },
   {
     "id": "vieux-chaillol",
@@ -174,6 +222,18 @@
       "author": "Yann Forget",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Le_Vieux_Chaillol_depuis_le_col_du_Cendri%C3%A9.jpg"
+    },
+    "ski": {
+      "grade": "Ski 2.2–2.3",
+      "route": "Versant Sud",
+      "note": "Longue course, techniquement modérée par conditions favorables.",
+      "url": "https://skitour.fr/sommets/244"
+    },
+    "snowshoe": {
+      "grade": "Très exigeant",
+      "route": "Chaillol 1600 · col de la Pisse · sommet",
+      "note": "Environ 20 km · +1520 m. Longue sortie hivernale; plaques à vent et barres rocheuses sous le col. Crampons utiles si neige dure.",
+      "url": "https://entrepotes.org/sortie/59350"
     }
   },
   {
@@ -225,7 +285,13 @@
     "difficulty": "T4",
     "notes": "Se rejoint depuis la Tête de la Cula par une crête hors-sentier, un peu aérienne, sans passage d'escalade ni corde.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Tete-de-Longet-3146m-et-Tete-de-la-Cula-3121m"
+    "source_url": "https://www.altituderando.com/Tete-de-Longet-3146m-et-Tete-de-la-Cula-3121m",
+    "ski": {
+      "grade": "Ski 3.1–4.3",
+      "route": "Versant NW / couloirs Nord",
+      "note": "Plusieurs variantes, certaines très raides.",
+      "url": "https://skitour.fr/sommets/351"
+    }
   },
   {
     "id": "pic-de-la-farneireta",
@@ -244,6 +310,12 @@
       "author": "ThomasInTheSky",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Pic_de_la_Farneireta.jpg"
+    },
+    "ski": {
+      "grade": "Ski 4.1",
+      "route": "Couloir NE",
+      "note": "Le topo place le départ du couloir 15–20 m sous le sommet : finir à pied.",
+      "url": "https://skitour.fr/topos/2202"
     }
   },
   {
@@ -263,6 +335,12 @@
       "author": "Thomas Grollier",
       "license": "CC BY-SA 3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Chaberton.jpg"
+    },
+    "ski": {
+      "grade": "Ski 2.3–5.2",
+      "route": "Col du Chaberton / faces",
+      "note": "La voie normale est modérée ; les couloirs sont très difficiles.",
+      "url": "https://skitour.fr/sommets/160"
     }
   },
   {
@@ -276,7 +354,13 @@
     "difficulty": "T3",
     "notes": "Depuis le parking des Claux (Ceillac), sentier bien tracé sans passage vertigineux ni technique, mais course longue (~7h30 A/R) demandant une bonne condition physique.",
     "source": "visorando.com",
-    "source_url": "https://www.altituderando.com/Tete-de-Longet-3146m-et-Tete-de-la-Cula-3121m"
+    "source_url": "https://www.altituderando.com/Tete-de-Longet-3146m-et-Tete-de-la-Cula-3121m",
+    "ski": {
+      "grade": "Ski 2.1",
+      "route": "Versant SW",
+      "note": "Itinéraire coté facile en ski.",
+      "url": "https://skitour.fr/sommets/3690"
+    }
   },
   {
     "id": "grand-queyras",
@@ -289,7 +373,13 @@
     "difficulty": "T4",
     "notes": "Arête finale sur rocher friable demandant précision et recherche d'itinéraire ; pas de passage d'escalade franc ni de corde nécessaire, mais engagement réel.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Grand-Queyras-3114m"
+    "source_url": "https://www.altituderando.com/Grand-Queyras-3114m",
+    "ski": {
+      "grade": "Ski 3.1–5.2",
+      "route": "Versants N / Ouest",
+      "note": "La voie normale à ski est modérée ; les couloirs sont très raides.",
+      "url": "https://skitour.fr/sommets/340"
+    }
   },
   {
     "id": "pointe-des-cerces",
@@ -314,6 +404,12 @@
       "author": "Jérémy Boes",
       "license": "CC BY-SA 3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Pointes_des_Cerces.JPG"
+    },
+    "ski": {
+      "grade": "Ski 3.3–4.2",
+      "route": "Versants N / S",
+      "note": "Courses de ski-alpinisme ; la pente finale peut demander les crampons.",
+      "url": "https://skitour.fr/sommets/180"
     }
   },
   {
@@ -333,6 +429,18 @@
       "author": "Guilhem Vellut from Annecy, France",
       "license": "CC BY 2.0",
       "source": "https://commons.wikimedia.org/wiki/File:Mont_Buet_(51051945476).jpg"
+    },
+    "ski": {
+      "grade": "Topo publié",
+      "route": "Vallorcine / Bérard",
+      "note": "Très longue course ; sommet parfois atteint à pied selon l’enneigement.",
+      "url": "https://www.chamonix.net/francais/sports-hiver/ski-de-randonnee/routes/le-buet"
+    },
+    "snowshoe": {
+      "grade": "Très exigeant",
+      "route": "Vallon de Bérard depuis Le Buet",
+      "note": "17,5 km · +1900 m · environ 11 h. Zones avalancheuses au-dessus du refuge; DVA et maîtrise du manteau neigeux indispensables. Crampons indiqués pour certains dévers.",
+      "url": "https://bichettevoyage.com/le-mont-buet-raquettes/"
     }
   },
   {
@@ -346,7 +454,13 @@
     "difficulty": "T2",
     "notes": "Ascension courte possible depuis Bonneval-sur-Arc.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Pointe-des-Fours-3072m-par-le-Pont-de-la-Neige"
+    "source_url": "https://www.altituderando.com/Pointe-des-Fours-3072m-par-le-Pont-de-la-Neige",
+    "ski": {
+      "grade": "Ski 2.3",
+      "route": "Face NW",
+      "note": "Course classique de printemps au départ du Pont de la Neige.",
+      "url": "https://skitour.fr/sommets/4920"
+    }
   },
   {
     "id": "pointe-joanne",
@@ -359,7 +473,13 @@
     "difficulty": "T3",
     "notes": "Depuis le Col de Valante puis le Passo della Losetta, bon sentier menant facilement au sommet ; course longue et isolée côté frontière italienne.",
     "source": "bivouak.net",
-    "source_url": "https://www.altituderando.com/Pointe-Joanne-3052m-par-le-vallon-de-Soustre"
+    "source_url": "https://www.altituderando.com/Pointe-Joanne-3052m-par-le-vallon-de-Soustre",
+    "ski": {
+      "grade": "Ski 2.1–3.1",
+      "route": "Vallon de Soustra / versant NW",
+      "note": "Itinéraire facile à modéré, avec panorama sur le Viso.",
+      "url": "https://skitour.fr/sommets/2473"
+    }
   },
   {
     "id": "mont-pelat",
@@ -378,6 +498,12 @@
       "author": "kallerna",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Mont_Pelat_%2B_Lake_Allos_tour_38.jpg"
+    },
+    "ski": {
+      "grade": "Ski 3.2–4.2",
+      "route": "Voie normale / couloir NE",
+      "note": "La voie normale est une course de printemps ; le couloir est raide.",
+      "url": "https://skitour.fr/sommets/1687"
     }
   },
   {
@@ -397,6 +523,12 @@
       "author": "Iros (Wikipédia en français)",
       "license": "CC BY-SA 2.5",
       "source": "https://commons.wikimedia.org/wiki/File:Mont_clapier.jpg"
+    },
+    "ski": {
+      "grade": "Ski 3.1–4.2",
+      "route": "Voie normale SW",
+      "note": "Course du Mercantour, longue et isolée.",
+      "url": "https://skitour.fr/sommets/896"
     }
   },
   {
@@ -416,6 +548,12 @@
       "author": "Jbcombes",
       "license": "CC BY-SA 3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Font-sancte-escreins.jpg"
+    },
+    "ski": {
+      "grade": "Ski 3.1–3.3",
+      "route": "Vallon des Houerts / Selette",
+      "note": "Topos de ski de randonnée publiés jusqu’au sommet.",
+      "url": "https://skitour.fr/sommets/2843"
     }
   },
   {
@@ -448,6 +586,12 @@
       "author": "abracaadabrate",
       "license": "CC BY 3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Tenibres_dall%27ubac_-_panoramio.jpg"
+    },
+    "ski": {
+      "grade": "Ski 3.3–4.1",
+      "route": "Versants SW / tour",
+      "note": "Course alpine exigeante et longue ; conditions stables indispensables.",
+      "url": "https://skitour.fr/sommets/1161"
     }
   },
   {
@@ -467,6 +611,18 @@
       "author": "Pline",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Pic-de-Caramantran-Queyras-DSC_0750.jpg"
+    },
+    "ski": {
+      "grade": "Ski 1.3–2.3",
+      "route": "Saint-Véran / col de Chamoussière",
+      "note": "Parmi les objectifs les plus accessibles de cette sélection.",
+      "url": "https://skitour.fr/sommets/622"
+    },
+    "snowshoe": {
+      "grade": "Soutenu · encadré",
+      "route": "Refuge de la Blanche · crête frontalière",
+      "note": "Environ 6 h 30 · +550 m / -1000 m. Séjour raquettes de niveau 4 avec accompagnateur; DVA, pelle et sonde prévus.",
+      "url": "https://reservation.lequeyras.com/au-coeur-des-3000-du-queyras-5-jours-de-raquettes.html"
     }
   },
   {
@@ -486,6 +642,12 @@
       "author": "Nouill",
       "license": "CC BY 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Pic_du_Mas_de_la_Grave.jpg"
+    },
+    "ski": {
+      "grade": "Ski 2.3–3.1",
+      "route": "Chazelet / Besse",
+      "note": "Itinéraires de ski de randonnée documentés.",
+      "url": "https://skitour.fr/sommets/286"
     }
   },
   {
@@ -511,6 +673,12 @@
       "author": "Pulcherus",
       "license": "CC0",
       "source": "https://commons.wikimedia.org/wiki/File:La_Pointe_de_l%27Observatoire_versant_sud-ouest.jpg"
+    },
+    "ski": {
+      "grade": "Ski 2.2–2.3",
+      "route": "Fond d’Aussois / vallon du Rosoire",
+      "note": "Sommet accessible en ski par plusieurs itinéraires.",
+      "url": "https://skitour.fr/sommets/1638"
     }
   },
   {
@@ -530,6 +698,12 @@
       "author": "MeMyselfandI",
       "license": "CC BY-SA 3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Pic_Campbiel.JPG"
+    },
+    "ski": {
+      "grade": "Ski 3.1–4.1",
+      "route": "Cap de Long / Val d’Estaragne",
+      "note": "Plusieurs itinéraires ; le couloir SW est nettement plus difficile.",
+      "url": "https://skitour.fr/sommets/606"
     }
   },
   {
@@ -555,6 +729,12 @@
       "author": "Llardana",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Grand_tapou.jpg"
+    },
+    "ski": {
+      "grade": "Ski 2.3",
+      "route": "Par Ossoue",
+      "note": "Itinéraire de printemps en haute montagne.",
+      "url": "https://skitour.fr/sommets/5390"
     }
   },
   {
@@ -593,6 +773,12 @@
       "author": "Antoni Pons Oliver",
       "license": "CC BY-SA 3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Pica_d%27Estats_-_panoramio.jpg"
+    },
+    "ski": {
+      "grade": "Ski 3.3",
+      "route": "Refuge du Pinet / Riufred",
+      "note": "Itinéraire pyrénéen long ; final de crête potentiellement à pied.",
+      "url": "https://www.camptocamp.org/waypoints/40244/ca"
     }
   },
   {
@@ -612,6 +798,12 @@
       "author": "Llardana",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Pic_du_milieu.jpg"
+    },
+    "ski": {
+      "grade": "Ski alpinisme",
+      "route": "Vallée d’Ossoue",
+      "note": "Peut se combiner avec le Grand Pic de Tapou ; cime rocheuse, final à pied à confirmer.",
+      "url": "https://skitour.fr/sommets/5390"
     }
   },
   {
@@ -637,6 +829,18 @@
       "author": "Tournasol7",
       "license": "CC BY 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Pic_du_Neouvielle_(19).jpg"
+    },
+    "ski": {
+      "grade": "Ski alpinisme",
+      "route": "Refuge de la Glère / Lienz",
+      "note": "Glacier et passages rocheux près du sommet : selon conditions, skis à déposer avant la cime.",
+      "url": "https://www.carnets-de-montagne.com/pic-de-neouvielle-3091-m-depuis-le-plateau-de-lienz/"
+    },
+    "snowshoe": {
+      "grade": "R6 · crampons/piolet",
+      "route": "Route de Lienz · refuge de la Glère · brèche de Chausenque · sommet",
+      "note": "18,6 km · 6 h 30 à l’aller, 4 h 30 au retour. Très exposé aux avalanches; brèche raide, glacier et crête sommitale. Crampons et piolet indispensables; encordement préférable selon les conditions.",
+      "url": "https://www.rando-marche.fr/_38221_102_randonnees-pic-de-neouvielle"
     }
   },
   {
@@ -675,6 +879,12 @@
       "author": "Fabrice742",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Pic_Maubic.jpg"
+    },
+    "ski": {
+      "grade": "Ski de randonnée",
+      "route": "Versant NE / col d’Estaragne",
+      "note": "Topo publié ; course de printemps en terrain de haute montagne.",
+      "url": "https://www.camptocamp.org/routes/49587/fr/pic-maubic-versant-ne"
     }
   },
   {
@@ -694,6 +904,18 @@
       "author": "Fabrice742",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Turon_de_N%C3%A9ouvielle_11.09.2022.jpg"
+    },
+    "ski": {
+      "grade": "Ski alpinisme",
+      "route": "Refuge de la Glère",
+      "note": "Peut se combiner avec le Pic de Néouvielle ; terrain glaciaire et transitions.",
+      "url": "https://fr.wikiloc.com/itineraires-ski-de-rando/neouvielle-3-091-m-y-turon-de-neouvielle-3-035-m-7055004"
+    },
+    "snowshoe": {
+      "grade": "R6 · course alpine",
+      "route": "Refuge de la Glère · col de Coume Estrète · sommet",
+      "note": "17,5 km · +1550 m · environ 5 h à la montée et 3 h 30 au retour. Pentes raides jusqu’à 40° et itinéraire exposé aux avalanches; réservé aux pratiquants expérimentés, neige stabilisée indispensable.",
+      "url": "https://www.rando-marche.fr/_38221_387_randonnees-turon-de-neouvielle"
     }
   },
   {
@@ -713,6 +935,12 @@
       "author": "Ccmpg",
       "license": "CC BY-SA 3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Pic_d%27Estaragne.jpg"
+    },
+    "ski": {
+      "grade": "Ski 3.2",
+      "route": "Vallon d’Estaragne",
+      "note": "Le topo rejoint le col vers 2950 m ; arête sommitale à terminer à pied.",
+      "url": "https://skitour.fr/topos/1588"
     }
   },
   {
@@ -745,7 +973,13 @@
     "difficulty": "T3",
     "notes": "Se rejoint depuis La Mortice (sommet Sud, déjà dans la liste) par une traversée de crête réputée superbe ; portions hors-sentier demandant du sens de l'orientation, pentes raides et pierrier peu commode par endroits, mais aucune escalade, corde, ni glacier mentionnés dans les comptes-rendus croisés.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/La-Mortice-sommets-Sud-3169m-et-Nord-3186m-par-les-Couniets-Vars"
+    "source_url": "https://www.altituderando.com/La-Mortice-sommets-Sud-3169m-et-Nord-3186m-par-les-Couniets-Vars",
+    "ski": {
+      "grade": "Ski 3.1–3.3",
+      "route": "Vallons des Houerts / Laugier",
+      "note": "Plusieurs itinéraires jusqu’au sommet Nord.",
+      "url": "https://skitour.fr/sommets/2875"
+    }
   },
   {
     "id": "pic-du-montcalm",
@@ -764,6 +998,18 @@
       "author": "David Edgar",
       "license": "CC BY 2.5",
       "source": "https://commons.wikimedia.org/wiki/File:PicDuMontcalmFromPicaDEstats1280_7.jpg"
+    },
+    "ski": {
+      "grade": "Ski 3.1",
+      "route": "Voie normale par le refuge du Pinet",
+      "note": "Crampons selon la dureté de la neige. Le topo de cette voie ne prescrit pas de corde; les itinéraires combinés avec l’arête de la Pique d’Estats ne sont pas retenus.",
+      "url": "https://skitour.fr/topos/8170"
+    },
+    "snowshoe": {
+      "grade": "R5 · course alpine",
+      "route": "L’Artigue · refuge du Pinet · col de Riufret · sommet",
+      "note": "16 km · +1950 m · 7 h 30 à la montée, 4 h 45 au retour. Traversées raides, secteur avalancheux et corniches; crampons et piolet nécessaires selon l’état de la neige.",
+      "url": "https://www.rando-marche.fr/_38219_546_randonnees-pic-du-montcalm"
     }
   },
   {
@@ -774,7 +1020,7 @@
     "lon": -0.135,
     "massif": "Vignemale",
     "region": "Pyrénées",
-    "difficulty": "T4",
+    "difficulty": "T2",
     "notes": "Depuis le barrage d'Ossoue via le refuge de Bayssellance et le col de la Hourquette d'Ossoue — voie distincte du Grand Vignemale/Pique Longue, qui lui nécessite le glacier d'Ossoue. Aucune difficulté par beau temps sans neige ; crampons/piolet utiles si névés persistants sur la crête finale (variable selon saison).",
     "source": "altituderando.com, topopyrenees.com",
     "source_url": "https://www.topopyrenees.com/randonnee-petit-vignemale-3032m/",
@@ -846,6 +1092,12 @@
       "author": "Florian Pépellin",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Rateau_d%27Aussois_depuis_les_hauteurs_d%27Aussois_(ao%C3%BBt_2026).JPG"
+    },
+    "ski": {
+      "grade": "Ski 2.3",
+      "route": "Plan d’Amont / col de la Masse",
+      "note": "Course de ski de randonnée par conditions hivernales.",
+      "url": "https://skitour.fr/sommets/397"
     }
   }
 ]

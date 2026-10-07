@@ -21,7 +21,7 @@
 <div id="app">
   <!-- Liste des sommets : panneau en verre dépoli sur toute la hauteur, à gauche, par-dessus la
        carte (visible en transparence entre les fiches). Filtres et compte : panneau ⚙. -->
-  <div id="sidebar">
+  <div id="sidebar" class="sidebar-glass">
     <!-- Admin consultant l'espace d'un autre utilisateur -->
     <div id="space-banner" hidden>👁 Espace de <strong id="space-banner-name"></strong> — lecture seule · <a href="/">Revenir à mon espace</a></div>
     <div id="sidebar-top">
@@ -33,12 +33,26 @@
   <div id="map">
     <!-- Barre d'outils en haut à droite : ajouter un sommet, vue crampons + piolet, paramètres -->
     <div id="map-toolbar">
+      <div id="map-view-tools" class="map-tool-group" role="group" aria-label="Vues des sommets">
+      <button type="button" id="mountain-view-open" class="tool-btn active" title="Carte des sommets à pied" aria-label="Carte des sommets à pied" aria-pressed="true" aria-controls="map">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path id="mountain-view-icon" /></svg><span class="tool-label">À pied</span>
+      </button>
+      <button type="button" id="crampon-view-open" class="tool-btn" title="Carte des sommets crampons + piolet" aria-label="Carte crampons + piolet" aria-expanded="false" aria-controls="crampon-view">
+        <!-- piolet : manche en diagonale avec sa pointe, tête (pic recourbé d'un côté, panne de l'autre) -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21 15.2 7.4" /><path d="M11 4.6 15.2 7.4Q19.4 10.2 20.5 15" /><path d="M9.6 6.5 12.4 2.8" /><path d="m3.6 22.6 1.4-1.6" /></svg><span class="tool-label">Crampons</span>
+      </button>
+      <button type="button" id="ski-view-open" class="tool-btn" title="Carte des sommets à ski" aria-label="Carte ski" aria-expanded="false" aria-controls="ski-view">
+        <!-- skieur : tête, buste penché, bâton, skis à spatule relevée -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="15.5" cy="4" r="1.8" /><path d="M14.5 7.5 10 11l3.5 2.5-2 4.5" /><path d="m10 11-3 4" /><path d="M2.5 16.5 19 21.5q2.2.6 2.5-1.4" /></svg><span class="tool-label">Ski</span>
+      </button>
+      <button type="button" id="snowshoe-view-open" class="tool-btn" title="Carte des sommets en raquettes" aria-label="Carte raquettes" aria-expanded="false" aria-controls="snowshoe-view">
+        <!-- raquette à neige : cadre en goutte, traverses du tamis, fixation -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c3.6 0 5.5 4 5.5 9.5S15.3 22 12 22s-5.5-5-5.5-10.5S8.4 2 12 2z" /><path d="M7 8h10M6.6 13h10.8M8 18h8" /><path d="M10 8v5M14 8v5" /></svg><span class="tool-label">Raquettes</span>
+      </button>
+      </div>
+      <div id="map-action-tools" class="map-tool-group" role="group" aria-label="Actions personnelles">
       <button type="button" id="custom-peak-open" class="tool-btn personal-only editable-only" title="Ajouter un sommet" aria-label="Ajouter un sommet">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
-      </button>
-      <button type="button" id="crampon-view-open" class="tool-btn" title="Sommets accessibles crampons + piolet" aria-label="Vue crampons + piolet">
-        <!-- piolet : manche en diagonale avec sa pointe, tête (pic recourbé d'un côté, panne de l'autre) -->
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21 15.2 7.4" /><path d="M11 4.6 15.2 7.4Q19.4 10.2 20.5 15" /><path d="M9.6 6.5 12.4 2.8" /><path d="m3.6 22.6 1.4-1.6" /></svg>
       </button>
       <button type="button" id="mine-open" class="tool-btn personal-only" title="Mes 3000" aria-label="Mes 3000" aria-expanded="false" aria-controls="mine-view">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 3a9 9 0 0 1 8.5 6" stroke-width="3.2" /><path d="m7.5 15.5 3-5 2 3 1.5-2 2.5 4z" /></svg>
@@ -46,6 +60,7 @@
       <button type="button" id="settings-open" class="tool-btn" title="Paramètres" aria-label="Paramètres" aria-expanded="false" aria-controls="settings-panel">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" /></svg>
       </button>
+    </div>
     </div>
     <div id="peak-panel" hidden>
       <div id="peak-panel-header">
@@ -173,17 +188,18 @@
 </div>
 
 <!-- Ajout manuel d'un sommet, visible uniquement dans son propre espace (js/custom-peak.js) -->
-<div id="custom-peak-dialog" class="modal" hidden>
-  <form id="custom-peak-form" class="modal-box">
+<div id="custom-peak-dialog" class="modal" role="dialog" aria-modal="true" aria-labelledby="custom-peak-title" hidden>
+  <form id="custom-peak-form" class="modal-box" tabindex="-1">
     <h2 id="custom-peak-title">Ajouter un sommet</h2>
     <p class="modal-hint">Visible uniquement dans votre espace.</p>
-    <label>Nom<input id="cp-name" maxlength="100" required></label>
+    <label class="cp-wide">Nom<input id="cp-name" maxlength="100" required></label>
     <label>Altitude (m)<input id="cp-altitude" type="number" min="0" max="9000" step="1" required></label>
     <label>Difficulté<select id="cp-difficulty" required>
       <option value="T2">T2 · Randonnée montagne</option>
       <option value="T3" selected>T3 · Randonnée exigeante</option>
       <option value="T4">T4 · Randonnée alpine</option>
     </select></label>
+    <label id="cp-activity-grade-field" class="cp-wide" hidden>Cotation (facultatif)<input id="cp-activity-grade" maxlength="40"></label>
     <label>Région<select id="cp-region" required>
       <option value="Alpes">Alpes</option>
       <option value="Pyrénées">Pyrénées</option>
@@ -193,8 +209,8 @@
       <label>Latitude (facultatif)<input id="cp-lat" type="number" min="-90" max="90" step="any" placeholder="45.1234"></label>
       <label>Longitude (facultatif)<input id="cp-lon" type="number" min="-180" max="180" step="any" placeholder="6.1234"></label>
     </div>
-    <label>Commentaires (facultatif)<textarea id="cp-notes" maxlength="5000" rows="3"></textarea></label>
-    <label>Liens externes (facultatif, un par ligne)<textarea id="cp-links" rows="2" placeholder="https://www.camptocamp.org/…"></textarea></label>
+    <label class="cp-wide">Commentaires (facultatif)<textarea id="cp-notes" maxlength="5000" rows="2"></textarea></label>
+    <label class="cp-wide">Liens externes (facultatif, un par ligne)<textarea id="cp-links" rows="1" placeholder="https://www.camptocamp.org/…"></textarea></label>
     <div class="modal-status" id="cp-status"></div>
     <div class="modal-actions">
       <button type="button" id="cp-cancel" class="btn-secondary">Annuler</button>
@@ -232,25 +248,24 @@
   </div>
 </div>
 
-<div id="crampon-view" hidden>
-  <div id="crampon-view-header">
-    <h2>Sommets accessibles crampons + piolet (hors saison normale)</h2>
-    <button type="button" id="crampon-view-close" aria-label="Fermer">&#10005;</button>
+<div id="crampon-view" class="summit-map-view" hidden aria-label="Carte crampons + piolet">
+  <div class="summit-map-workspace">
+    <aside id="crampon-peaks-list" class="summit-map-list sidebar-glass" aria-label="Liste des sommets crampons et piolet"></aside>
+    <div id="crampon-map" class="summit-map-canvas" role="application" aria-label="Carte des sommets accessibles crampons et piolet"></div>
   </div>
-  <div id="crampon-view-body">
-    <p class="crampon-view-intro">
-      Marche sur neige avec crampons et piolet uniquement (auto-arrêt, pas de technique de
-      glace/cascade, pas de corde) — extension hors saison de la voie normale "randonnée".
-      Grade alpin indiqué quand confirmé sur camptocamp.org ; sinon estimé à partir des
-      descriptions disponibles (non formellement vérifié, à confirmer avant de partir).
-    </p>
-    <div id="crampon-table"></div>
-    <p class="crampon-view-caveat">
-      ⚠️ Écartés de cette liste : les variantes qui nécessitent en réalité une corde ou de
-      l'escalade (ex. voie des Corridors au Pic de Campbieil : pentes 60-65°, corde portée ;
-      traversée de crête vers le Pic du Milieu : AD-, passage rocher grade II) — ce ne sont
-      pas de simples ascensions crampons+piolet.
-    </p>
+</div>
+
+<div id="ski-view" class="summit-map-view" hidden aria-label="Carte des sommets à ski">
+  <div class="summit-map-workspace">
+    <aside id="ski-peaks-list" class="summit-map-list sidebar-glass" aria-label="Liste des sommets avec itinéraires à ski"></aside>
+    <div id="ski-map" class="summit-map-canvas" role="application" aria-label="Carte des sommets avec itinéraires à ski"></div>
+  </div>
+</div>
+
+<div id="snowshoe-view" class="summit-map-view" hidden aria-label="Carte des sommets en raquettes">
+  <div class="summit-map-workspace">
+    <aside id="snowshoe-peaks-list" class="summit-map-list sidebar-glass" aria-label="Liste des sommets avec itinéraires en raquettes"></aside>
+    <div id="snowshoe-map" class="summit-map-canvas" role="application" aria-label="Carte des sommets avec itinéraires en raquettes"></div>
   </div>
 </div>
 

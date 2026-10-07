@@ -69,6 +69,12 @@ def test_peak_entry_is_valid(peak):
         assert set(c) == {"grade", "confirmed", "season", "note"}
         assert isinstance(c["confirmed"], bool)
         assert all(isinstance(c[k], str) and c[k].strip() for k in ("grade", "season", "note"))
+    for activity in ("ski", "snowshoe"):
+        if activity in peak:
+            route = peak[activity]
+            assert set(route) == {"grade", "route", "note", "url"}, activity
+            assert all(isinstance(route[k], str) and route[k].strip() for k in route), activity
+            assert route["url"].startswith("https://"), activity
 
 
 def test_peak_names_are_unique():
@@ -79,3 +85,21 @@ def test_peak_names_are_unique():
 def test_peak_ids_are_unique():
     ids = [p["id"] for p in CATALOG]
     assert len(ids) == len(set(ids))
+
+
+def test_petit_vignemale_is_t2():
+    peak = next(p for p in CATALOG if p["id"] == "petit-vignemale")
+    assert peak["difficulty"] == "T2"
+
+
+def test_roped_ski_routes_are_excluded():
+    ski = {p["id"] for p in CATALOG if "ski" in p}
+    assert len(ski) == 35
+    assert not ski & {"grand-astazou", "la-grande-fache"}
+
+
+def test_snowshoe_routes_are_the_sourced_ones():
+    assert {p["id"] for p in CATALOG if "snowshoe" in p} == {
+        "pic-de-caramantran", "mont-buet", "mont-thabor", "vieux-chaillol",
+        "pic-du-montcalm", "turon-de-neouvielle", "pic-de-neouvielle",
+    }

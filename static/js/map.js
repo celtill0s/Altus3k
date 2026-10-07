@@ -1,39 +1,24 @@
 // Carte Leaflet : fond, clusters, calques, contrôles, légende, marqueurs.
 import { DIFF_COLORS, DIFF_LABELS, DIFFS } from './config.js';
 import { PEAKS, passesBaseFilter, peakState } from './store.js';
-import { MOUNTAIN_PATH, clusterIcon, makeIcon } from './icons.js';
+import { MOUNTAIN_PATH, makeIcon } from './icons.js';
+import { createCollapsibleLegend, createLocateControl, createMarkerLayers, createSeparateAllControl, placeControls } from './map-controls.js';
 import { openPeakPanel } from './panel.js';
-
-// Contrôles de la carte : à droite sur ordinateur (la liste occupe tout le côté gauche), sous la
-// barre d'outils ➕ ⛏ ⚙ ; sur mobile, en bas à gauche (la liste s'y ouvre en plein écran).
-export function applyResponsiveControlPositions() {
-  const mobile = window.matchMedia('(max-width: 760px)').matches;
-  map.zoomControl.setPosition(mobile ? 'bottomleft' : 'topright');
-  separateAllControl.setPosition(mobile ? 'bottomleft' : 'topright');
-  legend.setPosition(mobile ? 'topleft' : 'bottomright');
-  if (mobile) {
-    // Sur mobile, l'œil (voir tous / regrouper) se place juste au-dessus du bouton « me
-    // localiser » (js/locate.js), dans la colonne du bas à gauche.
-    const corner = map.getContainer().querySelector('.leaflet-bottom.leaflet-left');
-    const locate = corner?.querySelector('.locate-control');
-    if (locate) corner.insertBefore(separateAllControl.getContainer(), locate);
-  }
-}
 
 export const map = L.map('map', { zoomControl: true });
 
 // Sur ordinateur, la liste (verre dépoli) recouvre la gauche de la carte : la zone vraiment
 // visible est décalée vers la droite d'une demi-largeur de liste. Les recentrages en tiennent
 // compte pour que le point visé tombe au milieu de ce qu'on voit, pas sous la liste.
-function hiddenLeftWidth() {
-  const sidebar = document.getElementById('sidebar');
-  return !sidebar || window.matchMedia('(max-width: 760px)').matches ? 0 : sidebar.offsetWidth;
+// Valable pour toutes les cartes : chaque vue d'activité a aussi sa liste à gauche.
+function hiddenLeftWidth(list) {
+  return !list || window.matchMedia('(max-width: 760px)').matches ? 0 : list.offsetWidth;
 }
 
-export function visibleCenter(latlng, zoom) {
-  const shift = hiddenLeftWidth() / 2;
+export function visibleCenter(latlng, zoom, targetMap = map, list = document.getElementById('sidebar')) {
+  const shift = hiddenLeftWidth(list) / 2;
   if (!shift) return L.latLng(latlng);
-  return map.unproject(map.project(latlng, zoom).subtract([shift, 0]), zoom);
+  return targetMap.unproject(targetMap.project(latlng, zoom).subtract([shift, 0]), zoom);
 }
 
 export function flyToVisible(latlng, zoom, options) {
@@ -77,24 +62,28 @@ function osmLayer(options) {
 const IGN_FROM_ZOOM = 9;
 const planIgnPath = ['GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', 'image/png'];
 
-const baseLayers = {
-  'Auto (OSM, puis IGN en zoomant)': L.layerGroup([
+const baseLayerFactories = {
+  'Auto (OSM, puis IGN en zoomant)': () => L.layerGroup([
     osmLayer({ maxZoom: IGN_FROM_ZOOM - 1 }),
     ignLayer(...planIgnPath, { minZoom: IGN_FROM_ZOOM })
   ]),
-  'Plan IGN': ignLayer(...planIgnPath),
-  'Photos aériennes IGN': ignLayer('ORTHOIMAGERY.ORTHOPHOTOS', 'image/jpeg'),
-  'OpenStreetMap': osmLayer()
+  'Plan IGN': () => ignLayer(...planIgnPath),
+  'Photos aériennes IGN': () => ignLayer('ORTHOIMAGERY.ORTHOPHOTOS', 'image/jpeg'),
+  'OpenStreetMap': () => osmLayer()
 };
+const baseLayers = Object.fromEntries(Object.entries(baseLayerFactories).map(([name, create]) => [name, create()]));
 const DEFAULT_BASE_LAYER = 'Auto (OSM, puis IGN en zoomant)';
 
 // Surcouche IGN des pentes > 30° en montagne (zones avalancheuses potentielles) : servie
 // jusqu'au zoom 17, agrandie au-delà.
-const slopesLayer = ignLayer('GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN', 'image/png', {
-  maxNativeZoom: 17,
-  opacity: 0.55,
-  zIndex: 10 // toujours au-dessus du fond, même après un changement de fond
-});
+export function createSlopesLayer(opacity = 0.55) {
+  return ignLayer('GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN', 'image/png', {
+    maxNativeZoom: 17,
+    opacity,
+    zIndex: 10 // toujours au-dessus du fond, même après un changement de fond
+  });
+}
+const slopesLayer = createSlopesLayer();
 
 // Fond et calques choisis dans le panneau ⚙ (js/settings.js), mémorisés dans le navigateur
 // (simple confort : sans stockage disponible, on retombe sur les valeurs par défaut).
@@ -115,27 +104,28 @@ export function getBaseLayer() {
   return currentBaseLayer;
 }
 
+export function createBaseLayer(name = currentBaseLayer) {
+  return baseLayerFactories[name]?.();
+}
+
+const baseLayerListeners = [];
+export function onBaseLayerChange(listener) {
+  baseLayerListeners.push(listener);
+}
+
 export function setBaseLayer(name) {
   if (!baseLayers[name] || name === currentBaseLayer) return;
   map.removeLayer(baseLayers[currentBaseLayer]);
   baseLayers[name].addTo(map);
   currentBaseLayer = name;
   writeSetting(BASE_LAYER_KEY, name);
+  baseLayerListeners.forEach(listener => listener(name));
 }
 
-// Groupe de clustering unique (toutes difficultés mélangées) : au dézoom, les sommets proches
-// se regroupent sous un seul logo montagne avec le nombre total de sommets du secteur ; au
-// zoom, ils se "séparent" progressivement en marqueurs individuels (comportement natif du
-// plugin Leaflet.markercluster). Le filtre par difficulté (puces + ancien calque natif) agit
-// maintenant en ajoutant/retirant les marqueurs de CE groupe plutôt qu'en togglant un calque —
-// voir passesBaseFilter/syncMarkers.
-const peaksCluster = L.markerClusterGroup({
-  iconCreateFunction: (cluster) => clusterIcon(cluster.getChildCount()),
-  maxClusterRadius: 28, // rayon réduit (défaut Leaflet : 80) — se sépare beaucoup plus tôt au zoom
-  disableClusteringAtZoom: 11, // au-delà, toujours des marqueurs individuels, plus aucun regroupement
-  spiderfyOnMaxZoom: true,
-  showCoverageOnHover: false
-}).addTo(map);
+// Marqueurs regroupés par secteur au dézoom, séparés au zoom ou via le bouton œil (voir
+// map-controls.js). Les filtres (puces, recherche) ajoutent ou retirent les marqueurs de ce
+// groupe, voir passesBaseFilter/syncMarkers.
+const peakLayers = createMarkerLayers(map);
 
 // Calque dédié aux traces GPX importées (itinéraires de rando par sommet).
 export const gpxLayer = L.layerGroup();
@@ -154,70 +144,6 @@ export function setOverlayVisible(name, visible) {
   writeSetting(OVERLAYS_KEY, JSON.stringify(overlayState));
 }
 Object.keys(overlays).forEach(name => { if (overlayState[name]) overlays[name].addTo(map); });
-
-// Bouton "Voir tous" : bascule tous les sommets actuellement affichés vers leur VRAIE position
-// individuelle (plus aucun regroupement), sans toucher au zoom/à la vue en cours. Groupé par
-// défaut ; reste à l'état choisi (y compris si les filtres changent, voir syncMarkers) jusqu'au
-// clic sur "Regrouper".
-const individualLayer = L.layerGroup();
-let allSeparated = false;
-
-function separateAllPeaks() {
-  if (allSeparated) return;
-  markers.forEach(({ marker, data }) => {
-    if (!passesBaseFilter(data)) return;
-    if (peaksCluster.hasLayer(marker)) peaksCluster.removeLayer(marker);
-    individualLayer.addLayer(marker);
-  });
-  if (!map.hasLayer(individualLayer)) individualLayer.addTo(map);
-  allSeparated = true;
-  updateSeparateAllButton();
-}
-
-function regroupAllPeaks() {
-  if (!allSeparated) return;
-  markers.forEach(({ marker, data }) => {
-    if (individualLayer.hasLayer(marker)) individualLayer.removeLayer(marker);
-    if (passesBaseFilter(data)) peaksCluster.addLayer(marker);
-  });
-  map.removeLayer(individualLayer);
-  allSeparated = false;
-  updateSeparateAllButton();
-}
-
-function toggleSeparateAllPeaks() {
-  if (allSeparated) regroupAllPeaks(); else separateAllPeaks();
-}
-
-let separateAllBtnEl = null;
-// Icône d'œil : ouvert = « voir tous les sommets » (regroupés pour l'instant), barré =
-// « regrouper » (tous affichés pour l'instant). L'icône montre ce que fait le clic.
-const EYE_OPEN = '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" />';
-const EYE_CLOSED = '<path d="M9.9 4.2A10 10 0 0 1 12 4c6.4 0 10 8 10 8a17 17 0 0 1-2.2 3.2M6.6 6.6A17 17 0 0 0 2 12s3.6 8 10 8a9.6 9.6 0 0 0 5.4-1.6" /><path d="M14.1 14.1a3 3 0 1 1-4.2-4.2" /><path d="m2 2 20 20" />';
-function updateSeparateAllButton() {
-  if (!separateAllBtnEl) return;
-  const label = allSeparated
-    ? 'Regrouper les sommets par zone'
-    : 'Voir tous les sommets, à leur position réelle';
-  separateAllBtnEl.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${allSeparated ? EYE_CLOSED : EYE_OPEN}</svg>`;
-  separateAllBtnEl.title = label;
-  separateAllBtnEl.setAttribute('aria-label', label);
-  separateAllBtnEl.classList.toggle('active', allSeparated);
-}
-
-const separateAllControl = L.control({ position: 'topleft' });
-separateAllControl.onAdd = function () {
-  const div = L.DomUtil.create('div', 'leaflet-bar separate-all-control');
-  const btn = L.DomUtil.create('a', '', div);
-  btn.href = '#';
-  btn.setAttribute('role', 'button');
-  separateAllBtnEl = btn;
-  updateSeparateAllButton();
-  L.DomEvent.disableClickPropagation(div);
-  L.DomEvent.on(btn, 'click', L.DomEvent.stop).on(btn, 'click', toggleSeparateAllPeaks);
-  return div;
-};
-separateAllControl.addTo(map);
 
 // Échelle métrique (km/m), en bas à gauche.
 L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
@@ -245,27 +171,18 @@ export function refreshPeakMarker(p) {
   if (!entry) return;
   entry.marker.setIcon(peakIcon(p));
   entry.marker.setLatLng([p.lat, p.lon]);
-  if (peaksCluster.hasLayer(entry.marker)) peaksCluster.refreshClusters(entry.marker);
+  peakLayers.refresh();
 }
 
 export function removePeakMarker(p) {
   const entry = markers.get(p.id);
   if (!entry) return;
-  peaksCluster.removeLayer(entry.marker);
-  individualLayer.removeLayer(entry.marker);
+  peakLayers.remove(entry.marker);
   markers.delete(p.id);
 }
 
 export function syncMarkers() {
-  // Respecte l'état "éclaté"/"groupé" choisi via le bouton Voir tous/Regrouper : un changement
-  // de filtre ne doit pas le réinitialiser, juste ajuster quels sommets sont visibles dans le
-  // calque actif.
-  const activeLayer = allSeparated ? individualLayer : peaksCluster;
-  markers.forEach(({ marker, data }) => {
-    const show = passesBaseFilter(data);
-    if (show && !activeLayer.hasLayer(marker)) activeLayer.addLayer(marker);
-    if (!show && activeLayer.hasLayer(marker)) activeLayer.removeLayer(marker);
-  });
+  markers.forEach(({ marker, data }) => peakLayers.show(marker, passesBaseFilter(data)));
 }
 
 // Légende (rappel des couleurs), repliée par défaut : juste « Cotation randonnée ▾ » ; un clic
@@ -280,35 +197,22 @@ function legendMarker(state) {
   return `<span class="legend-marker"><svg viewBox="0 0 24 24">${path}</svg>${badge}</span>`;
 }
 
-function legendContentHtml() {
+function legendBodyHtml() {
   return `
-    <button type="button" class="legend-toggle" aria-expanded="false" aria-controls="legend-body">
-      <span class="legend-title">Cotation randonnée</span><span class="legend-arrow" aria-hidden="true">▾</span>
-    </button>
-    <div class="legend-body" id="legend-body" hidden>
       ${DIFFS.map(d => `<div class="legend-row"><span class="legend-dot" style="background:${DIFF_COLORS[d]}"></span>${DIFF_LABELS[d]}</div>`).join('')}
       <div class="legend-states personal-only">
         <div class="legend-row">${legendMarker('done')}Sommet fait</div>
         <div class="legend-row">${legendMarker('wish')}Envie</div>
         <div class="legend-row">${legendMarker('todo')}À faire</div>
       </div>
-    </div>
   `;
 }
 
-const legend = L.control({ position: 'bottomright' });
-legend.onAdd = function () {
-  const div = L.DomUtil.create('div', '');
-  div.id = 'legend';
-  div.innerHTML = legendContentHtml();
-  const toggle = div.querySelector('.legend-toggle');
-  const body = div.querySelector('.legend-body');
-  toggle.addEventListener('click', () => {
-    body.hidden = !body.hidden;
-    toggle.setAttribute('aria-expanded', String(!body.hidden));
-    div.classList.toggle('open', !body.hidden);
-  });
-  L.DomEvent.disableClickPropagation(div);
-  return div;
-};
+const legend = createCollapsibleLegend({ id: 'legend', title: 'Cotation randonnée', bodyHtml: legendBodyHtml() });
 legend.addTo(map);
+
+// Contrôles : zoom (natif), œil, localisation ; placés selon l'écran (voir placeControls).
+const separateAllControl = createSeparateAllControl(peakLayers).addTo(map);
+const locateControl = 'geolocation' in navigator ? createLocateControl(map).addTo(map) : null;
+if (locateControl) locateControl.visibleCenter = (latlng, zoom) => visibleCenter(latlng, zoom);
+placeControls(map, { zoom: map.zoomControl, eye: separateAllControl, locate: locateControl, legend });

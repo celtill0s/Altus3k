@@ -9,6 +9,7 @@
   --t2: #2e8b57;
   --t3: #d98c1e;
   --t4: #c0392b;
+  --activity-unrated: #77838e;
 }
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--text); background: var(--bg); }
@@ -26,6 +27,8 @@ html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystem
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+.sidebar-glass {
   background: rgba(245, 243, 238, 0.42);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   backdrop-filter: blur(14px) saturate(1.2);
@@ -345,7 +348,7 @@ html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystem
   z-index: 1001;
   width: 280px;
   max-width: calc(100% - 20px);
-  max-height: calc(100% - 20px);
+  max-height: calc(100% - 132px); /* reste sous la barre d'outils, même centré (2 × 66 px) */
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -393,63 +396,43 @@ html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystem
 #peak-panel-body .pop-notes { font-size: 12.5px; line-height: 1.4; }
 #peak-panel-body .pop-source { font-size: 10.5px; color: var(--muted); margin-top: 6px; }
 
-/* Vue "crampons + piolet" — voir commentaire HTML ci-dessus, ouverte via le bouton dédié
-   dans l'en-tête de la barre latérale (le raccourci Ctrl+Alt+C entrait en conflit avec un
-   raccourci navigateur/OS chez l'utilisateur, d'où le bouton visible). */
-#crampon-view {
+.summit-map-view {
   position: fixed;
   inset: 0;
   z-index: 6000;
-  background: var(--bg);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background: #e8ece9;
 }
-#crampon-view[hidden] { display: none; }
-#crampon-view-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 16px 22px;
-  background: var(--accent);
-  color: #fff;
-  flex: none;
+.summit-map-view[hidden] { display: none; }
+#ski-view { --view-color: #087fa3; }
+#crampon-view { --view-color: #c66a16; }
+#snowshoe-view { --view-color: #5b5fc7; }
+.summit-map-workspace { position: relative; flex: 1; min-height: 0; }
+.summit-map-list {
+  position: absolute;
+  z-index: 1001;
+  inset: 0 auto 0 0;
+  width: var(--sidebar-w);
+  overflow-y: auto;
+  padding: 6px 12px 16px;
 }
-#crampon-view-header h2 { margin: 0; font-size: 16px; font-weight: 700; }
-#crampon-view-close {
-  background: none;
-  border: 1px solid rgba(255,255,255,.6);
-  color: #fff;
-  border-radius: 6px;
-  font-size: 15px;
-  padding: 4px 10px;
-  cursor: pointer;
-}
-#crampon-view-close:hover { background: rgba(255,255,255,.15); }
-#crampon-view-body { padding: 18px 22px; overflow-y: auto; flex: 1; max-width: 900px; margin: 0 auto; width: 100%; box-sizing: border-box; }
-.crampon-view-intro { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 0 0 16px; }
-.crampon-view-caveat { font-size: 12px; color: var(--muted); line-height: 1.5; margin-top: 16px; padding: 10px 12px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; }
-#crampon-table { display: flex; flex-direction: column; gap: 8px; }
-.crampon-row {
-  display: grid;
-  grid-template-columns: 1.6fr .7fr .9fr 2fr;
-  gap: 10px;
-  align-items: start;
-  padding: 10px 12px;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-size: 12.5px;
-}
-.crampon-row.head { background: transparent; border: none; font-weight: 700; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .03em; padding: 0 12px; }
-.crampon-row .name { font-weight: 600; }
-.crampon-row .grade { font-weight: 700; }
-.crampon-row .grade.confirmed { color: var(--accent); }
-.crampon-row .grade.estimated { color: #9a7b1f; }
-.crampon-row .note { color: var(--muted); line-height: 1.4; }
+.summit-map-list-count { display: table; margin: 0 0 8px; padding: 3px 9px; border-radius: 999px; color: #3f4650; background: rgba(255, 255, 255, 0.78); font-size: 11.5px; font-weight: 600; }
+.summit-map-list .activity-grade { margin-top: 1px; }
+.difficulty-key { display: inline-block; width: 9px; height: 9px; flex: none; border-radius: 50%; }
+.summit-map-canvas { position: absolute; inset: 0; width: 100%; height: 100%; background: #dce5e4; }
+#ski-view-open.active { background: #087fa3; color: #fff; }
+#crampon-view-open.active { background: #c66a16; color: #fff; }
+#snowshoe-view-open.active { background: #5b5fc7; color: #fff; }
+
 @media (max-width: 760px) {
-  .crampon-row, .crampon-row.head { grid-template-columns: 1fr; }
+  .sidebar-glass { background: rgba(245, 243, 238, 0.7); border: none; }
+  /* Carte d'abord ; l'onglet « Liste » (js/tabs.js) affiche la liste de la vue en plein écran. */
+  .summit-map-view { bottom: var(--tabbar-h); }
+  .activity-map-open #tab-bar { z-index: 6004; }
+  .summit-map-list { display: none; width: auto; right: 0; padding-top: 66px; }
+  .summit-map-view.mobile-list-open .summit-map-list { display: block; }
 }
 
 /* Marqueurs "montagne" (remplacent les ronds de couleur) + bulles de cluster — voir
@@ -519,7 +502,7 @@ html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystem
 }
 
 /* Légende : repliée par défaut (« Cotation randonnée ▾ »), dépliée au clic (js/map.js). */
-#legend {
+#legend, .map-legend {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -532,7 +515,7 @@ html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystem
 }
 .legend-title { font-weight: 700; font-size: 11.5px; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); }
 .legend-arrow { margin-left: auto; color: var(--muted); font-size: 12px; transition: transform .15s; }
-#legend.open .legend-arrow { transform: rotate(180deg); }
+.map-legend.open .legend-arrow { transform: rotate(180deg); }
 .legend-body { padding: 0 14px 10px; }
 .legend-row { display: flex; align-items: center; gap: 7px; margin-bottom: 3px; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.2); }
@@ -552,6 +535,8 @@ html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystem
     border: none;
     background: rgba(245, 243, 238, 0.7);
   }
+  #app.mobile-list-open #sidebar-top { padding-top: 66px; }
+  body #map-toolbar { z-index: 1101; }
 
   /* Sur mobile, la ligne d'attribution (bas droite) occupe presque toute la largeur : l'échelle
      (bas gauche) est remontée juste au-dessus pour ne pas passer dessous. */
@@ -617,7 +602,42 @@ body.readonly .done-check:disabled, body.readonly .pop-done-checkbox:disabled { 
 .modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
 
 /* Ajout manuel d'un sommet (js/custom-peak.js) */
-#custom-peak-dialog .modal-box { max-height: calc(100vh - 32px); overflow-y: auto; box-sizing: border-box; }
+#custom-peak-dialog { padding: 12px; }
+#custom-peak-dialog .modal-box {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 12px;
+  max-width: 620px;
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 16px;
+}
+#custom-peak-form > h2,
+#custom-peak-form > .modal-hint,
+#custom-peak-form > .cp-wide,
+#custom-peak-form > .cp-coords,
+#custom-peak-form > .modal-status,
+#custom-peak-form > .modal-actions { grid-column: 1 / -1; }
+#custom-peak-form label { min-width: 0; }
+#custom-peak-form input,
+#custom-peak-form select,
+#custom-peak-form textarea { min-width: 0; width: 100%; box-sizing: border-box; }
+#cp-activity-grade-field[hidden], #cp-status:empty { display: none; }
+@media (max-width: 760px), (max-height: 700px) {
+  #custom-peak-dialog { padding: 8px; }
+  #custom-peak-dialog .modal-box { max-height: calc(100dvh - 16px); gap: 4px 8px; padding: 8px 12px; }
+  #custom-peak-form h2 { font-size: 16px; line-height: 1.3; }
+  #custom-peak-form .modal-hint { display: none; }
+  #custom-peak-form label { font-size: 12px; line-height: 14px; gap: 2px; }
+  #custom-peak-form input,
+  #custom-peak-form select,
+  #custom-peak-form textarea { font-size: 16px; padding: 5px 8px; }
+  #custom-peak-form textarea { resize: none; }
+  #cp-notes { height: 38px; }
+  #cp-links { height: 32px; }
+  #custom-peak-form .modal-actions { margin-top: 4px; }
+}
 .modal-box select, .modal-box textarea {
   font: inherit; font-size: 15px; font-weight: 400; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; background: #fff; resize: vertical;
 }
@@ -631,6 +651,8 @@ body.readonly .done-check:disabled, body.readonly .pop-done-checkbox:disabled { 
   display: flex; flex-direction: column; gap: 8px; font-size: 13px;
 }
 #placement-bar[hidden] { display: none; }
+.activity-map-open #placement-bar { top: 66px; }
+.activity-placing .summit-map-list { display: none; }
 .placing-icon { position: relative; width: 72px; height: 72px; cursor: move; }
 .placing-peak { position: absolute; left: 20px; top: 20px; width: 32px; height: 32px; filter: drop-shadow(0 1px 3px rgba(0,0,0,.5)); }
 .placing-arrow { position: absolute; font-size: 13px; line-height: 1; color: #1b3a2c; text-shadow: 0 0 3px #fff, 0 0 3px #fff; animation: placing-pulse 1.2s ease-in-out infinite; }
@@ -676,7 +698,11 @@ body.readonly .done-check:disabled, body.readonly .pop-done-checkbox:disabled { 
 .login-help { font-size: 12px; color: var(--muted); margin: 16px 0 0; }
 
 /* ---- Barre d'outils en haut à droite (➕ ajouter, ⛏ crampons + piolet, ⚙ paramètres) ---- */
-#map-toolbar { position: absolute; top: 10px; right: 10px; z-index: 1001; display: flex; gap: 8px; }
+#map-toolbar { position: fixed; top: 10px; right: 10px; z-index: 1001; display: flex; gap: 24px; }
+.map-tool-group { display: flex; gap: 8px; }
+.activity-map-open #map-toolbar { z-index: 6001; }
+.activity-map-open #mine-view,
+.activity-map-open #settings-panel { z-index: 6002; }
 .tool-btn {
   width: 42px; height: 42px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
@@ -690,9 +716,11 @@ body.readonly .done-check:disabled, body.readonly .pop-done-checkbox:disabled { 
 .tool-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .tool-btn[hidden] { display: none; }
 /* Contrôles Leaflet de droite (zoom, localiser, « Voir tous ») : sous la barre d'outils. */
-#map .leaflet-top.leaflet-right { top: 56px; }
+#map .leaflet-top.leaflet-right, .summit-map-canvas .leaflet-top.leaflet-right { top: 56px; }
 
 @media (min-width: 761px) {
+  #map-toolbar { z-index: 2001; }
+  .activity-map-open #map-toolbar { z-index: 6003; }
   /* Contrôles éventuels du côté gauche (échelle) : à droite de la liste, jamais dessous. */
   #map .leaflet-left { left: var(--sidebar-w); }
 }
@@ -708,10 +736,13 @@ body.readonly .done-check:disabled, body.readonly .pop-done-checkbox:disabled { 
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
 }
 #settings-panel[hidden] { display: none; }
-#settings-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #1b3a2c; color: #fff; }
-#settings-header h2 { margin: 0; font-size: 16px; }
-#settings-close { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 6px; }
-#settings-close:hover { background: rgba(255, 255, 255, 0.15); }
+#settings-header, #mine-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: transparent; color: var(--accent); }
+#settings-header h2, #mine-header h2 { margin: 0; font-size: 16px; }
+#settings-close, #mine-close { background: none; border: none; color: var(--accent); font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 6px; }
+#settings-close:hover, #mine-close:hover { background: rgba(27, 58, 44, 0.08); }
+@media (min-width: 761px) {
+  #settings-header, #mine-header { padding-top: 66px; }
+}
 #settings-body { flex: 1; overflow-y: auto; padding: 4px 16px 20px; }
 .settings-section { padding: 14px 0; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px; }
 .settings-section:last-child { border-bottom: none; }
@@ -805,10 +836,6 @@ body.no-space .pop-actions, body.no-space .pop-date-row { display: none !importa
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
 }
 #mine-view[hidden] { display: none; }
-#mine-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #1b3a2c; color: #fff; }
-#mine-header h2 { margin: 0; font-size: 16px; }
-#mine-close { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 6px; }
-#mine-close:hover { background: rgba(255, 255, 255, 0.15); }
 #mine-body { flex: 1; overflow-y: auto; padding: 18px 16px 24px; }
 .mine-top { display: flex; align-items: center; gap: 16px; }
 .mine-ring { width: 128px; height: 128px; flex: none; }
@@ -874,3 +901,109 @@ body.no-space .pop-actions, body.no-space .pop-date-row { display: none !importa
 .mine-peak:hover { background: rgba(27,58,44,.08); }
 .mine-peak-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .mine-peak-detail { flex: none; color: var(--muted); font-size: 12px; }
+
+/* ---- Sélecteur de vues (À pied · Crampons · Ski · Raquettes) : pilule segmentée, avec
+   libellés sur ordinateur, icônes seules sur mobile. ---- */
+#map-view-tools {
+  gap: 2px; padding: 3px; border-radius: 999px; background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+#map-view-tools .tool-btn {
+  width: auto; height: 36px; padding: 0 12px 0 10px; gap: 6px; border: none; box-shadow: none; border-radius: 999px;
+}
+#map-view-tools .tool-btn:not(.active):hover { background: #eef4f0; }
+#map-view-tools .tool-btn svg { width: 20px; height: 20px; }
+.tool-label { font-size: 13px; font-weight: 600; white-space: nowrap; }
+@media (max-width: 760px) {
+  #map-view-tools .tool-btn { width: 38px; padding: 0; }
+  .tool-label { display: none; }
+  /* Toute la largeur pour les boutons ; les touchers entre les deux groupes vont à la carte. */
+  #map-toolbar { left: 10px; justify-content: space-between; gap: 8px; pointer-events: none; }
+  #map-toolbar .map-tool-group { pointer-events: auto; }
+  #map .leaflet-top.leaflet-left { top: 56px; }
+}
+
+/* ---- Vues d'activité : couleur de la vue reprise dans la liste ---- */
+.summit-map-list-count { background: var(--view-color); color: #fff; }
+.summit-map-list { border-top: 3px solid var(--view-color); }
+.summit-map-list .peak-item.is-done { background: rgba(255, 255, 255, 0.9); }
+.summit-map-list .peak-item.is-done .name { color: var(--view-color); }
+
+/* Fiches : altitude · cotation · massif sur une seule ligne, massif tronqué si trop long. */
+.peak-info .meta { flex-wrap: nowrap; }
+.peak-info .meta .badge { flex: none; }
+.peak-info .meta .alt { flex: none; }
+.peak-info .meta .alt::after { content: ' ·'; color: var(--muted); }
+.peak-info .meta .massif { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.summit-map-list .activity-grade { margin: 0; flex: none; display: inline-flex; }
+
+/* Vignettes en vue ski / raquettes : voile froid sur les photos d'été. */
+#ski-view .peak-thumb::after, #snowshoe-view .peak-thumb::after {
+  content: ''; position: absolute; inset: 0; border-radius: 8px; pointer-events: none;
+  background: linear-gradient(160deg, rgba(214, 233, 255, 0.45), rgba(120, 165, 215, 0.3));
+  mix-blend-mode: screen;
+}
+.peak-thumb-badge { z-index: 1; }
+
+@media (min-width: 761px) {
+  .summit-map-canvas .leaflet-left { left: var(--sidebar-w); }
+}
+.summit-map-slopes { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+.summit-map-slopes input { margin: 0; accent-color: var(--accent); }
+
+
+/* ---- Vues d'activité : avertissements, recherche, puces de cotation ---- */
+.summit-map-warning {
+  margin: 0 0 10px; border-radius: 10px; background: rgba(255, 248, 228, 0.95);
+  border: 1px solid #ecd9a4; color: #4a3b12; font-size: 12px; line-height: 1.45;
+}
+.summit-map-warning summary {
+  display: flex; align-items: center; gap: 8px; padding: 7px 10px; cursor: pointer; list-style: none;
+  font-weight: 700; color: #8a4b08;
+}
+.summit-map-warning summary::-webkit-details-marker { display: none; }
+.summit-map-warning summary::after { content: '▾'; margin-left: auto; color: #b07a2a; transition: transform .15s; }
+.summit-map-warning[open] summary::after { transform: rotate(180deg); }
+.summit-map-warning summary svg { width: 17px; height: 17px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.summit-map-warning ul { margin: 0; padding: 0 12px 0 32px; }
+.summit-map-warning li { margin-bottom: 4px; }
+.summit-map-warning li::marker { color: #c58a2e; }
+.summit-map-warning-ok {
+  display: block; margin: 6px 10px 9px auto; padding: 4px 12px; border-radius: 999px; cursor: pointer;
+  font: inherit; font-size: 11.5px; font-weight: 600; color: #8a4b08; background: #fff; border: 1px solid #ecd9a4;
+}
+.summit-map-warning-ok:hover { background: #fff3d6; }
+.summit-map-filters { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.summit-map-search {
+  width: 100%; box-sizing: border-box; padding: 8px 12px; font: inherit; font-size: 13px;
+  border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 10px; background: rgba(255, 255, 255, 0.9);
+}
+.summit-map-search:focus { outline: 2px solid var(--view-color); outline-offset: -1px; }
+.summit-map-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.summit-map-chip {
+  display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; cursor: pointer;
+  font: inherit; font-size: 11.5px; font-weight: 600; color: var(--text);
+  background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.summit-map-chip[aria-pressed="false"] { opacity: .45; text-decoration: line-through; }
+.summit-map-slopes { display: flex; align-items: center; gap: 7px; margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border); cursor: pointer; }
+.summit-map-slopes input { margin: 0; accent-color: var(--accent); }
+@media (max-width: 760px) {
+  /* Légende des vues d'activité : en haut à gauche, sous la barre d'outils (comme la carte à pied). */
+  .summit-map-canvas .leaflet-top.leaflet-left { top: 56px; }
+  .summit-map-canvas .leaflet-control-scale { margin-bottom: 20px !important; }
+}
+
+/* ---- Fiche d'un sommet : bloc itinéraire des vues d'activité ---- */
+.pop-activity {
+  margin: 8px 0; padding: 9px 10px; border-radius: 10px;
+  background: rgba(27, 58, 44, 0.05); border: 1px solid var(--border); font-size: 12.5px; line-height: 1.45;
+}
+.pop-activity-head { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-weight: 600; }
+.pop-activity-head .badge { margin: 0; }
+.pop-activity p { margin: 6px 0 0; color: var(--text); }
+#peak-panel-body .pop-activity-link {
+  display: inline-block; margin-top: 8px; padding: 5px 12px; border-radius: 999px;
+  background: var(--accent); color: #fff; font-weight: 600; text-decoration: none; font-size: 12px;
+}
+#peak-panel-body .pop-activity-link:hover { filter: brightness(1.15); text-decoration: none; }

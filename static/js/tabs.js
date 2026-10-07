@@ -6,15 +6,24 @@ import { setMobileListOpen } from './sidebar.js';
 import { setSettingsOpen } from './settings.js';
 import { setMineOpen } from './mine.js';
 
+// Dans une vue ski / crampons / raquettes, « Carte » et « Liste » pilotent la carte et la liste de cette vue.
+const openActivityView = () => document.querySelector('.summit-map-view:not([hidden])');
+
 function currentTab() {
-  if (document.getElementById('app').classList.contains('mobile-list-open')) return 'list';
+  const activityView = openActivityView();
+  const listOpen = activityView
+    ? activityView.classList.contains('mobile-list-open')
+    : document.getElementById('app').classList.contains('mobile-list-open');
+  if (listOpen) return 'list';
   if (!document.getElementById('mine-view').hidden) return 'mine';
   if (!document.getElementById('settings-panel').hidden) return 'profile';
   return 'map';
 }
 
 function setTab(tab) {
-  setMobileListOpen(tab === 'list');
+  const activityView = openActivityView();
+  activityView?.classList.toggle('mobile-list-open', tab === 'list');
+  setMobileListOpen(!activityView && tab === 'list');
   setMineOpen(tab === 'mine');
   setSettingsOpen(tab === 'profile');
 }
@@ -39,5 +48,8 @@ export function initTabs() {
   observer.observe(document.getElementById('app'), { attributes: true, attributeFilter: ['class'] });
   ['mine-view', 'settings-panel'].forEach(id => {
     observer.observe(document.getElementById(id), { attributes: true, attributeFilter: ['hidden'] });
+  });
+  document.querySelectorAll('.summit-map-view').forEach(view => {
+    observer.observe(view, { attributes: true, attributeFilter: ['hidden', 'class'] });
   });
 }

@@ -1,15 +1,20 @@
 // Sommets ajoutés à la main (visibles uniquement dans l'espace de l'utilisateur) : formulaire,
 // puis marqueur déplaçable sur la carte à valider. Sert à la création comme à la modification.
 import { DIFF_COLORS } from './config.js';
-import { PEAKS, session } from './store.js';
+import { ACTIVITY_PEAKS, PEAKS, session } from './store.js';
 import { apiPost, peakApiBase } from './api.js';
 import { MOUNTAIN_PATH } from './icons.js';
 import { addPeakMarker, map, markers, refreshPeakMarker, syncMarkers, visibleCenter } from './map.js';
 import { openPeakPanel } from './panel.js';
 import { renderList } from './sidebar.js';
+import { getActiveMountainMapView } from './mountain-map-view.js';
 
 let editing = null; // sommet en cours de modification (null : création)
 let placement = null; // { fields, marker }
+let activityView = null;
+const ACTIVITY_LABELS = { crampon: 'crampons + piolet', ski: 'ski', snowshoe: 'raquettes' };
+const HIKING_LABELS = ['T2 · Randonnée montagne', 'T3 · Randonnée exigeante', 'T4 · Randonnée alpine'];
+const ACTIVITY_DIFFICULTIES = ['Modérée', 'Soutenue', 'Très exigeante'];
 
 function placementIcon(color) {
   return L.divIcon({
@@ -50,6 +55,7 @@ function fillForm(p) {
   set('cp-lon', p.lon);
   set('cp-notes', p.notes);
   set('cp-links', (p.links || []).join('\n'));
+  set('cp-activity-grade', p.activity_grade);
 }
 
 function readCoords() {
@@ -61,22 +67,26 @@ function readCoords() {
 }
 
 function startPlacement(fields, coords) {
-  const start = coords || map.getCenter();
+  const targetMap = activityView?.map || map;
+  const start = coords || targetMap.getCenter();
   if (coords) {
-    const zoom = Math.max(map.getZoom(), 13);
-    map.setView(visibleCenter(coords, zoom), zoom);
+    const zoom = Math.max(targetMap.getZoom(), 13);
+    targetMap.setView(activityView ? coords : visibleCenter(coords, zoom), zoom);
   }
   const marker = L.marker(start, {
     icon: placementIcon(DIFF_COLORS[fields.difficulty] || '#555'),
     draggable: true,
     autoPan: true,
     zIndexOffset: 1000
-  }).addTo(map);
-  placement = { fields, marker };
+  }).addTo(targetMap);
+  placement = { fields, marker, map: targetMap };
+  const bar = document.getElementById('placement-bar');
+  targetMap.getContainer().parentElement.append(bar);
+  document.body.classList.toggle('activity-placing', Boolean(activityView));
   document.getElementById('placement-name').textContent = fields.name;
   document.getElementById('placement-status').textContent = '';
   document.getElementById('placement-bar').hidden = false;
-  map.on('click', moveMarkerToClick);
+  targetMap.on('click', moveMarkerToClick);
 }
 
 function moveMarkerToClick(e) {
@@ -85,24 +95,34 @@ function moveMarkerToClick(e) {
 
 function endPlacement() {
   if (!placement) return;
-  map.off('click', moveMarkerToClick);
-  map.removeLayer(placement.marker);
+  placement.map.off('click', moveMarkerToClick);
+  placement.map.removeLayer(placement.marker);
   placement = null;
   editing = null;
   document.getElementById('placement-bar').hidden = true;
+  document.getElementById('map').append(document.getElementById('placement-bar'));
+  document.body.classList.remove('activity-placing');
+  activityView = null;
 }
 
 async function savePeak(body) {
   if (!editing) {
+    const targetView = activityView;
     const peak = await apiPost('/api/peaks', body);
+    if (peak.activity) {
+      ACTIVITY_PEAKS.push(peak);
+      targetView.addPeak(peak);
+      return peak;
+    }
     PEAKS.push(peak);
     addPeakMarker(peak);
     syncMarkers();
     return peak;
   }
   // Même objet conservé (et même id) : liste, marqueur, photos et GPX restent rattachés.
+  const targetView = activityView;
   const peak = Object.assign(editing, await apiPost(peakApiBase(editing), body));
-  refreshPeakMarker(peak);
+  if (peak.activity) targetView.updatePeak(peak); else refreshPeakMarker(peak);
   return peak;
 }
 
@@ -116,7 +136,7 @@ async function confirmPlacement() {
     const peak = await savePeak({ ...placement.fields, lat, lon: lng });
     endPlacement();
     renderList();
-    openPeakPanel(peak, markers.get(peak.id).marker);
+    if (!peak.activity) openPeakPanel(peak, markers.get(peak.id).marker);
   } catch (err) {
     status.textContent = `Échec : ${err.message}`;
   } finally {
@@ -127,12 +147,23 @@ async function confirmPlacement() {
 export function openPeakDialog(peak) {
   if (!session.canEdit || placement) return;
   editing = peak;
+  // Sommet d'une vue d'activité (création dans la vue ouverte, ou modification d'un sommet
+  // ajouté depuis cette vue) : formulaire, placement et marqueur se font dans cette vue.
+  activityView = !peak || peak.activity ? getActiveMountainMapView() : null;
+  if (peak?.activity && activityView?.activity !== peak.activity) return;
   document.getElementById('custom-peak-form').reset();
   if (peak) fillForm(peak);
-  document.getElementById('custom-peak-title').textContent = peak ? 'Modifier le sommet' : 'Ajouter un sommet';
+  const label = activityView ? ` · ${ACTIVITY_LABELS[activityView.activity]}` : '';
+  document.getElementById('custom-peak-title').textContent = `${peak ? 'Modifier le sommet' : 'Ajouter un sommet'}${label}`;
+  const labels = activityView ? ACTIVITY_DIFFICULTIES : HIKING_LABELS;
+  [...document.getElementById('cp-difficulty').options].forEach((option, index) => { option.textContent = labels[index]; });
+  document.getElementById('cp-activity-grade-field').hidden = !activityView;
+  document.getElementById('cp-activity-grade').placeholder = activityView ?
+    { crampon: 'F, PD, AD…', ski: '2.3, 3.1…', snowshoe: 'R1, R2…' }[activityView.activity] : '';
   document.getElementById('cp-status').textContent = '';
   document.getElementById('custom-peak-dialog').hidden = false;
-  document.getElementById('cp-name').focus();
+  const focusTarget = window.matchMedia('(min-width: 761px) and (pointer: fine)').matches ? 'cp-name' : 'custom-peak-form';
+  document.getElementById(focusTarget).focus({ preventScroll: true });
 }
 
 function closeDialog() {
@@ -141,11 +172,20 @@ function closeDialog() {
 }
 
 export function initCustomPeak() {
+  document.addEventListener('mountain-view-change', () => {
+    endPlacement();
+    closeDialog();
+    activityView = null;
+  });
   document.getElementById('custom-peak-open').addEventListener('click', () => openPeakDialog(null));
   document.getElementById('cp-cancel').addEventListener('click', closeDialog);
   document.getElementById('custom-peak-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const fields = readForm();
+    if (activityView) {
+      fields.activity = activityView.activity;
+      fields.activity_grade = document.getElementById('cp-activity-grade').value.trim();
+    }
     const status = document.getElementById('cp-status');
     const coords = readCoords();
     if (typeof coords === 'string') {
@@ -158,7 +198,7 @@ export function initCustomPeak() {
       return;
     }
     const sameName = p => p !== editing && p.name.toLowerCase() === fields.name.toLowerCase();
-    if (PEAKS.some(sameName)) {
+    if ([...PEAKS, ...ACTIVITY_PEAKS].some(sameName)) {
       status.textContent = 'Un sommet porte déjà ce nom.';
       return;
     }
