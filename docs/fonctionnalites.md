@@ -1,7 +1,6 @@
 # Fonctionnalités en détail
 
-[← Retour au README](../README.md)
-
+[← Retour au README](../README.md) · [English](en/features.md)
 
 - **Filtres** (panneau ⚙ Paramètres) : par massif (Alpes/Pyrénées), par cotation (T2, T3, T4)
   et par statut (fait, à faire, envies) ; recherche texte libre (nom, massif) en haut de la liste.
@@ -32,7 +31,7 @@
 - **Appli Android (APK)** : alternative à la PWA qui ne dépend d'aucun
   navigateur, avec écran de connexion (compte du site ; seule la session
   est mémorisée, chiffrée — jamais le mot de passe). Téléchargeable depuis les **Releases** GitHub ; voir
-  [`android/README.md`](android/README.md) pour l'installation et la
+  [`android/README.md`](../android/README.md) pour l'installation et la
   publication d'une nouvelle version.
 - **Suivi "sommet fait"**, **commentaire personnel**, **photos et
   vidéos** (avec visionneuse plein écran et défilement entre médias) et

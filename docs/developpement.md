@@ -1,6 +1,6 @@
 # Développement
 
-[← Retour au README](../README.md)
+[← Retour au README](../README.md) · [English](en/development.md)
 
 ## Organisation du dépôt
 
@@ -22,7 +22,7 @@
 - **`static/mountains.json`** — le catalogue public : nom, altitude,
   coordonnées, massif, région, cotation de difficulté (échelle CAS/SAC),
   notes d'accès, source.
-- **`server/`** — le backend (voir « Architecture » dans le [README](../README.md#-architecture)) : `app.py`
+- **`server/`** — le backend (voir « Architecture » dans le [README](../README.md#architecture)) : `app.py`
   (serveur HTTP, table des routes, démarrage), `auth.py` (comptes,
   sessions), `storage.py` (catalogue et espaces personnels sur disque),
   `files.py` (pages versionnées, GPX, miniatures), `cli.py` (commandes

@@ -11,41 +11,42 @@ courses personnel.**
 [![CI](https://github.com/celtill0s/Altus3k/actions/workflows/ci.yml/badge.svg)](https://github.com/celtill0s/Altus3k/actions/workflows/ci.yml)
 [![Release APK](https://img.shields.io/github/v/release/celtill0s/Altus3k?include_prereleases&label=APK%20Android&color=1b3a2c)](https://github.com/celtill0s/Altus3k/releases)
 ![Python](https://img.shields.io/badge/Python-3.13%2B-3776ab?logo=python&logoColor=white)
+[![Licence AGPL v3](https://img.shields.io/badge/licence-AGPL%20v3-1b3a2c)](LICENSE)
 ![Auto-hébergeable](https://img.shields.io/badge/auto--h%C3%A9bergeable-Docker%20%C2%B7%20Raspberry%20Pi-2496ed?logo=docker&logoColor=white)
 
-[Fonctionnalités](#-fonctionnalités) · [Aperçu](#-aperçu) · [Démarrage rapide](#-démarrage-rapide) · [Auto-hébergement](docs/auto-hebergement.md) · [Appli Android](android/README.md) · [Documentation](#-documentation)
+[English](README.en.md) · [Fonctionnalités](#fonctionnalités) · [Aperçu](#aperçu) · [Démarrage rapide](#démarrage-rapide) · [Auto-hébergement](docs/auto-hebergement.md) · [Appli Android](android/README.md) · [Documentation](#documentation)
 
 <img src="screenshots/01-vue-generale.webp" alt="Vue générale : la liste des sommets avec leur photo à gauche, la carte des Alpes du Sud à droite">
 
 </div>
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
-**🗺️ La carte des 3000**
+**La carte des 3000**
 - 45 sommets triés et cotés T2 à T4 (échelle de randonnée CAS/SAC), chacun avec ses notes
   d'accès, sa source et sa photo.
 - Fonds Plan IGN, photos aériennes IGN ou OpenStreetMap ; calque des pentes > 30°.
 - Recherche, filtres par massif, cotation et statut ; « me localiser » au GPS.
 
-**📒 Ton carnet de courses**
-- Coche un sommet et date ton ascension ; garde une liste d'envies (★).
+**Ton carnet de courses**
+- Coche un sommet et date ton ascension ; garde une liste d'envies.
 - Pour chaque sommet : commentaire, photos et vidéos, trace GPX avec un profil altimétrique
   relié à la carte.
 - **Mes 3000** : ta progression (X/45, par massif), tes dernières ascensions, tes envies.
 - Ajoute tes propres sommets, visibles de toi seul.
 
-**❄️ Hors saison**
+**Hors saison**
 - Trois vues dédiées : **crampons + piolet**, **ski** (35 sommets) et **raquettes**, chacune avec
   ses cotations, ses itinéraires et un lien vers le topo.
 - Pentes > 30° affichées d'office et rappels de sécurité (DVA, BERA).
 
-**📱 Partout**
+**Partout**
 - Sur téléphone : barre d'onglets Carte · Liste · Mes 3000 · Profil.
 - Installable comme une appli (PWA) ou via l'[appli Android](android/README.md), utilisable
   hors ligne pour ce qui a déjà été consulté.
 - Plusieurs comptes sur une même instance, chacun avec son espace privé.
 
-## 📸 Aperçu
+## Aperçu
 
 <table>
   <tr>
@@ -70,7 +71,7 @@ courses personnel.**
   </tr>
 </table>
 
-## ⚠️ Sécurité
+## Sécurité
 
 Altus3k aide à **choisir** une course, pas à **la préparer seul**. Les cotations sont
 indicatives et les itinéraires résumés : avant de partir, consulte un topo complet, la météo et,
@@ -78,7 +79,7 @@ dès qu'il y a de la neige, le **bulletin d'estimation du risque d'avalanche (BE
 Météo-France. Les conditions (enneigement, névés, rocher) changent d'une saison et d'un jour à
 l'autre ; en hiver, DVA, pelle et sonde pour chacun.
 
-## 🚀 Démarrage rapide
+## Démarrage rapide
 
 Juste Python 3, sans Docker ni dépendance :
 
@@ -91,14 +92,14 @@ python3 server/app.py                    # puis ouvre http://localhost:8000
 Les données sont stockées dans `data/` (créé automatiquement, jamais commité). Pour un vrai
 serveur (Docker + Caddy, Raspberry Pi…), voir **[Auto-hébergement](docs/auto-hebergement.md)**.
 
-## 🧭 Architecture
+## Architecture
 
 ```mermaid
 flowchart LR
-    subgraph Navigateur["📱 Navigateur · PWA · appli Android"]
+    subgraph Navigateur["Navigateur · PWA · appli Android"]
         UI["static/ — carte Leaflet,<br>modules ES natifs"]
     end
-    subgraph Serveur["🐍 server/ — Python, bibliothèque standard"]
+    subgraph Serveur["server/ — Python, bibliothèque standard"]
         APP["app.py<br>routes + droits"] --> AUTH["auth.py<br>comptes, sessions"]
         APP --> STORE["storage.py<br>catalogue + espaces"]
         APP --> FILES["files.py<br>GPX, miniatures"]
@@ -120,7 +121,7 @@ flowchart LR
 N'importe qui peut donc cloner ce dépôt pour héberger sa propre instance, avec le même catalogue
 ou le sien, sans jamais récupérer les données personnelles de quelqu'un d'autre.
 
-## 📚 Documentation
+## Documentation
 
 | Page | Contenu |
 |---|---|
@@ -132,7 +133,16 @@ ou le sien, sans jamais récupérer les données personnelles de quelqu'un d'aut
 | [Appli Android](android/README.md) | installation de l'APK, publication d'une version |
 | [Sources et méthode](sources.md) | sélection des sommets, barème de cotation, limites connues |
 
-## 🙏 Crédits
+## Licence
+
+- **Code** (serveur, site, appli Android) : [GNU AGPL v3](LICENSE). Tu peux l'utiliser, le
+  modifier et l'héberger librement ; si tu fais tourner une version modifiée pour d'autres
+  personnes, tu dois leur donner accès à son code source.
+- **Catalogue des sommets** (`static/mountains.json`, `sources.md`) :
+  [CC BY-SA 4.0](LICENSE-catalogue.md), à réutiliser en citant Altus3k.
+- **Photos** : chacune garde sa licence libre d'origine (voir ci-dessous).
+
+## Crédits
 
 - **Fonds de carte** : [IGN – Géoplateforme](https://geoservices.ign.fr/) (Plan IGN, photos
   aériennes, pentes) et [OpenStreetMap](https://www.openstreetmap.org/copyright) et ses contributeurs.

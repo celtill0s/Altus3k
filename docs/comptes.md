@@ -1,7 +1,6 @@
 # Comptes et rôles
 
-[← Retour au README](../README.md)
-
+[← Retour au README](../README.md) · [English](en/accounts.md)
 
 Tout le site est derrière une **page de connexion** (aucun accès sans
 compte). Trois rôles :
