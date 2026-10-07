@@ -27,7 +27,7 @@ dépend d'**aucun navigateur** installé sur le téléphone (Chrome, Brave, Duck
 
 ## Installer sur un téléphone
 
-Page **Releases** du dépôt GitHub → télécharger `altus3k-X.Y.Z.apk` → l'ouvrir sur le
+Page **Releases** du dépôt GitHub → télécharger `altus-X.Y.Z.apk` → l'ouvrir sur le
 téléphone. Android demande d'autoriser l'installation d'applis « de sources inconnues » pour le
 navigateur ou le gestionnaire de fichiers utilisé. Une nouvelle version s'installe par-dessus
 l'ancienne, sans perdre la connexion.

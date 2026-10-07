@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Backend (bibliothèque standard uniquement) pour Altus3k.
+"""Backend (bibliothèque standard uniquement) pour Altus.
 
 Sert le frontend et fusionne, à la volée, le catalogue public (static/mountains.json, versionné
 dans git) avec l'espace personnel de l'utilisateur connecté (data/users/<identifiant>/, JAMAIS
@@ -701,7 +701,7 @@ def main():
         if cli.legacy_data_present():
             print("   Les données existantes (progress.json, photos, gpx) lui seront rattachées.")
     server = ThreadingHTTPServer(("0.0.0.0", port), Handler)
-    print(f"Altus3k backend listening on :{port} (data={storage.DATA_DIR})")
+    print(f"Altus backend listening on :{port} (data={storage.DATA_DIR})")
     server.serve_forever()
 
 

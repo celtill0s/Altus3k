@@ -2,7 +2,7 @@
 
 <img src="static/icons/icon-192.png" width="96" alt="">
 
-# Altus3k
+# Altus
 
 **The 45 summits above 3,000 m in the French Alps and Pyrenees that you can reach on foot —
 no mandatory glacier, no rope, no via ferrata — on one map, with your personal climbing log.**
@@ -77,7 +77,7 @@ no mandatory glacier, no rope, no via ferrata — on one map, with your personal
 
 ## Safety
 
-Altus3k helps you **choose** an outing, not **prepare it on your own**. Grades are indicative and
+Altus helps you **choose** an outing, not **prepare it on your own**. Grades are indicative and
 routes are summarised: before you go, read a full route description, check the weather and,
 whenever there is snow, the Météo-France **avalanche bulletin (BERA)**. Conditions (snow cover,
 snowfields, rock) change from one season, and one day, to the next; in winter, everyone carries
@@ -142,7 +142,7 @@ or their own, without ever getting someone else's personal data.
   it freely; if you run a modified version for other people, you must give them access to its
   source code.
 - **Summit catalogue** (`static/mountains.json`, `sources.md`):
-  [CC BY-SA 4.0](LICENSE-catalogue.md), reusable with attribution to Altus3k.
+  [CC BY-SA 4.0](LICENSE-catalogue.md), reusable with attribution to Altus.
 - **Photos**: each keeps its original free license (see below).
 
 ## Credits

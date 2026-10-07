@@ -39,7 +39,7 @@ function customInfo(peak) {
 // Avertissements repliables : ouverts tant qu'on n'a pas cliqué « J'ai compris » (mémorisé dans
 // le navigateur) ; ensuite, seul le titre reste visible en rappel.
 function warningsElement(activity, warnings) {
-  const key = `altus3k.warningsRead.${activity}`;
+  const key = `altus.warningsRead.${activity}`;
   let read = false;
   try { read = localStorage.getItem(key) === '1'; } catch { /* stockage indisponible */ }
   const details = document.createElement('details');

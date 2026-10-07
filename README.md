@@ -2,7 +2,7 @@
 
 <img src="static/icons/icon-192.png" width="96" alt="">
 
-# Altus3k
+# Altus
 
 **Les 45 sommets de plus de 3000 m des Alpes et des Pyrénées françaises accessibles à pied —
 sans glacier obligatoire, sans corde, sans via ferrata — sur une carte, avec ton carnet de
@@ -73,7 +73,7 @@ courses personnel.**
 
 ## Sécurité
 
-Altus3k aide à **choisir** une course, pas à **la préparer seul**. Les cotations sont
+Altus aide à **choisir** une course, pas à **la préparer seul**. Les cotations sont
 indicatives et les itinéraires résumés : avant de partir, consulte un topo complet, la météo et,
 dès qu'il y a de la neige, le **bulletin d'estimation du risque d'avalanche (BERA)** de
 Météo-France. Les conditions (enneigement, névés, rocher) changent d'une saison et d'un jour à
@@ -139,7 +139,7 @@ ou le sien, sans jamais récupérer les données personnelles de quelqu'un d'aut
   modifier et l'héberger librement ; si tu fais tourner une version modifiée pour d'autres
   personnes, tu dois leur donner accès à son code source.
 - **Catalogue des sommets** (`static/mountains.json`, `sources.md`) :
-  [CC BY-SA 4.0](LICENSE-catalogue.md), à réutiliser en citant Altus3k.
+  [CC BY-SA 4.0](LICENSE-catalogue.md), à réutiliser en citant Altus.
 - **Photos** : chacune garde sa licence libre d'origine (voir ci-dessous).
 
 ## Crédits
