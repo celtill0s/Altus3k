@@ -754,6 +754,8 @@ body.readonly .done-check:disabled, body.readonly .pop-done-checkbox:disabled { 
 .settings-check input { accent-color: var(--accent); width: 15px; height: 15px; margin: 0; }
 .gpx-swatch { display: inline-block; width: 16px; height: 3px; border-radius: 2px; background: #1f5f8b; }
 .settings-about p { margin: 0; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.settings-about .settings-license { font-size: 11.5px; }
+.settings-license a { color: var(--accent); }
 .settings-about strong { color: var(--text); }
 @media (max-width: 760px) {
   #settings-panel { width: 100vw; border-left: none; }

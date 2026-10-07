@@ -1,7 +1,9 @@
 # Modifier le catalogue
 
-[← Retour au README](../README.md)
+[← Retour au README](../README.md) · [English](en/catalogue.md)
 
+Le catalogue est sous licence [CC BY-SA 4.0](../LICENSE-catalogue.md) : toute contribution est
+publiée sous cette licence.
 
 Éditer `static/mountains.json` directement (tableau JSON, un objet par
 sommet). Chaque entrée suit ce schéma :

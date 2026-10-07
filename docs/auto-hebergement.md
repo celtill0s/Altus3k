@@ -1,7 +1,6 @@
 # Auto-hébergement
 
-[← Retour au README](../README.md)
-
+[← Retour au README](../README.md) · [English](en/self-hosting.md)
 
 Le projet fournit un `Dockerfile` + `docker-compose.yml` (appli + Caddy
 en reverse proxy) prêts à l'emploi. Prérequis : Docker et Docker Compose
@@ -109,3 +108,10 @@ Exemple de crontab (tous les jours à 3 h) :
 ⚠️ Les snapshots restent sur le même disque que l'appli : ils protègent
 d'une suppression accidentelle, pas d'une panne matérielle. Copie
 `BACKUP_ROOT` ailleurs pour ça.
+
+## Licence : si tu modifies le code
+
+Le code est sous [GNU AGPL v3](../LICENSE). Si tu héberges une **version modifiée** pour d'autres
+personnes, tu dois leur donner accès à son code source : publie tes modifications (un fork
+GitHub suffit) et fais pointer le lien « code source » du panneau ⚙ Paramètres
+(`static/index.html`, section « À propos ») vers ton dépôt. Sans modification du code, rien à faire.
