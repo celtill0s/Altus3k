@@ -608,6 +608,19 @@ def test_custom_peak_supports_personal_data_and_delete(client, users, isolated_d
     assert pid not in json.loads((user / "progress.json").read_text())
 
 
+@pytest.mark.parametrize("activity", ["crampon", "ski", "snowshoe"])
+def test_custom_peak_activity_is_persisted_and_private(client, users, activity):
+    bob = logged_in(client, "bob")
+    status, peak = add_custom(bob, activity=activity, activity_grade="PD")
+    assert status == 200
+    assert peak["activity"] == activity and peak["activity_grade"] == "PD"
+    assert bob.json("POST", f"/api/peaks/{peak['id']}/done", json_body={"done": True})[0] == 200
+    saved = peak_of(bob, peak["id"])
+    assert saved["activity"] == activity and saved["done"]
+    _, other_peaks = logged_in(client, "carol").json("GET", "/mountains.json")
+    assert all(other["id"] != peak["id"] for other in other_peaks)
+
+
 @pytest.mark.parametrize("overrides", [
     {"name": ""},
     {"name": 123},
@@ -620,6 +633,9 @@ def test_custom_peak_supports_personal_data_and_delete(client, users, isolated_d
     {"links": ["javascript:alert(1)"]},
     {"links": "https://a.b"},
     {"notes": "x" * 5001},
+    {"activity": "unknown"},
+    {"activity": ["ski"]},
+    {"activity": "ski", "activity_grade": "x" * 41},
 ])
 def test_custom_peak_validation(client, users, overrides):
     assert add_custom(logged_in(client, "bob"), **overrides)[0] in (400, 409)

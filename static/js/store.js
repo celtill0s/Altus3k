@@ -2,6 +2,7 @@
 import { DIFFS, REGIONS } from './config.js';
 
 export const PEAKS = [];
+export const ACTIVITY_PEAKS = [];
 
 // Utilisateur connecté et espace affiché (voir main.js) :
 // - me        : {username, role} ;

@@ -57,8 +57,47 @@ export function updateDoneCount() {
   const el = document.getElementById('count');
   const visible = PEAKS.filter(passesBaseFilter);
   const shown = `${visible.length} sommet${visible.length > 1 ? 's' : ''} affiché${visible.length > 1 ? 's' : ''} sur ${PEAKS.length}`;
+  const doneCount = PEAKS.filter(p => doneSet.has(p.id)).length;
   // Invité : pas d'espace personnel, donc pas de « faits ».
-  el.textContent = session.space === null ? shown : `${shown} · ${doneSet.size} fait${doneSet.size > 1 ? 's' : ''} au total`;
+  el.textContent = session.space === null ? shown : `${shown} · ${doneCount} fait${doneCount > 1 ? 's' : ''} au total`;
+}
+
+export function createPeakItem(p, { activity, onSelect } = {}) {
+  const item = document.createElement('div');
+  const st = peakState(p);
+  item.className = `peak-item state-${st}` + (st === 'done' ? ' is-done' : '');
+  const color = DIFF_COLORS[p.difficulty];
+  const extras = [];
+  if (st === 'done') extras.push(p.done_date ? `✓ Fait le ${formatDate(p.done_date)}` : '✓ Fait');
+  if (st === 'wish') extras.push('★ Envie');
+  const photos = (p.photos || []).length;
+  if (photos) extras.push(`${photos} photo${photos > 1 ? 's' : ''}`);
+  if (p.gpx) extras.push('GPX');
+  const badge = { done: '&#10003;', wish: '&#9733;' }[st];
+  item.innerHTML = `
+    <div class="peak-thumb">${badge ? `<span class="peak-thumb-badge ${st}">${badge}</span>` : ''}</div>
+    <div class="peak-info">
+      <div class="row1">
+        <span class="name">${escapeHtml(p.name)}</span>
+        <input type="checkbox" class="done-check" ${st === 'done' ? 'checked' : ''} ${session.canEdit ? '' : 'disabled'} title="Marquer comme fait" aria-label="Marquer ${escapeHtml(p.name)} comme fait" />
+      </div>
+      <div class="meta">
+        <span class="alt">${escapeHtml(p.altitude_m)} m</span>
+        ${activity
+          ? `<span class="activity-grade"><span class="badge" style="background:${escapeHtml(activity.color)}">${escapeHtml(activity.label)}</span></span>`
+          : `<span class="badge" style="background:${color}">${escapeHtml(p.difficulty)}</span>`}
+        <span class="massif">${escapeHtml(p.massif || p.region)}</span>
+      </div>
+      ${extras.length ? `<div class="extras">${escapeHtml(extras.join(' · '))}</div>` : ''}
+    </div>
+  `;
+  lazyBackground(item.querySelector('.peak-thumb'), peakImageStyle(p, 64, 64));
+  item.querySelector('.done-check').addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleDone(p);
+  });
+  item.addEventListener('click', onSelect || (() => showPeak(p)));
+  return item;
 }
 
 export function renderList() {
@@ -75,35 +114,7 @@ export function renderList() {
   updateDoneCount();
 
   filtered.forEach(p => {
-    const item = document.createElement('div');
-    const st = peakState(p);
-    item.className = `peak-item state-${st}` + (st === 'done' ? ' is-done' : '');
-    const color = DIFF_COLORS[p.difficulty];
-    const extras = [];
-    if (st === 'done') extras.push(p.done_date ? `✓ Fait le ${formatDate(p.done_date)}` : '✓ Fait');
-    if (st === 'wish') extras.push('★ Envie');
-    const photos = (p.photos || []).length;
-    if (photos) extras.push(`${photos} photo${photos > 1 ? 's' : ''}`);
-    if (p.gpx) extras.push('GPX');
-    const badge = { done: '&#10003;', wish: '&#9733;' }[st];
-    item.innerHTML = `
-      <div class="peak-thumb">${badge ? `<span class="peak-thumb-badge ${st}">${badge}</span>` : ''}</div>
-      <div class="peak-info">
-        <div class="row1">
-          <span class="name">${escapeHtml(p.name)}</span>
-          <input type="checkbox" class="done-check" ${st === 'done' ? 'checked' : ''} ${session.canEdit ? '' : 'disabled'} title="Marquer comme fait" aria-label="Marquer ${escapeHtml(p.name)} comme fait" />
-        </div>
-        <div class="meta"><span class="alt">${escapeHtml(p.altitude_m)} m</span> &middot; <span class="badge" style="background:${color}">${escapeHtml(p.difficulty)}</span> ${p.massif ? escapeHtml(p.massif) : escapeHtml(p.region)}</div>
-        ${extras.length ? `<div class="extras">${escapeHtml(extras.join(' · '))}</div>` : ''}
-      </div>
-    `;
-    lazyBackground(item.querySelector('.peak-thumb'), peakImageStyle(p, 64, 64));
-    item.querySelector('.done-check').addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleDone(p);
-    });
-    item.addEventListener('click', () => showPeak(p));
-    list.appendChild(item);
+    list.appendChild(createPeakItem(p));
   });
   refreshMine();
 }

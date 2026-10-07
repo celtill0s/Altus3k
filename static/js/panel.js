@@ -1,7 +1,7 @@
 // Panneau flottant de détail d'un sommet (fait, commentaire, médias, GPX).
 import { escapeHtml, formatDate, safeUrl, todayIso } from './util.js';
 import { DIFF_COLORS, DIFF_CRITERIA } from './config.js';
-import { doneSet, session, PEAKS, wishSet } from './store.js';
+import { ACTIVITY_PEAKS, doneSet, session, PEAKS, wishSet } from './store.js';
 import { apiDelete, apiPost, peakApiBase } from './api.js';
 import { map, refreshPeakMarker, removePeakMarker } from './map.js';
 import { bindPhotosRow, photosRowHtml } from './photos.js';
@@ -25,9 +25,32 @@ function autosizeCommentTextarea(el, expanded) {
   return overflowsCollapsed;
 }
 
+// Carte qui accueille le panneau : la carte à pied, ou celle d'une vue crampons / ski / raquettes
+// (le panneau est déplacé dans son conteneur). list : liste qui recouvre la gauche de cette carte.
+// (Renseigné dans initPeakPanel : map.js importe ce module, la carte n'existe pas encore ici.)
+let host = { map: null, list: null, activity: null };
+
+// Bloc « itinéraire » d'une vue d'activité : cotation en badge, voie, remarques, lien vers le topo.
+// info : { grade, color, route, note, url, linkLabel } (voir mountain-map-view.js).
+function activityBlockHtml(info) {
+  const url = safeUrl(info.url);
+  return `<div class="pop-activity">
+    <div class="pop-activity-head">
+      <span class="badge" style="background:${escapeHtml(info.color)}">${escapeHtml(info.grade)}</span>
+      ${info.route ? `<span class="pop-activity-route">${escapeHtml(info.route)}</span>` : ''}
+    </div>
+    ${info.note ? `<p>${escapeHtml(info.note)}</p>` : ''}
+    ${url ? `<a class="pop-activity-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(info.linkLabel || 'Ouvrir le topo')} ↗</a>` : ''}
+  </div>`;
+}
+
 // popupHtml() reste le nom historique, mais son HTML est injecté dans #peak-panel-body
 // (panneau flottant déplaçable) et non plus dans une popup Leaflet.
-function popupHtml(p) {
+function popupHtml(p, activity) {
+  // Dans une vue d'activité, la cotation randonnée (T2/T3/T4) et l'accès à pied laissent la place
+  // au bloc itinéraire ; les notes et liens d'un sommet ajouté à la main restent affichés.
+  const hiking = !activity && !p.activity;
+  const showNotes = hiking || p.custom;
   const color = DIFF_COLORS[p.difficulty] || '#555';
   const checked = doneSet.has(p.id) ? 'checked' : '';
   const name = escapeHtml(p.name);
@@ -44,17 +67,18 @@ function popupHtml(p) {
     ${imageCreditHtml(p)}
     <h3>${name}${p.custom ? ' <span class="pop-custom-tag">ajout perso</span>' : ''}</h3>
     <div class="pop-meta">${escapeHtml(p.altitude_m)} m &middot; ${p.massif ? `${escapeHtml(p.massif)} &middot; ` : ''}${escapeHtml(p.region)} &middot; <a href="https://www.google.com/maps?q=${Number(p.lat)},${Number(p.lon)}" target="_blank" rel="noopener noreferrer">Voir sur Google Maps</a></div>
-    <span class="badge" style="background:${color}">${diff}</span>
+    ${hiking ? `<span class="badge" style="background:${color}">${diff}</span>` : ''}
     <div class="pop-figures">${figuresHtml(p)}</div>
-    <div class="pop-notes">${notes}</div>
-    ${linksHtml}
-    <div class="pop-source">Source : ${source}</div>
-    <button type="button" class="cotation-detail-toggle">Détail de la cotation ${diff}</button>
+    ${activity ? activityBlockHtml(activity) : ''}
+    ${showNotes ? `<div class="pop-notes">${notes}</div>
+    ${linksHtml}` : ''}
+    ${hiking && source ? `<div class="pop-source">Source : ${source}</div>` : ''}
+    ${hiking ? `<button type="button" class="cotation-detail-toggle">Détail de la cotation ${diff}</button>
     <div class="cotation-detail-body">
       <div class="criteria"><strong>Critère général ${diff}</strong> (échelle CAS/SAC) : ${DIFF_CRITERIA[p.difficulty] || ''}</div>
       <div class="why"><strong>Pourquoi ce sommet est coté ${diff}</strong> : ${notes}</div>
       <div class="source-link">Source : ${sourceUrl ? `<a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">${source}</a>` : source}. Voir <code>sources.md</code> dans le dépôt pour la méthodologie complète.</div>
-    </div>
+    </div>` : ''}
     <div class="pop-actions">
       <label class="pop-done-row pop-action ${checked ? 'on' : ''}"><input type="checkbox" class="pop-done-checkbox" ${checked} ${session.canEdit ? '' : 'disabled'}/> Sommet fait</label>
       <button type="button" class="pop-action pop-wish-btn ${wishSet.has(p.id) ? 'on' : ''}" aria-pressed="${wishSet.has(p.id)}" ${session.canEdit ? '' : 'disabled'}>${wishSet.has(p.id) ? '&#9733;' : '&#9734;'} Envie</button>
@@ -120,6 +144,7 @@ function setDone(p, done, date) {
   refreshPeakMarker(p);
   renderList();
   refreshPanelState(p);
+  document.dispatchEvent(new Event('peak-state-change'));
 }
 
 function saveFailed() {
@@ -153,6 +178,7 @@ function setWish(p, wish) {
   refreshPeakMarker(p);
   renderList();
   refreshPanelState(p);
+  document.dispatchEvent(new Event('peak-state-change'));
 }
 
 export function toggleWish(p) {
@@ -249,8 +275,11 @@ async function deleteCustomPeak(p) {
   }
   removePeakMarker(p);
   clearGpxForPeak(p.id);
-  const idx = PEAKS.indexOf(p);
-  if (idx >= 0) PEAKS.splice(idx, 1);
+  [PEAKS, ACTIVITY_PEAKS].forEach(list => {
+    const idx = list.indexOf(p);
+    if (idx >= 0) list.splice(idx, 1);
+  });
+  document.dispatchEvent(new CustomEvent('peak-removed', { detail: p }));
   doneSet.delete(p.id);
   wishSet.delete(p.id);
   closePeakPanel();
@@ -269,8 +298,18 @@ function clampIntoRange(value, size, containerSize, margin, start = 0) {
 // Bord gauche utilisable : sur ordinateur, la liste (verre dépoli) recouvre le côté gauche de la
 // carte, le panneau ne doit pas s'ouvrir ni se déplacer dessous.
 function leftInset() {
-  const sidebar = document.getElementById('sidebar');
-  return !sidebar || window.matchMedia('(max-width: 760px)').matches ? 0 : sidebar.offsetWidth;
+  const list = host.list || document.getElementById('sidebar');
+  return !list || window.matchMedia('(max-width: 760px)').matches ? 0 : list.offsetWidth;
+}
+
+const hostElement = () => host.map.getContainer();
+
+// Bord haut utilisable : la barre d'outils (fixe, en haut) ne doit jamais recouvrir l'en-tête du
+// panneau, sinon impossible de le déplacer ou de le fermer.
+function topInset() {
+  const toolbar = document.getElementById('map-toolbar');
+  if (!toolbar) return 0;
+  return Math.max(0, toolbar.getBoundingClientRect().bottom - hostElement().getBoundingClientRect().top);
 }
 
 // Position du panneau à sa toute première ouverture (ensuite il reste où l'utilisateur l'a
@@ -280,7 +319,7 @@ function leftInset() {
 // - ordinateur : près du marqueur cliqué (au-dessus, légèrement à droite), jamais sous la liste.
 function positionPanel(marker) {
   const panel = document.getElementById('peak-panel');
-  const mapEl = document.getElementById('map');
+  const mapEl = hostElement();
   const margin = 8;
   const inset = leftInset();
   const mapW = mapEl.clientWidth, mapH = mapEl.clientHeight;
@@ -290,12 +329,12 @@ function positionPanel(marker) {
     left = inset + (mapW - inset - w) / 2;
     top = (mapH - h) / 2;
   } else {
-    const pt = map.latLngToContainerPoint(marker.getLatLng());
+    const pt = host.map.latLngToContainerPoint(marker.getLatLng());
     left = pt.x + 18;
     top = pt.y - h - 12;
   }
   panel.style.left = Math.round(clampIntoRange(left, w, mapW, margin, inset)) + 'px';
-  panel.style.top = Math.round(clampIntoRange(top, h, mapH, margin)) + 'px';
+  panel.style.top = Math.round(clampIntoRange(top, h, mapH, margin, topInset())) + 'px';
 }
 
 // Filet de sécurité : si la fenêtre (ou le passage au layout mobile) redimensionne la carte
@@ -303,17 +342,29 @@ function positionPanel(marker) {
 function clampOpenPanelToMap() {
   const panel = document.getElementById('peak-panel');
   if (!panel || panel.hidden) return;
-  const mapEl = document.getElementById('map');
+  const mapEl = hostElement();
   const margin = 8;
   panel.style.left = clampIntoRange(panel.offsetLeft, panel.offsetWidth, mapEl.clientWidth, margin, leftInset()) + 'px';
-  panel.style.top = clampIntoRange(panel.offsetTop, panel.offsetHeight, mapEl.clientHeight, margin) + 'px';
+  panel.style.top = clampIntoRange(panel.offsetTop, panel.offsetHeight, mapEl.clientHeight, margin, topInset()) + 'px';
 }
-export function openPeakPanel(p, marker) {
+/**
+ * Ouvre la fiche d'un sommet. options (vues d'activité) : { map, list, activity } — la carte qui
+ * accueille le panneau, la liste qui recouvre sa gauche, et le bloc itinéraire à afficher.
+ */
+export function openPeakPanel(p, marker, options = {}) {
   const panel = document.getElementById('peak-panel');
   const body = document.getElementById('peak-panel-body');
-  if (activePeakId === p.id && !panel.hidden) return; // déjà affiché : ne pas régénérer (édition en cours)
-  const wasHidden = panel.hidden;
-  body.innerHTML = popupHtml(p);
+  const target = { map: options.map || map, list: options.list || null, activity: options.activity || null };
+  const moved = target.map !== host.map;
+  if (moved) {
+    host.map.off('resize', clampOpenPanelToMap);
+    target.map.getContainer().append(panel);
+    target.map.on('resize', clampOpenPanelToMap);
+  }
+  host = target;
+  if (activePeakId === p.id && !panel.hidden && !moved) return; // déjà affiché : ne pas régénérer (édition en cours)
+  const wasHidden = panel.hidden || moved;
+  body.innerHTML = popupHtml(p, host.activity);
   activePeakId = p.id;
   panel.hidden = false; // avant bindPanelContent : la zone de commentaire mesure sa hauteur
   bindPanelContent(body, p);
@@ -330,8 +381,11 @@ export function initPeakPanel() {
   const panel = document.getElementById('peak-panel');
   const header = document.getElementById('peak-panel-header');
   document.getElementById('peak-panel-close').addEventListener('click', closePeakPanel);
+  host.map = map;
   window.addEventListener('resize', clampOpenPanelToMap);
   map.on('resize', clampOpenPanelToMap);
+  // Changement de vue (à pied ↔ ski…) : la fiche restait dans la carte qu'on quitte.
+  document.addEventListener('mountain-view-change', closePeakPanel);
 
   // Le panneau est un enfant du conteneur Leaflet : sans ceci, tout clic/glisser dedans
   // (en-tête, mais aussi la zone de commentaire, la molette, etc.) remonte à la carte et
@@ -344,7 +398,7 @@ export function initPeakPanel() {
     if (e.target.closest('#peak-panel-close')) return;
     e.stopPropagation();
     e.preventDefault();
-    const mapEl = document.getElementById('map');
+    const mapEl = hostElement();
     drag = {
       pointerId: e.pointerId,
       startX: e.clientX,
@@ -352,7 +406,8 @@ export function initPeakPanel() {
       startLeft: panel.offsetLeft,
       startTop: panel.offsetTop,
       mapW: mapEl.clientWidth,
-      mapH: mapEl.clientHeight
+      mapH: mapEl.clientHeight,
+      minTop: topInset()
     };
     header.classList.add('dragging');
     header.setPointerCapture(e.pointerId);
@@ -364,9 +419,9 @@ export function initPeakPanel() {
     const dy = e.clientY - drag.startY;
     const minLeft = leftInset();
     const maxLeft = Math.max(minLeft, drag.mapW - panel.offsetWidth);
-    const maxTop = Math.max(0, drag.mapH - panel.offsetHeight);
+    const maxTop = Math.max(drag.minTop, drag.mapH - panel.offsetHeight);
     panel.style.left = Math.min(Math.max(minLeft, drag.startLeft + dx), maxLeft) + 'px';
-    panel.style.top = Math.min(Math.max(0, drag.startTop + dy), maxTop) + 'px';
+    panel.style.top = Math.min(Math.max(drag.minTop, drag.startTop + dy), maxTop) + 'px';
   });
   const endDrag = (e) => { drag = null; header.classList.remove('dragging'); if (e) e.stopPropagation(); };
   header.addEventListener('pointerup', endDrag);

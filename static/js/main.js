@@ -1,33 +1,37 @@
 // Point d'entrée : initialisation de l'interface et chargement du catalogue.
-import { PEAKS, doneSet, session, wishSet } from './store.js';
+import { ACTIVITY_PEAKS, PEAKS, doneSet, session, wishSet } from './store.js';
 import { apiGet } from './api.js';
 import { escapeHtml } from './util.js';
 import { initAccount } from './account.js';
 import { initAdmin } from './admin.js';
-import { applyResponsiveControlPositions, buildMarkers, syncMarkers } from './map.js';
+import { buildMarkers, syncMarkers } from './map.js';
 import { initSettings } from './settings.js';
 import { initTabs } from './tabs.js';
 import { initLightbox } from './lightbox.js';
 import { initCramponView } from './crampon.js';
+import { initSkiView } from './ski.js';
+import { initSnowshoeView } from './snowshoe.js';
 import { initCustomPeak } from './custom-peak.js';
-import { initLocateControl } from './locate.js';
 import { initAppBridge } from './app-bridge.js';
 import { initStorageBanner } from './storage.js';
 import { loadAllGpx } from './gpx.js';
 import { initPeakPanel } from './panel.js';
 import { initSidebar, renderChipsAll, renderList } from './sidebar.js';
+import { MOUNTAIN_PATH } from './icons.js';
+
+document.body.append(document.getElementById('map-toolbar'));
+document.getElementById('mountain-view-icon').setAttribute('d', MOUNTAIN_PATH);
 
 initPeakPanel();
 initLightbox();
 initCramponView();
+initSkiView();
+initSnowshoeView();
 initCustomPeak();
 initSidebar();
 initSettings();
 initTabs();
-initLocateControl();
 initAppBridge();
-applyResponsiveControlPositions();
-window.addEventListener('resize', applyResponsiveControlPositions);
 
 // Démarrage : qui est connecté ? puis catalogue + espace affiché. Un admin peut consulter
 // l'espace d'un autre utilisateur via ?space=<identifiant> (lecture seule).
@@ -46,9 +50,10 @@ async function start() {
 
   const query = session.viewingOther ? `?space=${encodeURIComponent(session.space)}` : '';
   const data = await apiGet(`/mountains.json${query}`);
-  PEAKS.push(...data);
-  PEAKS.filter(p => p.done).forEach(p => doneSet.add(p.id));
-  PEAKS.filter(p => p.wish).forEach(p => wishSet.add(p.id));
+  PEAKS.push(...data.filter(p => !p.activity));
+  ACTIVITY_PEAKS.push(...data.filter(p => p.activity));
+  data.filter(p => p.done).forEach(p => doneSet.add(p.id));
+  data.filter(p => p.wish).forEach(p => wishSet.add(p.id));
   buildMarkers();
   renderChipsAll();
   syncMarkers();
