@@ -7,13 +7,12 @@ dépend d'**aucun navigateur** installé sur le téléphone (Chrome, Brave, Duck
 
 - **Écran de connexion** au premier lancement : adresse du serveur (à saisir une fois, puis
   mémorisée ; le même APK fonctionne avec n'importe quelle instance) + identifiant et mot de
-  passe du **compte du site** (voir « Comptes et rôles » dans le README principal). L'appli
+  passe du **compte du site** (voir [Comptes et rôles](../docs/comptes.md)). L'appli
   se connecte au serveur, puis ne garde que le **jeton de session** — jamais le mot de passe —,
   chiffré avec une clé du coffre Android (AndroidKeyStore) et exclu des sauvegardes. Les droits
   sont ceux du compte : un invité ne voit que le catalogue, un membre son propre espace.
 - **Session** : le jeton est confié à la vue web (cookie), qui l'envoie seule avec chaque
-  requête, y compris celles du service worker : le **hors-ligne** fonctionne (voir le README
-  principal). Si la session prend fin (mot de passe changé, compte supprimé, déconnexion depuis
+  requête, y compris celles du service worker : le **hors-ligne** fonctionne (voir [Fonctionnalités en détail](../docs/fonctionnalites.md)). Si la session prend fin (mot de passe changé, compte supprimé, déconnexion depuis
   un autre appareil), l'appli revient d'elle-même à l'écran de connexion, avec une explication.
 - **Fonctions natives** : envoi de photos, vidéos et GPX (sélecteur Android), bouton « me
   localiser » (autorisation GPS demandée au premier appui), enregistrement des traces GPX dans
