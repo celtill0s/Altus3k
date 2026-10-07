@@ -7,7 +7,7 @@ raquettes) et la méthodologie de [`sources.md`](sources.md) — est mis à disp
 (CC BY-SA 4.0)** : <https://creativecommons.org/licenses/by-sa/4.0/deed.fr>.
 
 Tu peux le copier, le modifier et le redistribuer, y compris commercialement, à condition de
-**citer Altus3k** (avec un lien vers <https://github.com/celtill0s/Altus3k>) et de **diffuser tes
+**citer Altus** (avec un lien vers <https://github.com/celtill0s/Altus3k>) et de **diffuser tes
 modifications sous la même licence**.
 
 Ne sont pas couverts par cette licence :

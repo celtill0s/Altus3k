@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "Altus3k — sommets de plus de 3000 m",
-  "short_name": "Altus3k",
+  "name": "Altus — sommets de plus de 3000 m",
+  "short_name": "Altus",
   "description": "Carte des sommets de plus de 3000 m des Alpes et des Pyrénées françaises accessibles à pied, avec suivi personnel (faits, commentaires, photos, traces GPX).",
   "lang": "fr",
   "start_url": "/",

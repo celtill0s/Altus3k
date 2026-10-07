@@ -87,14 +87,14 @@ jobs:
           APK=android/app/build/outputs/apk/release/app-release.apk
           BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
           "$BT/apksigner" verify --print-certs "$APK"
-          cp "$APK" "altus3k-$VERSION_NAME.apk"
+          cp "$APK" "altus-$VERSION_NAME.apk"
 
       - name: Release GitHub
         uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
         with:
-          name: Altus3k ${{ env.VERSION_NAME }}
+          name: Altus ${{ env.VERSION_NAME }}
           prerelease: ${{ env.PRERELEASE == 'true' }}
-          files: altus3k-${{ env.VERSION_NAME }}.apk
+          files: altus-${{ env.VERSION_NAME }}.apk
           generate_release_notes: true
           body: |
-            **Installation sur Android** : télécharger `altus3k-${{ env.VERSION_NAME }}.apk` ci-dessous et l'ouvrir sur le téléphone (autoriser l'installation d'applis de sources inconnues pour le navigateur ou le gestionnaire de fichiers). Une nouvelle version s'installe par-dessus l'ancienne, sans perdre la connexion.
+            **Installation sur Android** : télécharger `altus-${{ env.VERSION_NAME }}.apk` ci-dessous et l'ouvrir sur le téléphone (autoriser l'installation d'applis de sources inconnues pour le navigateur ou le gestionnaire de fichiers). Une nouvelle version s'installe par-dessus l'ancienne, sans perdre la connexion.
