@@ -56,7 +56,7 @@
   d'un bloc itinéraire, et les pentes > 30° affichées par défaut. Données : champs `crampon`,
   `ski` et `snowshoe` du catalogue (voir [Modifier le catalogue](catalogue.md)). On peut y
   ajouter ses propres sommets, rattachés à l'activité.
-- **Mes 3000** : anneau de progression sur les 58 sommets du catalogue, détail par massif,
+- **Mes 3000** : anneau de progression sur les 59 sommets du catalogue, détail par massif,
   dernières ascensions datées et liste d'envies (dépliables, un toucher ouvre le sommet).
 - **Date d'ascension et envies** : cocher « fait » enregistre la date du jour, modifiable dans
   la fiche ; ★ Envie marque les sommets à faire en priorité (marqueur étoile, filtre « Envies »).

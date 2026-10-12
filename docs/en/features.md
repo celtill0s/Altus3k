@@ -45,7 +45,7 @@
   over 30° shown by default. Data: the `crampon`, `ski` and `snowshoe` fields of the catalogue
   (see [Editing the catalogue](catalogue.md)). You can add your own summits there, attached to
   the activity.
-- **Mes 3000** (My 3000s): progress ring over the 58 catalogue summits, breakdown by range, latest
+- **Mes 3000** (My 3000s): progress ring over the 59 catalogue summits, breakdown by range, latest
   dated ascents and wish list (expandable; tapping a summit opens it).
 - **Ascent date and wish list**: ticking "done" records today's date, editable in the card;
   ★ Envie (Wish) flags summits to do first (star marker, « Envies » filter).

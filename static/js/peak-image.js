@@ -59,7 +59,7 @@ export function peakImageStyle(p, width, height, scale = 1) {
 }
 
 // Chargement différé : l'image n'est demandée que lorsque l'élément devient visible (liste d'une
-// soixantaine de sommets sur mobile : pas 58 téléchargements d'un coup).
+// soixantaine de sommets sur mobile : pas 59 téléchargements d'un coup).
 const observer = 'IntersectionObserver' in window
   ? new IntersectionObserver(entries => {
     entries.forEach(entry => {

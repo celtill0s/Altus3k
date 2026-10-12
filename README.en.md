@@ -4,7 +4,7 @@
 
 # Altus
 
-**The 58 summits above 3,000 m in the French Alps and Pyrenees that you can reach on foot —
+**The 59 summits above 3,000 m in the French Alps and Pyrenees that you can reach on foot —
 no mandatory glacier, no rope, no via ferrata — on one map, with your personal climbing log.**
 
 [![CI](https://github.com/celtill0s/Altus3k/actions/workflows/ci.yml/badge.svg)](https://github.com/celtill0s/Altus3k/actions/workflows/ci.yml)
@@ -25,7 +25,7 @@ no mandatory glacier, no rope, no via ferrata — on one map, with your personal
 ## Features
 
 **The map of the 3,000 m peaks**
-- 58 hand-picked summits graded T2 to T4 on the SAC hiking scale, each with access notes, a
+- 59 hand-picked summits graded T2 to T4 on the SAC hiking scale, each with access notes, a
   source and a photo.
 - IGN topographic map, IGN aerial imagery or OpenStreetMap; slopes-over-30° overlay.
 - Search, filters by range, grade and status; live GPS location.
@@ -34,7 +34,7 @@ no mandatory glacier, no rope, no via ferrata — on one map, with your personal
 - Tick a summit off and record the date; keep a wish list.
 - For each summit: a personal note, photos and videos, a GPX track with an elevation profile
   linked to the map.
-- **Mes 3000** ("My 3000s"): your progress (X/58, by mountain range), your latest ascents,
+- **Mes 3000** ("My 3000s"): your progress (X/59, by mountain range), your latest ascents,
   your wish list.
 - Add your own summits, visible only to you.
 

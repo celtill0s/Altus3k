@@ -94,7 +94,7 @@ def test_petit_vignemale_is_t3():
 
 def test_t5_normal_routes_are_excluded():
     # Voie normale en T5 / alpinisme (audit du 2026-10-12) : hors périmètre.
-    assert not {p["id"] for p in CATALOG} & {"la-grande-fache", "pic-du-marbore"}
+    assert "pic-du-marbore" not in {p["id"] for p in CATALOG}
 
 
 def test_roped_ski_routes_are_excluded():

@@ -1412,5 +1412,24 @@
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Pic_de_Maupas.jpg"
     }
+  },
+  {
+    "id": "la-grande-fache",
+    "name": "La Grande Fache",
+    "altitude_m": 3005,
+    "lat": 42.8082,
+    "lon": -0.2379,
+    "massif": "Marcadau",
+    "region": "Pyrénées",
+    "difficulty": "T4",
+    "notes": "À la limite du T5 : réservé aux pieds sûrs. Depuis le Pont d'Espagne, itinéraire cairné ; les derniers ~350 m de dénivelé suivent l'arête N, avec des passages rocheux de niveau II où les mains servent souvent (camptocamp la classe en alpinisme PD-). Pas de glacier ; corde non obligatoire, mais certains en emportent un bout. À faire au sec uniquement.",
+    "source": "topopyrenees.com",
+    "source_url": "https://www.topopyrenees.com/randonnee-la-grande-fache-3005m/",
+    "image": {
+      "url": "img/peaks/la-grande-fache.jpg",
+      "author": "Luap78",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Grande_Fache.jpg"
+    }
   }
 ]

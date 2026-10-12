@@ -316,9 +316,7 @@ sente nord), Mont Ténibre T3 → T4, Grand Pic de Tapou T4 → T3, Pointe de l'
 Mont Pelat T3 → T2, Signal du Petit Mont Cenis T2 → T3. Pic du Mas de la Grave et Turon de Néouvielle restent en T3 (arête aérienne,
 blocs) malgré un T2 sur camptocamp.
 
-**Retirés (voie normale en T5)** :
-- **La Grande Fache** (3005 m) : arête N cotée PD- en alpinisme sur camptocamp (rocher 2,
-  « bout de corde au cas où »), sorties notées T5 ; seule route de randonnée en T5.
+**Retiré (voie normale en T5)** :
 - **Pic du Marboré** (3248 m) : Pas des Isards équipé d'une chaîne ou d'un câble auquel on se
   tient (même motif que le Casque du Marboré), passages II+.
 
@@ -356,4 +354,9 @@ signalées en 2026 sur l'arête), la Pointe de la Saume (écroulement de 2016) e
 Le champ `source` affiché de chaque sommet correspond désormais au site de son lien
 `source_url`.
 
-**58 sommets au total désormais** (45 avant cet audit).
+**La Grande Fache** (3005 m), un temps retirée (arête N cotée PD- en alpinisme sur
+camptocamp, rocher 2, « bout de corde au cas où », sorties notées T5), est conservée en T4 avec
+une note explicite « à la limite du T5, réservé aux pieds sûrs, au sec uniquement » : sans glacier
+ni corde obligatoire, elle se fait couramment en randonnée.
+
+**59 sommets au total désormais** (45 avant cet audit).
