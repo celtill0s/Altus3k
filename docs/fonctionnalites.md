@@ -16,6 +16,13 @@
 - **Apparence** (⚙ Paramètres › Apparence) : Automatique (suit le thème clair/sombre du
   téléphone ou de l'ordinateur), Clair ou Sombre ; en sombre, les fonds de carte sont légèrement
   assombris. Le choix est mémorisé par le navigateur.
+- **Rotation de la carte** : à deux doigts sur téléphone, comme Google Maps (Maj + molette sur
+  ordinateur). La **boussole** (au-dessus des boutons de zoom) montre le nord ; un appui remet le
+  nord en haut. Valable aussi dans les vues crampons, ski et raquettes.
+- **Vue 3D** (bouton « Vue 3D » de la fiche d'un sommet) : le relief autour du sommet, incliné,
+  en photos aériennes ou Plan IGN, avec la trace GPX si elle est chargée. On le fait tourner et
+  pencher à deux doigts (clic droit + glisser sur ordinateur). MapLibre GL n'est téléchargé qu'à
+  la première ouverture ; il faut un navigateur avec WebGL et du réseau.
 - **Échelle** métrique en bas de la carte.
 - **Voir tous / Regrouper** (bouton œil) : affiche chaque sommet à sa vraie position au lieu de
   les regrouper par secteur.

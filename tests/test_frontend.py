@@ -20,7 +20,7 @@ expect = sync_api.expect
 
 PASSWORD = "motdepasse-1234"
 CATALOG = json.loads((storage.STATIC_DIR / "mountains.json").read_text(encoding="utf-8"))
-TILES = re.compile(r"^https://(tile\.openstreetmap\.org|data\.geopf\.fr)/")
+TILES = re.compile(r"^https://(tile\.openstreetmap\.org|data\.geopf\.fr|s3\.amazonaws\.com)/")
 
 
 @pytest.fixture
@@ -335,6 +335,35 @@ def test_theme_setting_switches_and_persists(open_page):
     page.check('#theme-options input[value="auto"]')
     assert page.evaluate(root_theme) == "auto"
     assert page.evaluate("localStorage.getItem('altus.theme')") is None
+
+
+def test_compass_rotates_and_resets_north(open_page):
+    page = open_page("bob")
+    map_module = "document.querySelector('script[type=module]').src.replace(/main\\.js.*$/, 'map.js')"
+    bearing = f"async () => (await import({map_module})).map.getBearing()"
+    compass = page.locator("#map .compass-control a")
+    expect(compass).not_to_have_class(re.compile("active"))
+    page.evaluate(f"async () => (await import({map_module})).map.setBearing(60)")
+    assert round(page.evaluate(bearing)) == 60
+    expect(compass).to_have_class(re.compile("active"))
+    assert "rotate(60deg)" in compass.locator("svg").get_attribute("style")
+    compass.click()
+    assert page.evaluate(bearing) == 0
+    page.click("#ski-view-open")
+    expect(page.locator("#ski-map .compass-control a")).to_be_visible()
+
+
+def test_3d_view_opens_and_closes(open_page):
+    page = open_page("bob")
+    open_peak(page, "Ouille Noire")
+    page.click("#peak-panel .pop-3d-btn")
+    view = page.locator("#view-3d")
+    expect(view).to_be_visible()
+    expect(view.locator("h2")).to_contain_text("Ouille Noire")
+    # MapLibre chargé à la demande ; sans WebGL (navigateur de test), message au lieu d'une erreur.
+    expect(view.locator("canvas.maplibregl-canvas, .view-3d-status")).to_have_count(1, timeout=15000)
+    page.keyboard.press("Escape")
+    expect(view).to_have_count(0)
 
 
 def test_legend_collapsed_by_default(open_page):

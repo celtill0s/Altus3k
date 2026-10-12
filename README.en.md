@@ -157,6 +157,9 @@ or their own, without ever getting someone else's personal data.
 - **Grades and routes**: [camptocamp.org](https://www.camptocamp.org/),
   [skitour.fr](https://skitour.fr/), [altituderando.com](https://www.altituderando.com/) and the
   other sources cited for each summit (see [`sources.md`](sources.md)).
-- **Libraries**: [Leaflet](https://leafletjs.com/) and
-  [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster), bundled with their
-  licenses in `static/vendor/`.
+- **Libraries**: [Leaflet](https://leafletjs.com/),
+  [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster) and
+  [leaflet-rotate](https://github.com/Raruto/leaflet-rotate) (map rotation, GPL-3.0) and
+  [MapLibre GL JS](https://maplibre.org/) (3D view, BSD-3-Clause), bundled with their licenses in
+  `static/vendor/`. 3D terrain: [Terrain Tiles](https://registry.opendata.aws/terrain-tiles/)
+  (Mapzen, AWS Open Data).

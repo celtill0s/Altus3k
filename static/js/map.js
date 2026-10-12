@@ -2,10 +2,10 @@
 import { DIFF_COLORS, DIFF_LABELS, DIFFS } from './config.js';
 import { PEAKS, passesBaseFilter, peakState } from './store.js';
 import { MOUNTAIN_PATH, makeIcon } from './icons.js';
-import { createCollapsibleLegend, createLocateControl, createMarkerLayers, createSeparateAllControl, placeControls } from './map-controls.js';
+import { ROTATE_OPTIONS, createCollapsibleLegend, createCompassControl, createLocateControl, createMarkerLayers, createSeparateAllControl, placeControls } from './map-controls.js';
 import { openPeakPanel } from './panel.js';
 
-export const map = L.map('map', { zoomControl: true });
+export const map = L.map('map', { zoomControl: true, ...ROTATE_OPTIONS });
 
 // Sur ordinateur, la liste (verre dépoli) recouvre la gauche de la carte : la zone vraiment
 // visible est décalée vers la droite d'une demi-largeur de liste. Les recentrages en tiennent
@@ -18,7 +18,10 @@ function hiddenLeftWidth(list) {
 export function visibleCenter(latlng, zoom, targetMap = map, list = document.getElementById('sidebar')) {
   const shift = hiddenLeftWidth(list) / 2;
   if (!shift) return L.latLng(latlng);
-  return targetMap.unproject(targetMap.project(latlng, zoom).subtract([shift, 0]), zoom);
+  // Carte tournée (boussole) : le décalage « vers la gauche de l'écran » est tourné d'autant.
+  const bearing = (targetMap.getBearing ? targetMap.getBearing() : 0) * Math.PI / 180;
+  const offset = L.point(shift * Math.cos(bearing), -shift * Math.sin(bearing));
+  return targetMap.unproject(targetMap.project(latlng, zoom).subtract(offset), zoom);
 }
 
 export function flyToVisible(latlng, zoom, options) {
@@ -215,4 +218,5 @@ legend.addTo(map);
 const separateAllControl = createSeparateAllControl(peakLayers).addTo(map);
 const locateControl = 'geolocation' in navigator ? createLocateControl(map).addTo(map) : null;
 if (locateControl) locateControl.visibleCenter = (latlng, zoom) => visibleCenter(latlng, zoom);
-placeControls(map, { zoom: map.zoomControl, eye: separateAllControl, locate: locateControl, legend });
+const compassControl = createCompassControl(map).addTo(map);
+placeControls(map, { zoom: map.zoomControl, eye: separateAllControl, locate: locateControl, compass: compassControl, legend });

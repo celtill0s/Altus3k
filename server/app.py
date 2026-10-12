@@ -71,18 +71,19 @@ SESSION_COOKIE_ATTRS = f"Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age={auth.S
 CSRF_HEADER = "X-Requested-With"
 CSRF_VALUE = "SommetsApp"
 
-# Tout est servi depuis la même origine (Leaflet est vendorisé dans static/vendor/) : seules
-# les tuiles de carte (OpenStreetMap, IGN Géoplateforme) viennent d'ailleurs. 'unsafe-inline'
+# Tout est servi depuis la même origine (Leaflet et MapLibre sont vendorisés dans static/vendor/) :
+# seules les tuiles viennent d'ailleurs (OpenStreetMap, IGN Géoplateforme, et pour la vue 3D le
+# relief « Terrarium » d'AWS Open Data, chargé par fetch depuis le worker de MapLibre). 'unsafe-inline'
 # pour les styles uniquement (attributs style="" générés par le frontend), jamais pour les scripts.
 CONTENT_SECURITY_POLICY = "; ".join([
     "default-src 'self'",
     "script-src 'self'",
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob: https://tile.openstreetmap.org https://data.geopf.fr",
+    "img-src 'self' data: blob: https://tile.openstreetmap.org https://data.geopf.fr https://s3.amazonaws.com",
     "media-src 'self' blob:",
     # Tuiles aussi en connect-src : le service worker (PWA) les récupère via fetch() pour les
     # garder en cache hors-ligne.
-    "connect-src 'self' https://tile.openstreetmap.org https://data.geopf.fr",
+    "connect-src 'self' https://tile.openstreetmap.org https://data.geopf.fr https://s3.amazonaws.com",
     "worker-src 'self'",
     "manifest-src 'self'",
     "object-src 'none'",

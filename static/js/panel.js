@@ -9,6 +9,7 @@ import { bindGpxRow, clearGpxForPeak, gpxRowHtml, gpxStats, hideOnMap } from './
 import { catalogImage, peakImageStyle } from './peak-image.js';
 import { renderList } from './sidebar.js';
 import { openPeakDialog } from './custom-peak.js';
+import { open3dView } from './view3d.js';
 
 // Zone de commentaire : hauteur qui suit le contenu (dans la limite COMMENT_EXPANDED_MAX),
 // repliée à COMMENT_COLLAPSED_MAX avec un "Voir plus" tant que le texte n'a pas été déplié.
@@ -68,6 +69,7 @@ function popupHtml(p, activity) {
     <h3>${name}${p.custom ? ' <span class="pop-custom-tag">ajout perso</span>' : ''}</h3>
     <div class="pop-meta">${escapeHtml(p.altitude_m)} m &middot; ${p.massif ? `${escapeHtml(p.massif)} &middot; ` : ''}${escapeHtml(p.region)} &middot; <a href="https://www.google.com/maps?q=${Number(p.lat)},${Number(p.lon)}" target="_blank" rel="noopener noreferrer">Voir sur Google Maps</a></div>
     ${hiking ? `<span class="badge" style="background:${color}">${diff}</span>` : ''}
+    ${hasCoords(p) ? '<button type="button" class="pop-3d-btn" title="Relief en 3D autour du sommet">&#9968; Vue 3D</button>' : ''}
     <div class="pop-figures">${figuresHtml(p)}</div>
     ${activity ? activityBlockHtml(activity) : ''}
     ${showNotes ? `<div class="pop-notes">${notes}</div>
@@ -111,6 +113,9 @@ function imageCreditHtml(p) {
 }
 
 // Rangée de chiffres sous le titre : altitude, D+ et distance (si trace GPX), date d'ascension.
+// Les sommets ajoutés à la main peuvent ne pas avoir de coordonnées : pas de vue 3D alors.
+const hasCoords = (p) => Number.isFinite(Number(p.lat)) && Number.isFinite(Number(p.lon)) && p.lat !== null && p.lon !== null;
+
 function figuresHtml(p) {
   const figs = [[`${p.altitude_m} m`, 'altitude']];
   const g = gpxStats(p.id);
@@ -207,6 +212,7 @@ function bindPanelContent(root, p) {
   const doneEl = root.querySelector('.pop-done-checkbox');
   if (doneEl) doneEl.addEventListener('change', () => toggleDone(p));
   root.querySelector('.pop-wish-btn').addEventListener('click', () => toggleWish(p));
+  root.querySelector('.pop-3d-btn')?.addEventListener('click', () => open3dView(p));
   root.querySelector('.pop-done-date').addEventListener('change', (e) => changeDoneDate(p, e.target.value));
   const toggleBtn = root.querySelector('.cotation-detail-toggle');
   const toggleBody = root.querySelector('.cotation-detail-body');

@@ -1,9 +1,16 @@
 // Briques communes à toutes les cartes (carte à pied, vues crampons / ski / raquettes) :
-// marqueurs regroupés ou séparés (bouton œil), « me localiser », légende repliable, et placement
-// des contrôles selon l'écran.
+// marqueurs regroupés ou séparés (bouton œil), « me localiser », boussole (rotation de la carte),
+// légende repliable, et placement des contrôles selon l'écran.
 import { clusterIcon } from './icons.js';
 
 const isMobile = () => window.matchMedia('(max-width: 760px)').matches;
+
+// Options de L.map pour la rotation (vendor/leaflet-rotate) : à deux doigts sur téléphone (comme
+// Google Maps), Maj + molette sur ordinateur. Pas de rotation automatique selon la boussole du
+// téléphone ; le contrôle d'origine est remplacé par createCompassControl().
+export const ROTATE_OPTIONS = {
+  rotate: true, bearing: 0, touchRotate: true, shiftKeyRotate: true, compassBearing: false, rotateControl: false
+};
 
 // Groupe de clustering : au dézoom, les sommets proches se regroupent sous un seul logo montagne
 // avec le nombre de sommets du secteur ; au zoom, ils se séparent en marqueurs individuels.
@@ -163,6 +170,29 @@ export function createLocateControl(map) {
   return control;
 }
 
+// Boussole : l'aiguille rouge montre le nord quand la carte est tournée ; un appui remet le nord
+// en haut.
+export function createCompassControl(map) {
+  const control = controlButton('compass-control', () => map.setBearing(0));
+  const update = () => {
+    const btn = control.button;
+    if (!btn || !map.getBearing) return;
+    const bearing = map.getBearing();
+    const rotated = Math.abs(((bearing + 180) % 360) - 180) > 0.5;
+    btn.querySelector('svg').style.transform = `rotate(${bearing}deg)`;
+    btn.classList.toggle('active', rotated);
+    btn.title = rotated ? 'Remettre le nord en haut' : 'Nord en haut (tourne la carte à deux doigts, ou Maj + molette)';
+    btn.setAttribute('aria-label', btn.title);
+  };
+  control.onButton = (btn) => {
+    btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="compass-north" d="M12 2.5 15.5 12h-7z"/>'
+      + '<path class="compass-south" d="M12 21.5 8.5 12h7z"/><circle cx="12" cy="12" r="1.6"/></svg>';
+    update();
+  };
+  map.on('rotate', update);
+  return control;
+}
+
 // Légende repliable : un titre (« Cotation randonnée ▾ ») qui déplie le détail au clic.
 export function createCollapsibleLegend({ title, bodyHtml, open = false, id = '', onBody }) {
   const control = L.control({ position: 'bottomright' });
@@ -197,12 +227,12 @@ export function createCollapsibleLegend({ title, bodyHtml, open = false, id = ''
  * - mobile : zoom, œil et localisation en colonne en bas à gauche (à portée de pouce), légende en
  *   haut à gauche sous la barre d'outils.
  */
-export function placeControls(map, { zoom, eye, locate, legend }) {
+export function placeControls(map, { zoom, eye, locate, compass, legend }) {
   const apply = () => {
     const mobile = isMobile();
-    // Ordre d'appel : en haut à droite, chaque contrôle s'ajoute dessous (localiser, zoom, œil) ;
-    // en bas à gauche, chacun s'ajoute au-dessus (zoom, œil, localiser de haut en bas).
-    const order = mobile ? [locate, eye, zoom] : [locate, zoom, eye];
+    // Ordre d'appel : en haut à droite, chaque contrôle s'ajoute dessous (boussole, localiser, zoom,
+    // œil) ; en bas à gauche, chacun s'ajoute au-dessus (boussole, zoom, œil, localiser de haut en bas).
+    const order = mobile ? [locate, eye, zoom, compass] : [compass, locate, zoom, eye];
     order.forEach(control => control?.setPosition(mobile ? 'bottomleft' : 'topright'));
     legend?.setPosition(mobile ? 'topleft' : 'bottomright');
   };

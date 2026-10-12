@@ -153,6 +153,9 @@ ou le sien, sans jamais récupérer les données personnelles de quelqu'un d'aut
 - **Cotations et itinéraires** : [camptocamp.org](https://www.camptocamp.org/),
   [skitour.fr](https://skitour.fr/), [altituderando.com](https://www.altituderando.com/) et les
   autres sources citées pour chaque sommet (voir [`sources.md`](sources.md)).
-- **Bibliothèques** : [Leaflet](https://leafletjs.com/) et
-  [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster), embarquées avec leur
-  licence dans `static/vendor/`.
+- **Bibliothèques** : [Leaflet](https://leafletjs.com/),
+  [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster) et
+  [leaflet-rotate](https://github.com/Raruto/leaflet-rotate) (rotation de la carte, GPL-3.0) et
+  [MapLibre GL JS](https://maplibre.org/) (vue 3D, BSD-3-Clause), embarquées avec leur licence
+  dans `static/vendor/`. Relief de la vue 3D :
+  [Terrain Tiles](https://registry.opendata.aws/terrain-tiles/) (Mapzen, AWS Open Data).

@@ -3,7 +3,7 @@
 // carte à pied et la même fiche de sommet, complétée d'un bloc « itinéraire ».
 import { escapeHtml } from './util.js';
 import { createBaseLayer, createSlopesLayer, map as baseMap, onBaseLayerChange, visibleCenter } from './map.js';
-import { createCollapsibleLegend, createLocateControl, createMarkerLayers, createSeparateAllControl, placeControls } from './map-controls.js';
+import { ROTATE_OPTIONS, createCollapsibleLegend, createCompassControl, createLocateControl, createMarkerLayers, createSeparateAllControl, placeControls } from './map-controls.js';
 import { makeIcon } from './icons.js';
 import { createPeakItem } from './sidebar.js';
 import { ACTIVITY_PEAKS, peakState } from './store.js';
@@ -168,7 +168,7 @@ export function initMountainMapView({ viewId, mapId, listId, openButtonId, getPe
   }
 
   function createMap() {
-    map = L.map(mapId, { zoomControl: false, scrollWheelZoom: true });
+    map = L.map(mapId, { zoomControl: false, scrollWheelZoom: true, ...ROTATE_OPTIONS });
     let baseLayer = createBaseLayer().addTo(map);
     onBaseLayerChange(name => {
       map.removeLayer(baseLayer);
@@ -192,7 +192,8 @@ export function initMountainMapView({ viewId, mapId, listId, openButtonId, getPe
     const eye = createSeparateAllControl(layers).addTo(map);
     const locate = 'geolocation' in navigator ? createLocateControl(map).addTo(map) : null;
     if (locate) locate.visibleCenter = (latlng, z) => visibleCenter(latlng, z, map, list);
-    placeControls(map, { zoom, eye, locate, legend: legendControl });
+    const compass = createCompassControl(map).addTo(map);
+    placeControls(map, { zoom, eye, locate, compass, legend: legendControl });
     buildListHeader();
     peaksForView().forEach(peak => addPeak(peak, false));
     renderItems();

@@ -60,9 +60,10 @@
       carnet ; l'administrateur du site peut le consulter pour gérer les comptes.</p>
     <p>Pour afficher la carte, ton navigateur télécharge les fonds de carte directement auprès de
       l'<a href="https://geoservices.ign.fr/" target="_blank" rel="noopener noreferrer">IGN (Géoplateforme)</a>
-      et d'<a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> :
-      ces services reçoivent ton adresse IP et la zone de carte affichée, comme pour tout site
-      cartographique. Les liens externes (topos, Google Maps…) ne sont suivis que si tu cliques
+      et d'<a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>,
+      et pour la vue 3D le relief auprès d'<a href="https://aws.amazon.com/privacy/" target="_blank" rel="noopener noreferrer">Amazon Web Services</a>
+      (Terrain Tiles, données ouvertes) : ces services reçoivent ton adresse IP et la zone de carte
+      affichée, comme pour tout site cartographique. Les liens externes (topos, Google Maps…) ne sont suivis que si tu cliques
       dessus.</p>
     <!--LEGAL_PROCESSORS-->
 
@@ -135,7 +136,10 @@
         <a href="https://www.altituderando.com/" target="_blank" rel="noopener noreferrer">altituderando.com</a>
         et les autres sources citées pour chaque sommet.</li>
       <li><strong>Bibliothèques</strong> : <a href="https://leafletjs.com/" target="_blank" rel="noopener noreferrer">Leaflet</a>
-        (licence BSD-2-Clause) et Leaflet.markercluster (licence MIT).</li>
+        (licence BSD-2-Clause), Leaflet.markercluster (licence MIT) et
+        <a href="https://github.com/Raruto/leaflet-rotate" target="_blank" rel="noopener noreferrer">leaflet-rotate</a> (licence GPL-3.0) ;
+        vue 3D : <a href="https://maplibre.org/" target="_blank" rel="noopener noreferrer">MapLibre GL JS</a> (licence BSD-3-Clause)
+        et relief <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener noreferrer">Terrain Tiles</a> (Mapzen, AWS Open Data).</li>
     </ul>
   </section>
 </main>
