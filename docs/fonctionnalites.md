@@ -17,12 +17,16 @@
   téléphone ou de l'ordinateur), Clair ou Sombre ; en sombre, les fonds de carte sont légèrement
   assombris. Le choix est mémorisé par le navigateur.
 - **Rotation de la carte** : à deux doigts sur téléphone, comme Google Maps (Maj + molette sur
-  ordinateur). La **boussole** (au-dessus des boutons de zoom) montre le nord ; un appui remet le
+  ordinateur). Zoom et rotation sont séparés : un pincement ne fait que zoomer ; la carte ne
+  tourne que si les doigts tournent nettement (20°), et reste alors en mode « tourner » jusqu'à ce
+  qu'on les lève. La **boussole** (au-dessus des boutons de zoom) montre le nord ; un appui remet le
   nord en haut. Valable aussi dans les vues crampons, ski et raquettes.
 - **Vue 3D** (bouton « Vue 3D » de la fiche d'un sommet) : le relief autour du sommet, incliné,
   en photos aériennes ou Plan IGN, avec la trace GPX si elle est chargée. On le fait tourner et
   pencher à deux doigts (clic droit + glisser sur ordinateur). MapLibre GL n'est téléchargé qu'à
   la première ouverture ; il faut un navigateur avec WebGL et du réseau.
+- **Mise à jour** : quand une nouvelle version du site est déployée, une page restée ouverte
+  (onglet, appli) affiche « Nouvelle version d'Altus disponible — Recharger ».
 - **Échelle** métrique en bas de la carte.
 - **Voir tous / Regrouper** (bouton œil) : affiche chaque sommet à sa vraie position au lieu de
   les regrouper par secteur.

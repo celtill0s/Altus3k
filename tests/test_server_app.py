@@ -959,6 +959,12 @@ def test_session_cookie_is_renewed_with_the_session(client, users, monkeypatch):
 # Site : en-têtes, cache, pages versionnées
 # ---------------------------------------------------------------------------
 
+def test_healthz_gives_asset_version(client, users):
+    status, _, body = client().get("/healthz")
+    data = json.loads(body)
+    assert status == 200 and data["ok"] is True and re.fullmatch(r"[0-9a-f]{12}", data["version"])
+
+
 def test_security_headers(client, users):
     _, headers, _ = client().get("/healthz")
     assert headers["X-Content-Type-Options"] == "nosniff"

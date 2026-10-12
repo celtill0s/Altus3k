@@ -1234,3 +1234,14 @@ body.no-space .pop-actions, body.no-space .pop-date-row { display: none !importa
 @media (max-width: 760px) {
   .view-3d-bar h2 span { display: none; }
 }
+
+/* Nouvelle version du site (js/update-check.js) */
+#update-banner {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + var(--tabbar-h, 0px)); z-index: 8000;
+  display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; border-radius: 999px;
+  background: var(--brand-bg); color: #fff; font-size: 13px; font-weight: 600; box-shadow: 0 6px 20px rgba(0,0,0,.3);
+  max-width: calc(100vw - 24px); box-sizing: border-box;
+}
+#update-banner button {
+  font: inherit; padding: 5px 12px; border: none; border-radius: 999px; background: #fff; color: #1b3a2c; cursor: pointer;
+}

@@ -13,6 +13,7 @@ import { initSkiView } from './ski.js';
 import { initSnowshoeView } from './snowshoe.js';
 import { initCustomPeak } from './custom-peak.js';
 import { initAppBridge } from './app-bridge.js';
+import { initUpdateCheck } from './update-check.js';
 import { initStorageBanner } from './storage.js';
 import { loadAllGpx } from './gpx.js';
 import { initPeakPanel } from './panel.js';
@@ -32,6 +33,7 @@ initSidebar();
 initSettings();
 initTabs();
 initAppBridge();
+initUpdateCheck();
 
 // Démarrage : qui est connecté ? puis catalogue + espace affiché. Un admin peut consulter
 // l'espace d'un autre utilisateur via ?space=<identifiant> (lecture seule).

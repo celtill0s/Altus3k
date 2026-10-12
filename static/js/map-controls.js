@@ -5,6 +5,63 @@ import { clusterIcon } from './icons.js';
 
 const isMobile = () => window.matchMedia('(max-width: 760px)').matches;
 
+// Deux doigts : zoom OU rotation, jamais les deux. Le premier mouvement net décide pour tout le
+// geste : écart des doigts qui change (≥ ZOOM_THRESHOLD) → zoom seul, la carte ne tourne pas ;
+// doigts qui tournent (≥ ROTATE_THRESHOLD_DEG) → mode « tourner », sans zoom, jusqu'à ce qu'on lève
+// les doigts. Corrige aussi leaflet-rotate, qui restait bloqué après deux doigts posés sans bouger.
+const ROTATE_THRESHOLD_DEG = 20;
+const ZOOM_THRESHOLD = 0.06; // 6 % d'écart entre les doigts
+const touchGeometry = (map, e) => {
+  const a = map.mouseEventToContainerPoint(e.touches[0]);
+  const b = map.mouseEventToContainerPoint(e.touches[1]);
+  const v = a.subtract(b);
+  return { deg: Math.atan2(v.y, v.x) * 180 / Math.PI, dist: a.distanceTo(b) };
+};
+const gestures = L.Map.TouchGestures?.prototype;
+if (gestures) {
+  const { _onTouchStart: start, _onTouchMove: move, _onTouchEnd: end } = gestures;
+  gestures._onTouchStart = function (e) {
+    start.call(this, e);
+    if (this._zooming || this._rotating) {
+      this._mode = null;
+      this._start = touchGeometry(this._map, e);
+    }
+  };
+  gestures._onTouchMove = function (e) {
+    if (!(this._zooming || this._rotating) || e.touches?.length !== 2) return;
+    const now = touchGeometry(this._map, e);
+    const turned = ((now.deg - this._start.deg + 540) % 360) - 180;
+    if (!this._mode) {
+      if (this.rotate && Math.abs(turned) >= ROTATE_THRESHOLD_DEG) {
+        this._mode = 'rotate';
+        this._start = now; // pas de saut : la rotation part de la position actuelle des doigts
+        this._startBearing = this._map.getBearing();
+      } else if (Math.abs(now.dist / this._start.dist - 1) >= ZOOM_THRESHOLD) {
+        this._mode = 'zoom';
+      } else {
+        L.DomEvent.preventDefault(e);
+        return; // pas encore décidé
+      }
+    }
+    if (this._mode === 'rotate') {
+      this._map.setBearing(this._startBearing + turned);
+      L.DomEvent.preventDefault(e);
+      return;
+    }
+    const rotating = this._rotating;
+    this._rotating = false; // zoom (et déplacement) seul
+    move.call(this, e);
+    this._rotating = rotating;
+  };
+  gestures._onTouchEnd = function (e) {
+    end.call(this, e);
+    this._rotating = false;
+    this._zooming = false;
+    this._mode = null;
+    L.DomEvent.off(document, 'touchmove', this._onTouchMove, this).off(document, 'touchend touchcancel', this._onTouchEnd, this);
+  };
+}
+
 // Options de L.map pour la rotation (vendor/leaflet-rotate) : à deux doigts sur téléphone (comme
 // Google Maps), Maj + molette sur ordinateur. Pas de rotation automatique selon la boussole du
 // téléphone ; le contrôle d'origine est remplacé par createCompassControl().

@@ -378,7 +378,9 @@ class Handler(BaseHTTPRequestHandler):
 
     # ---- routes publiques ----
     def r_healthz(self):
-        self._json(200, {"ok": True})
+        # version : empreinte des fichiers du site, comparée par les pages ouvertes
+        # (js/update-check.js) pour proposer de recharger après une mise à jour.
+        self._json(200, {"ok": True, "version": files.asset_version()})
 
     def r_login_page(self):
         if self.principal:

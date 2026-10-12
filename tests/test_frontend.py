@@ -366,6 +366,15 @@ def test_3d_view_opens_and_closes(open_page):
     expect(view).to_have_count(0)
 
 
+def test_update_banner_when_server_has_new_version(open_page):
+    page = open_page("bob")
+    page.route("**/healthz", lambda route: route.fulfill(json={"ok": True, "version": "nouvelle0000"}))
+    page.evaluate("window.dispatchEvent(new Event('focus'))")
+    banner = page.locator("#update-banner")
+    expect(banner).to_be_visible()
+    expect(banner.locator("button")).to_have_text("Recharger")
+
+
 def test_legend_collapsed_by_default(open_page):
     page = open_page("bob")
     toggle = page.locator("#legend .legend-toggle")

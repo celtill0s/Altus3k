@@ -15,12 +15,15 @@
   phone or computer), Light or Dark; in dark mode, base maps are slightly dimmed. The choice is
   remembered by the browser.
 - **Map rotation**: with two fingers on a phone, like Google Maps (Shift + mouse wheel on a
-  computer). The **compass** (above the zoom buttons) shows north; tapping it puts north back at
+  computer). Zoom and rotation are separate: pinching only zooms; the map only rotates when the
+  fingers clearly turn (20°), and then stays in rotate mode until they are lifted. The **compass** (above the zoom buttons) shows north; tapping it puts north back at
   the top. Also works in the crampon, ski and snowshoe views.
 - **3D view** ("Vue 3D" button on a summit card): the terrain around the summit, tilted, with IGN
   aerial imagery or topographic map and the GPX track if loaded. Rotate and tilt it with two
   fingers (right-click + drag on a computer). MapLibre GL is only downloaded the first time; it
   needs a browser with WebGL and a network connection.
+- **Updates**: when a new version of the site is deployed, a page left open (tab, app) shows
+  "Nouvelle version d'Altus disponible — Recharger" (reload).
 - **Scale** in metres at the bottom of the map.
 - **Show all / Group** (eye button): shows every summit at its real position instead of grouping
   them by area.
