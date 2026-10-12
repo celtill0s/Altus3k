@@ -87,14 +87,19 @@ def test_peak_ids_are_unique():
     assert len(ids) == len(set(ids))
 
 
-def test_petit_vignemale_is_t2():
+def test_petit_vignemale_is_t3():
     peak = next(p for p in CATALOG if p["id"] == "petit-vignemale")
-    assert peak["difficulty"] == "T2"
+    assert peak["difficulty"] == "T3"
+
+
+def test_t5_normal_routes_are_excluded():
+    # Voie normale en T5 / alpinisme (audit du 2026-10-12) : hors périmètre.
+    assert not {p["id"] for p in CATALOG} & {"la-grande-fache", "pic-du-marbore"}
 
 
 def test_roped_ski_routes_are_excluded():
     ski = {p["id"] for p in CATALOG if "ski" in p}
-    assert len(ski) == 35
+    assert len(ski) == 39
     assert not ski & {"grand-astazou", "la-grande-fache"}
 
 
@@ -102,4 +107,5 @@ def test_snowshoe_routes_are_the_sourced_ones():
     assert {p["id"] for p in CATALOG if "snowshoe" in p} == {
         "pic-de-caramantran", "mont-buet", "mont-thabor", "vieux-chaillol",
         "pic-du-montcalm", "turon-de-neouvielle", "pic-de-neouvielle",
+        "grand-glaiza-punta-merciantaira", "mont-chaberton", "pic-de-campbieil", "pic-maubic",
     }

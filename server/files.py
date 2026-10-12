@@ -8,6 +8,7 @@ import os
 import re
 import secrets
 import xml.etree.ElementTree as ET
+from html import escape
 from pathlib import Path
 
 from . import storage
@@ -62,6 +63,42 @@ def render_page(name: str) -> bytes:
     html = (storage.STATIC_DIR / name).read_text(encoding="utf-8")
     prefix = f"{ASSET_PREFIX}{asset_version()}/"
     return RELATIVE_ASSET_RE.sub(lambda m: f'{m.group(1)}{prefix}{m.group(2)}"', html).encode("utf-8")
+
+
+# Mentions légales propres à chaque instance (variables d'environnement, toutes facultatives) :
+# l'éditeur et l'hébergement dépendent de qui installe Altus, pas du code.
+LEGAL_ENV = ("ALTUS_LEGAL_EDITOR", "ALTUS_LEGAL_CONTACT", "ALTUS_LEGAL_HOST", "ALTUS_LEGAL_RELAY")
+
+
+def _contact_html(contact):
+    if re.fullmatch(r"[^@\s<>\"]+@[^@\s<>\"]+\.[^@\s<>\"]+", contact):
+        return f'<a href="mailto:{escape(contact)}">{escape(contact)}</a>'
+    return escape(contact)
+
+
+def render_legal_page() -> bytes:
+    """static/legal.html complétée avec l'identité de l'instance (éditeur, contact, hébergement,
+    relais réseau), lue à chaque affichage pour qu'un changement de configuration suffise."""
+    editor, contact, host, relay = (os.environ.get(name, "").strip() for name in LEGAL_ENV)
+    lines = []
+    if editor:
+        lines.append(f"<strong>Éditeur</strong> : {escape(editor)}, à titre personnel.")
+    if contact:
+        lines.append(f"<strong>Contact</strong> : {_contact_html(contact)}")
+    lines.append(f"<strong>Hébergement</strong> : {escape(host) if host else 'serveur personnel de l’éditeur'}.")
+    if relay:
+        lines.append(f"<strong>Relais réseau</strong> : {escape(relay)}.")
+    identity = "<p>" + "<br>".join(lines) + "</p>"
+    processors = ""
+    if relay:
+        processors = (f"<p>Tout le trafic du site transite par un relais réseau ({escape(relay)}), qui le "
+                      "protège des attaques et en accélère l'affichage. Ce prestataire traite à ce titre ton "
+                      "adresse IP et les échanges avec le site, pour le compte de l'éditeur, le cas échéant "
+                      "hors de l'Union européenne dans le cadre prévu par le RGPD.</p>")
+    page = render_page("legal.html").decode("utf-8")
+    page = page.replace("<!--LEGAL_IDENTITY-->", identity).replace("<!--LEGAL_PROCESSORS-->", processors)
+    page = page.replace("<!--LEGAL_CONTACT_SUFFIX-->", f" ({_contact_html(contact)})" if contact else "")
+    return page.encode("utf-8")
 
 
 def validate_gpx(payload: bytes):

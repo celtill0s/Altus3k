@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Altus — mentions légales et confidentialité</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<meta name="theme-color" content="#1b3a2c" />
+<script src="js/theme.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body id="legal-page">
+<main class="legal-box">
+  <p class="legal-back"><a href="/">← Retour à Altus</a></p>
+  <h1>Mentions légales et confidentialité</h1>
+  <p class="legal-updated">Dernière mise à jour : 12 octobre 2026</p>
+
+  <nav class="legal-toc" aria-label="Sommaire">
+    <a href="#editeur">Éditeur et hébergement</a> ·
+    <a href="#donnees">Données personnelles</a> ·
+    <a href="#cookies">Cookies et stockage</a> ·
+    <a href="#conditions">Conditions d'utilisation</a> ·
+    <a href="#licences">Licences et crédits</a>
+  </nav>
+
+  <section id="editeur">
+    <h2>Éditeur et hébergement</h2>
+    <p>Altus est un site personnel, non commercial et sans publicité. Il n'est accessible qu'avec
+      un compte, créé sur invitation par l'administrateur du site.</p>
+    <!--LEGAL_IDENTITY-->
+    <p>Le logiciel est libre (voir <a href="#licences">Licences</a>) : chaque instance d'Altus est
+      éditée et hébergée par la personne qui l'installe, seule responsable de cette instance.</p>
+  </section>
+
+  <section id="donnees">
+    <h2>Données personnelles</h2>
+    <p>Le responsable du traitement est l'éditeur du site. Pour toute question ou pour exercer tes
+      droits, contacte l'administrateur qui t'a créé ton compte<!--LEGAL_CONTACT_SUFFIX-->.</p>
+
+    <h3>Ce qui est enregistré, et pourquoi</h3>
+    <ul>
+      <li><strong>Ton compte</strong> : identifiant, rôle, date de création et mot de passe, conservé uniquement sous
+        forme d'empreinte (hachage scrypt), jamais en clair. Sert à te connecter.</li>
+      <li><strong>Ton carnet</strong> : sommets faits et dates d'ascension, envies, commentaires,
+        photos et vidéos, traces GPX, sommets ajoutés à la main. Sert uniquement à te les
+        afficher. Les photos sont conservées telles que tu les envoies, avec leurs éventuelles
+        métadonnées (date, lieu de prise de vue).</li>
+      <li><strong>Ta session</strong> : un jeton de connexion, qui expire après 30 jours sans utilisation.</li>
+      <li><strong>Sécurité</strong> : après plusieurs échecs de connexion, ton identifiant et ton
+        adresse IP sont bloqués 15 minutes ; cette information n'est gardée qu'en mémoire.
+        Les journaux techniques du serveur (adresse IP, date, page demandée) sont limités en
+        taille et écrasés au fil de l'eau.</li>
+    </ul>
+    <p>Base légale : la fourniture du service que tu as demandé (article 6.1.b du RGPD) et, pour
+      la sécurité, l'intérêt légitime à protéger les comptes (article 6.1.f).</p>
+
+    <h3>Qui y a accès</h3>
+    <p>Tes données restent sur le serveur du site. Elles ne sont ni vendues, ni partagées, ni
+      utilisées à des fins publicitaires ou statistiques. Les autres membres ne voient rien de ton
+      carnet ; l'administrateur du site peut le consulter pour gérer les comptes.</p>
+    <p>Pour afficher la carte, ton navigateur télécharge les fonds de carte directement auprès de
+      l'<a href="https://geoservices.ign.fr/" target="_blank" rel="noopener noreferrer">IGN (Géoplateforme)</a>
+      et d'<a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> :
+      ces services reçoivent ton adresse IP et la zone de carte affichée, comme pour tout site
+      cartographique. Les liens externes (topos, Google Maps…) ne sont suivis que si tu cliques
+      dessus.</p>
+    <!--LEGAL_PROCESSORS-->
+
+    <h3>Durée de conservation</h3>
+    <p>Tes données sont conservées tant que ton compte existe. La suppression du compte efface
+      définitivement ton carnet, tes photos, vidéos et traces GPX.</p>
+
+    <h3>Tes droits</h3>
+    <p>Tu peux à tout moment demander l'accès à tes données, leur rectification, leur effacement,
+      leur portabilité (copie de tes fichiers), la limitation du traitement ou t'y opposer, en
+      contactant l'administrateur. Tu modifies ou supprimes toi-même ton carnet depuis le site, et
+      tu changes ton mot de passe depuis le menu Profil. Si tu estimes que tes droits ne sont pas
+      respectés, tu peux adresser une réclamation à la
+      <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener noreferrer">CNIL</a>.</p>
+  </section>
+
+  <section id="cookies">
+    <h2>Cookies et stockage local</h2>
+    <p>Altus n'utilise ni publicité, ni mesure d'audience, ni traceur tiers : aucun bandeau de
+      consentement n'est donc nécessaire. Seuls sont utilisés des éléments indispensables au
+      service :</p>
+    <ul>
+      <li>un cookie <code>session</code>, qui te garde connecté (prolongé à chaque visite, il expire
+        après 30 jours sans utilisation ; inaccessible aux scripts) ;</li>
+      <li>le stockage local du navigateur, pour tes préférences d'affichage (thème clair ou
+        sombre, fond de carte, calques, avertissements déjà lus) ;</li>
+      <li>le cache de l'application, pour l'utiliser hors ligne (pages, fonds de carte, ton carnet,
+        tes photos et traces déjà consultés). Ce qui te concerne est effacé à la déconnexion ; le
+        reste s'efface avec les données du site dans ton navigateur.</li>
+    </ul>
+  </section>
+
+  <section id="conditions">
+    <h2>Conditions d'utilisation</h2>
+    <h3>La montagne reste dangereuse</h3>
+    <p>Altus aide à choisir une course, pas à la préparer seul. Les cotations, itinéraires et
+      notes sont indicatifs, résumés à partir de sources publiques citées pour chaque sommet, et
+      peuvent être inexacts ou dépassés. Les conditions (enneigement, névés, rocher, météo)
+      changent d'une saison et d'un jour à l'autre. Avant de partir, consulte un topo complet, la
+      météo et, dès qu'il y a de la neige, le bulletin d'estimation du risque d'avalanche de
+      Météo-France. Tu pratiques sous ta seule responsabilité : l'éditeur ne peut être tenu
+      responsable d'un accident ou d'un dommage lié à l'utilisation des informations du site.</p>
+    <h3>Ton compte et tes contenus</h3>
+    <ul>
+      <li>Ton compte est personnel : ne partage pas ton mot de passe.</li>
+      <li>Tu restes propriétaire de tes photos, vidéos, traces et textes. Ils sont privés : tu
+        n'accordes aucun droit de diffusion. Tu ne déposes que des contenus que tu as le droit
+        d'utiliser, et rien d'illicite.</li>
+      <li>L'administrateur peut supprimer un contenu manifestement illicite, ou un compte en cas
+        d'abus. Le site est fourni gracieusement, sans garantie de disponibilité : pense à garder
+        une copie de tes photos et traces importantes.</li>
+    </ul>
+  </section>
+
+  <section id="licences">
+    <h2>Licences et crédits</h2>
+    <ul>
+      <li><strong>Logiciel</strong> : libre, sous licence
+        <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener noreferrer">GNU AGPL v3</a> ·
+        <a href="https://github.com/celtill0s/Altus3k" target="_blank" rel="noopener noreferrer">code source</a>.</li>
+      <li><strong>Catalogue des sommets</strong> : sous licence
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.</li>
+      <li><strong>Photos des sommets</strong> : <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>,
+        sous licences libres ; l'auteur et la licence de chaque photo sont indiqués sous son bandeau.</li>
+      <li><strong>Fonds de carte</strong> : © <a href="https://www.ign.fr/" target="_blank" rel="noopener noreferrer">IGN</a> –
+        Géoplateforme (Plan IGN, photographies aériennes, pentes) et ©
+        <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">contributeurs OpenStreetMap</a>.</li>
+      <li><strong>Cotations et itinéraires</strong> : <a href="https://www.camptocamp.org/" target="_blank" rel="noopener noreferrer">camptocamp.org</a>,
+        <a href="https://skitour.fr/" target="_blank" rel="noopener noreferrer">skitour.fr</a>,
+        <a href="https://www.altituderando.com/" target="_blank" rel="noopener noreferrer">altituderando.com</a>
+        et les autres sources citées pour chaque sommet.</li>
+      <li><strong>Bibliothèques</strong> : <a href="https://leafletjs.com/" target="_blank" rel="noopener noreferrer">Leaflet</a>
+        (licence BSD-2-Clause) et Leaflet.markercluster (licence MIT).</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

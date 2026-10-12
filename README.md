@@ -4,7 +4,7 @@
 
 # Altus
 
-**Les 45 sommets de plus de 3000 m des Alpes et des Pyrénées françaises accessibles à pied —
+**Les 58 sommets de plus de 3000 m des Alpes et des Pyrénées françaises accessibles à pied —
 sans glacier obligatoire, sans corde, sans via ferrata — sur une carte, avec ton carnet de
 courses personnel.**
 
@@ -23,7 +23,7 @@ courses personnel.**
 ## Fonctionnalités
 
 **La carte des 3000**
-- 45 sommets triés et cotés T2 à T4 (échelle de randonnée CAS/SAC), chacun avec ses notes
+- 58 sommets triés et cotés T2 à T4 (échelle de randonnée CAS/SAC), chacun avec ses notes
   d'accès, sa source et sa photo.
 - Fonds Plan IGN, photos aériennes IGN ou OpenStreetMap ; calque des pentes > 30°.
 - Recherche, filtres par massif, cotation et statut ; « me localiser » au GPS.
@@ -32,11 +32,11 @@ courses personnel.**
 - Coche un sommet et date ton ascension ; garde une liste d'envies.
 - Pour chaque sommet : commentaire, photos et vidéos, trace GPX avec un profil altimétrique
   relié à la carte.
-- **Mes 3000** : ta progression (X/45, par massif), tes dernières ascensions, tes envies.
+- **Mes 3000** : ta progression (X/58, par massif), tes dernières ascensions, tes envies.
 - Ajoute tes propres sommets, visibles de toi seul.
 
 **Hors saison**
-- Trois vues dédiées : **crampons + piolet**, **ski** (35 sommets) et **raquettes**, chacune avec
+- Trois vues dédiées : **crampons + piolet**, **ski** (39 sommets) et **raquettes**, chacune avec
   ses cotations, ses itinéraires et un lien vers le topo.
 - Pentes > 30° affichées d'office et rappels de sécurité (DVA, BERA).
 
@@ -44,6 +44,7 @@ courses personnel.**
 - Sur téléphone : barre d'onglets Carte · Liste · Mes 3000 · Profil.
 - Installable comme une appli (PWA) ou via l'[appli Android](android/README.md), utilisable
   hors ligne pour ce qui a déjà été consulté.
+- Mode sombre (automatique ou au choix, dans les paramètres).
 - Plusieurs comptes sur une même instance, chacun avec son espace privé.
 
 ## Aperçu

@@ -302,3 +302,58 @@ toponymes locaux/espagnols diffèrent). À revisiter si des coordonnées
 précises sont trouvées.
 
 **44 sommets au total désormais.**
+
+## 11. Audit et contre-vérification du 2026-10-12
+
+Chaque sommet a été comparé à sa source et à camptocamp (API : cotations, texte des
+itinéraires, sorties récentes), puis chaque écart a été contre-vérifié sur une seconde source
+indépendante (topopyrenees, altituderando, skitour, alpes-sud, visorando…). Les altitudes
+concordent toutes avec camptocamp à ±2 m.
+
+**Cotations corrigées** : Ouille Noire T3 → T2, Pic de Néouvielle T3 → T4, Petit Vignemale
+T2 → T3, Pic du Montcalm T4 → T3 (la « cheminée I/II » concerne la crête vers l'Estats, pas la
+sente nord), Mont Ténibre T3 → T4, Grand Pic de Tapou T4 → T3, Pointe de l'Observatoire T3 → T2,
+Mont Pelat T3 → T2, Signal du Petit Mont Cenis T2 → T3. Pic du Mas de la Grave et Turon de Néouvielle restent en T3 (arête aérienne,
+blocs) malgré un T2 sur camptocamp.
+
+**Retirés (voie normale en T5)** :
+- **La Grande Fache** (3005 m) : arête N cotée PD- en alpinisme sur camptocamp (rocher 2,
+  « bout de corde au cas où »), sorties notées T5 ; seule route de randonnée en T5.
+- **Pic du Marboré** (3248 m) : Pas des Isards équipé d'une chaîne ou d'un câble auquel on se
+  tient (même motif que le Casque du Marboré), passages II+.
+
+**Ajoutés** (route camptocamp en source, sans glacier, corde ni équipement, proéminence
+estimée sur le MNT IGN entre 70 et 870 m) : Bric de Rubren, Bric Froid, Tête de Vautisse,
+Pointe de la Réchasse (versant SE uniquement : la voie normale est glaciaire), Aiguille de
+l'Épaisseur, Pélaou Blanc, Pointe Sud de Bézin, Mont de Péclet, Pointe de la Saume, Tête de
+Siguret (crête SE ; l'arête de Cuguret, équipée de câbles, est écartée), Pic Turbat, Le Cimet,
+Pic du Port de Sullo, Pic de Lustou et **Pic de Maupas**. Ce dernier avait été rejeté en
+section 8 sur la foi d'un T6 : la voie normale par la vallée du Lis est cotée T3 sur
+camptocamp (14 sorties d'été sur 16 en T3, octobre 2026), avec un « Mal Pas » franchi aux mains ; ajouté en T4 par
+prudence.
+
+**Écartés** : Aiguille Pers et les deux Pointe Chevrière (pointes de crête de 20 à 35 m de
+proéminence), Pointe Salvador (bosse d'arête, ~15 m), Pointe Sommeiller (sans glacier
+seulement depuis l'Italie). Une soixantaine d'autres candidats en T3–T4 (Pointe de la Sana,
+Croix Rousse, Pointe du Lamet, Mont d'Ambin, Pics de Clarabide…) restent à vérifier un par un.
+
+**Itinéraires d'hiver** : blocs ski ajoutés (Grand Galibier, Signal du Petit Mont Cenis,
+Taillon, Sagnes Longues) ou corrigés (Turon et Pic de Néouvielle par des topos sans corde, Pica
+d'Estats, Pain de Sucre 2.3–4.1, Mont Buet, Pic du Milieu, Pic Maubic, Pointe d'Aval) ; blocs raquettes ajoutés (Grand
+Glaiza, Chaberton, Campbieil, Maubic) ou remplacés (Néouvielle et Turon : les itinéraires
+précédents demandaient un encordement ou passaient sur glacier) ; blocs crampons F ajoutés
+(Pica d'Estats, Montcalm, Taillon, Grand Galibier, Pain de Sucre).
+
+**Vérification été (sans crampons, piolet ni corde)** : chaque sommet a été recoupé sur
+plusieurs sources (camptocamp et ses sorties récentes, altituderando, topopyrenees, visorando,
+gulliver, comptes-rendus). Les notes précisent désormais les névés de début d'été (« Névés jusqu'à mi-juillet » sur
+dix sommets, Pélaou Blanc et Pointe des Fours jusqu'à mi-août, Pic de Néouvielle à partir de
+fin juillet). Restent signalés, non tranchés : le Grand Astazou (la boucle de la
+source passe par les Rochers Blancs, II–III), la Pointe de la Réchasse (mains courantes
+signalées en 2026 sur l'arête), la Pointe de la Saume (écroulement de 2016) et le Mont Clapier
+(« brin de corde un plus »).
+
+Le champ `source` affiché de chaque sommet correspond désormais au site de son lien
+`source_url`.
+
+**58 sommets au total désormais** (45 avant cet audit).

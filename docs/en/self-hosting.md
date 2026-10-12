@@ -50,6 +50,30 @@ cd Altus3k
    the pull fails, the current version keeps running. It never touches `data/`, which stays out
    of git.)
 
+## Legal notice
+
+The **`/legal`** page (public, linked from the login page and the Profile menu) holds the legal
+notice, privacy policy, cookies and terms of use (in French, like the app). What depends on your
+instance is set in a `.env` file next to `docker-compose.yml` (never committed), then
+`docker compose up -d`:
+
+```bash
+ALTUS_LEGAL_EDITOR="First Last"           # publisher of the site
+ALTUS_LEGAL_CONTACT="contact@example.org"  # contact address (mailto link)
+ALTUS_LEGAL_HOST="Personal server, at home, in France"
+ALTUS_LEGAL_RELAY="Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA"
+```
+
+All are optional: an empty variable is simply left out of the page (except
+`ALTUS_LEGAL_HOST`, which falls back to "serveur personnel de l'éditeur"). French law (LCEN, art. 6)
+requires a website to name its publisher and give a way to contact them; an individual can only
+stay anonymous when a third-party host holds their identity, which is not the case when
+self-hosting. Use `ALTUS_LEGAL_RELAY` if the site sits behind a relay (Cloudflare…): it sees the
+traffic and must be listed as a processor.
+
+Container logs (which contain IP addresses) are capped at 2 × 5 MB and overwritten as they go
+(`logging` in `docker-compose.yml`).
+
 ## Updating an instance from before accounts existed
 
 <details>

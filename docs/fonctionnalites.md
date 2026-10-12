@@ -13,6 +13,9 @@
   espagnol ou italien d'un sommet frontalier, basculer sur OpenStreetMap.
   Le fond choisi est mémorisé par le navigateur. (Le SCAN 25, la carte
   topo « randonnée » IGN, n'est pas disponible sans clé personnelle.)
+- **Apparence** (⚙ Paramètres › Apparence) : Automatique (suit le thème clair/sombre du
+  téléphone ou de l'ordinateur), Clair ou Sombre ; en sombre, les fonds de carte sont légèrement
+  assombris. Le choix est mémorisé par le navigateur.
 - **Échelle** métrique en bas de la carte.
 - **Voir tous / Regrouper** (bouton œil) : affiche chaque sommet à sa vraie position au lieu de
   les regrouper par secteur.
@@ -53,7 +56,7 @@
   d'un bloc itinéraire, et les pentes > 30° affichées par défaut. Données : champs `crampon`,
   `ski` et `snowshoe` du catalogue (voir [Modifier le catalogue](catalogue.md)). On peut y
   ajouter ses propres sommets, rattachés à l'activité.
-- **Mes 3000** : anneau de progression sur les 45 sommets du catalogue, détail par massif,
+- **Mes 3000** : anneau de progression sur les 58 sommets du catalogue, détail par massif,
   dernières ascensions datées et liste d'envies (dépliables, un toucher ouvre le sommet).
 - **Date d'ascension et envies** : cocher « fait » enregistre la date du jour, modifiable dans
   la fiche ; ★ Envie marque les sommets à faire en priorité (marqueur étoile, filtre « Envies »).

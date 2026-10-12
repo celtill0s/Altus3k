@@ -4,6 +4,19 @@ services:
     restart: unless-stopped
     volumes:
       - ./data:/data
+    # Mentions légales de l'instance (page /legal), toutes facultatives : à renseigner dans un
+    # fichier .env à côté de ce fichier (jamais commité). Voir docs/auto-hebergement.md.
+    environment:
+      - ALTUS_LEGAL_EDITOR=${ALTUS_LEGAL_EDITOR:-}
+      - ALTUS_LEGAL_CONTACT=${ALTUS_LEGAL_CONTACT:-}
+      - ALTUS_LEGAL_HOST=${ALTUS_LEGAL_HOST:-}
+      - ALTUS_LEGAL_RELAY=${ALTUS_LEGAL_RELAY:-}
+    # Journaux limités en taille (ils contiennent des adresses IP) : écrasés au fil de l'eau.
+    logging: &logging
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"
     expose:
       - "8000"
     # Conteneur verrouillé : système de fichiers en lecture seule (sauf data/ et /tmp), aucun
@@ -30,6 +43,7 @@ services:
         condition: service_healthy
     security_opt:
       - no-new-privileges:true
+    logging: *logging
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data

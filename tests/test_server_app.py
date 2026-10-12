@@ -69,6 +69,9 @@ def isolated_dirs(tmp_path, monkeypatch):
     (static_dir / "mountains.json").write_text(json.dumps(SAMPLE_CATALOG, ensure_ascii=False), encoding="utf-8")
     (static_dir / "index.html").write_text('<link href="style.css"><p>carte</p>', encoding="utf-8")
     (static_dir / "login.html").write_text('<link href="style.css"><p>connexion</p>', encoding="utf-8")
+    (static_dir / "legal.html").write_text(
+        "<p>mentions</p><!--LEGAL_IDENTITY--><p>droits<!--LEGAL_CONTACT_SUFFIX-->.</p><!--LEGAL_PROCESSORS-->",
+        encoding="utf-8")
     (static_dir / "style.css").write_text("body {}", encoding="utf-8")
     monkeypatch.setattr(storage, "STATIC_DIR", static_dir)
     monkeypatch.setattr(storage, "DATA_DIR", data_dir)
@@ -377,6 +380,25 @@ def test_pages_redirect_to_login_when_anonymous(client, users):
     assert status == 302 and headers["Location"] == "/"
 
 
+def test_legal_page_is_public_and_filled_from_environment(client, users, monkeypatch):
+    for name in ("ALTUS_LEGAL_EDITOR", "ALTUS_LEGAL_CONTACT", "ALTUS_LEGAL_HOST", "ALTUS_LEGAL_RELAY"):
+        monkeypatch.delenv(name, raising=False)
+    status, _, body = client().get("/legal")
+    html = body.decode()
+    assert status == 200 and "mentions" in html
+    # Rien de configuré : ni éditeur, ni contact, ni relais, seulement l'hébergement par défaut.
+    assert "Éditeur" not in html and "mailto:" not in html and "relais" not in html
+    assert "serveur personnel" in html and "<!--LEGAL" not in html
+
+    monkeypatch.setenv("ALTUS_LEGAL_EDITOR", "Jeanne <b>Alpe</b>")
+    monkeypatch.setenv("ALTUS_LEGAL_CONTACT", "jeanne@exemple.fr")
+    monkeypatch.setenv("ALTUS_LEGAL_RELAY", "Cloudflare, Inc.")
+    html = client().get("/legal")[2].decode()
+    assert "Jeanne &lt;b&gt;Alpe&lt;/b&gt;" in html  # échappé, jamais du HTML brut
+    assert html.count('href="mailto:jeanne@exemple.fr"') == 2  # bloc éditeur + section droits
+    assert "Relais réseau</strong> : Cloudflare, Inc." in html and "pour le compte de l'éditeur" in html
+
+
 def test_me(client, users):
     assert logged_in(client, "gus").json("GET", "/api/me") == (200, {"username": "gus", "role": "guest"})
 
@@ -418,6 +440,7 @@ def _matrix_cases():
         # public
         (anon, "GET", "/healthz", 200),
         (anon, "GET", "/login", 200),
+        (anon, "GET", "/legal", 200),
         (anon, "GET", "/style.css", 200),
         (anon, "GET", "/v/abc/style.css", 200),
         # anonyme : tout le reste refusé
@@ -919,6 +942,17 @@ def test_session_is_extended_when_used(isolated_dirs, monkeypatch):
     # Sans cette prolongation, la session aurait expiré à TTL après sa création.
     monkeypatch.setattr(auth.time, "time", lambda: real_time() + auth.SessionStore.TTL + 10)
     assert store.get(token) == "alice"
+
+
+def test_session_cookie_is_renewed_with_the_session(client, users, monkeypatch):
+    c = logged_in(client, "bob")
+    _, headers, _ = c.get("/api/me")
+    assert headers.get("Set-Cookie") is None  # session fraîche : rien à prolonger
+    real_time = time.time
+    monkeypatch.setattr(auth.time, "time", lambda: real_time() + auth.SessionStore.TOUCH_INTERVAL + 60)
+    _, headers, _ = c.get("/api/me")
+    cookie = headers.get("Set-Cookie") or ""
+    assert cookie.startswith(f"session={c.session};") and f"Max-Age={auth.SessionStore.TTL}" in cookie
 
 
 # ---------------------------------------------------------------------------

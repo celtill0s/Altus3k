@@ -102,6 +102,20 @@ def fill_peak_form(page, **fields):
 
 # ---------------------------------------------------------------------------
 
+def test_legal_page_linked_from_login_and_settings(browser, site, open_page):
+    ctx = browser.new_context(service_workers="block")
+    page = ctx.new_page()
+    page.goto(f"{site}/login")
+    page.click("text=Mentions légales et confidentialité")
+    page.wait_for_url(f"{site}/legal")  # lisible sans compte
+    for section in ("#editeur", "#donnees", "#cookies", "#conditions", "#licences"):
+        expect(page.locator(section)).to_be_visible()
+    assert page.evaluate("document.documentElement.scrollWidth") <= page.viewport_size["width"]
+    ctx.close()
+    page = open_page("bob")
+    expect(page.locator('.settings-about a[href="/legal"]')).to_have_count(1)
+
+
 def test_member_sees_whole_catalog(open_page):
     page = open_page("bob")
     expect(page.locator(".peak-item")).to_have_count(len(CATALOG))
@@ -303,6 +317,26 @@ def test_settings_panel_and_map_controls(open_page):
     expect(page.locator("#base-layer-options label", has_text="OpenStreetMap").locator("input")).to_be_checked()
 
 
+def test_theme_setting_switches_and_persists(open_page):
+    page = open_page("bob")
+    root_theme = "document.documentElement.dataset.theme || 'auto'"
+    background = "getComputedStyle(document.body).backgroundColor"
+    assert page.evaluate(root_theme) == "auto"
+    light = page.evaluate(background)
+    page.click("#settings-open")
+    page.check('#theme-options input[value="dark"]')
+    assert page.evaluate(root_theme) == "dark"
+    assert page.evaluate(background) != light
+    page.reload()
+    page.wait_for_selector(".peak-item")
+    assert page.evaluate(root_theme) == "dark"  # appliqué dès le chargement (js/theme.js)
+    page.click("#settings-open")
+    expect(page.locator('#theme-options input[value="dark"]')).to_be_checked()
+    page.check('#theme-options input[value="auto"]')
+    assert page.evaluate(root_theme) == "auto"
+    assert page.evaluate("localStorage.getItem('altus.theme')") is None
+
+
 def test_legend_collapsed_by_default(open_page):
     page = open_page("bob")
     toggle = page.locator("#legend .legend-toggle")
@@ -401,7 +435,7 @@ def test_ski_and_crampon_map_views(open_page):
     ski_names = set(ski_items.locator(".name").all_text_contents())
     assert "Grand Astazou" not in ski_names
     assert "La Grande Fache" not in ski_names
-    expect(ski_items.filter(has_text="Pointe d'Aval")).to_contain_text("3.1–3.2")
+    expect(ski_items.filter(has_text="Pointe d'Aval")).to_contain_text("Ski 3.1")
     expect(ski_items.filter(has_text="Pointe d'Aval")).not_to_contain_text("5.4")
     expect(ski_items.filter(has_text="Aiguille de la Grande Sassière")).to_contain_text("Ski 5.2")
     expect(page.locator("#ski-peaks-list")).to_contain_text("Ski")
@@ -468,15 +502,7 @@ def test_ski_and_crampon_map_views(open_page):
     expect(page.locator("#peak-panel")).to_be_hidden()
     page.locator("#snowshoe-map .leaflet-marker-icon").first.click(force=True)
     expect(page.locator("#snowshoe-map #peak-panel-body")).to_contain_text("Mont Buet")
-    snowshoe_sources = {
-        "Pic de Caramantran": "https://reservation.lequeyras.com/au-coeur-des-3000-du-queyras-5-jours-de-raquettes.html",
-        "Mont Buet": "https://bichettevoyage.com/le-mont-buet-raquettes/",
-        "Mont Thabor": "https://www.trekalpes.com/fr/trek-raquettes-rando-neige-cerces-claree-thabor-belvedere-des-alpes.html",
-        "Vieux Chaillol": "https://entrepotes.org/sortie/59350",
-        "Pic du Montcalm": "https://www.rando-marche.fr/_38219_546_randonnees-pic-du-montcalm",
-        "Turon de Néouvielle": "https://www.rando-marche.fr/_38221_387_randonnees-turon-de-neouvielle",
-        "Pic de Néouvielle": "https://www.rando-marche.fr/_38221_102_randonnees-pic-de-neouvielle",
-    }
+    snowshoe_sources = {peak["name"]: peak["snowshoe"]["url"] for peak in CATALOG if "snowshoe" in peak}
     expect(snowshoe_items).to_have_count(len(snowshoe_sources))
     assert set(snowshoe_items.locator(".name").all_text_contents()) == set(snowshoe_sources)
     assert set(snowshoe_items.locator(".name").all_text_contents()) <= catalog_names
@@ -669,7 +695,7 @@ def test_wish_and_done_date(open_page):
     expect(date_input).to_have_value(today)
     date_input.fill("2025-08-12")
     date_input.dispatch_event("change")
-    expect(page.locator("#peak-panel .pop-figures")).to_contain_text("12/08/2025")
+    expect(page.locator("#peak-panel .pop-figures")).to_contain_text("12 août 2025")
     expect(page.locator(".peak-item", has_text=peak["name"]).first).to_contain_text("Fait le 12/08/2025")
     page.wait_for_timeout(300)
     entry = progress_of("bob")[peak["id"]]

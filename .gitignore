@@ -2,8 +2,8 @@
 # serveur qui héberge l'appli, jamais dans ce dépôt public.
 /data/
 
-# Secrets de déploiement (identifiant + hash du mot de passe Basic Auth), montés comme
-# secrets Docker — jamais un .env, jamais commités.
+# Secrets de déploiement (anciens identifiants Basic Auth), montés comme secrets Docker, et
+# configuration propre à l'instance (.env : mentions légales) — jamais commités.
 /secrets/
 .env
 

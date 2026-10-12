@@ -107,6 +107,7 @@ _SEG = r"[^/]+"
 ROUTES = [
     ("GET", r"/healthz", PUBLIC, "r_healthz"),
     ("GET", r"/login", PUBLIC, "r_login_page"),
+    ("GET", r"/legal", PUBLIC, "r_legal_page"),
     ("POST", r"/api/login", PUBLIC, "r_login"),
     ("POST", r"/api/logout", PUBLIC, "r_logout"),
     ("GET", r"/(?:index\.html)?", (PAGE, "guest"), "r_index"),
@@ -306,7 +307,10 @@ class Handler(BaseHTTPRequestHandler):
     def _principal(self):
         """Utilisateur connecté ({"username", "role"}) ou None. Relu à chaque requête : un rôle
         changé ou un compte supprimé prend effet immédiatement."""
-        username = sessions_store().get(self._session_token())
+        token = self._session_token()
+        # Session prolongée côté serveur : le cookie aussi, sinon le navigateur le jetterait 30 jours
+        # après la connexion même en usage quotidien.
+        username = sessions_store().get(token, on_extend=lambda: self._set_session_cookie(token))
         return users_store().get(username) if username else None
 
     def _client_ip(self):
@@ -380,6 +384,9 @@ class Handler(BaseHTTPRequestHandler):
             self._redirect("/")
         else:
             self._html(render_page("login.html"))
+
+    def r_legal_page(self):
+        self._html(files.render_legal_page())
 
     def r_login(self):
         body = self._read_json()

@@ -196,8 +196,9 @@ class SessionStore:
             _write_json(self.path, sessions)
         return token
 
-    def get(self, token: str):
-        """Identifiant associé au jeton (et prolongation de la session), ou None."""
+    def get(self, token: str, on_extend=None):
+        """Identifiant associé au jeton (et prolongation de la session), ou None. on_extend() est
+        appelé quand la session vient d'être prolongée : le cookie doit l'être aussi."""
         if not token or len(token) > 128:
             return None
         key = self._key(token)
@@ -212,6 +213,8 @@ class SessionStore:
                 if key in sessions:
                     sessions[key]["expires"] = int(now + self.TTL)
                     _write_json(self.path, sessions)
+            if on_extend:
+                on_extend()
         return s["user"]
 
     def revoke(self, token: str):

@@ -1,5 +1,5 @@
 // Panneau flottant de détail d'un sommet (fait, commentaire, médias, GPX).
-import { escapeHtml, formatDate, safeUrl, todayIso } from './util.js';
+import { escapeHtml, formatLongDate, safeUrl, todayIso } from './util.js';
 import { DIFF_COLORS, DIFF_CRITERIA } from './config.js';
 import { ACTIVITY_PEAKS, doneSet, session, PEAKS, wishSet } from './store.js';
 import { apiDelete, apiPost, peakApiBase } from './api.js';
@@ -116,8 +116,11 @@ function figuresHtml(p) {
   const g = gpxStats(p.id);
   if (g && g.hasElevation) figs.push([`+${Math.round(g.elevGainM)} m`, 'dénivelé']);
   if (g && g.distanceKm > 0) figs.push([`${g.distanceKm.toFixed(1)} km`, 'distance']);
-  if (doneSet.has(p.id) && p.done_date) figs.push([formatDate(p.done_date), 'fait le']);
-  return figs.map(([v, k]) => `<div class="fig"><strong>${escapeHtml(v)}</strong><span>${escapeHtml(k)}</span></div>`).join('');
+  const html = figs.map(([v, k]) => `<div class="fig"><strong>${escapeHtml(v)}</strong><span>${escapeHtml(k)}</span></div>`).join('');
+  // La date sur sa propre ligne : à côté des chiffres, elle n'a pas la place.
+  const date = doneSet.has(p.id) && p.done_date
+    ? `<div class="fig-date">&#10003; Fait le <strong>${escapeHtml(formatLongDate(p.done_date))}</strong></div>` : '';
+  return html + date;
 }
 
 // Met à jour, dans le panneau ouvert, ce qui dépend de l'état fait/envie (sans régénérer le

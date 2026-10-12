@@ -11,6 +11,9 @@
   France: for the Spanish or Italian side of a border summit, switch to OpenStreetMap. The chosen
   base map is remembered by the browser. (SCAN 25, IGN's hiking topo map, is not available
   without a personal key.)
+- **Appearance** (⚙ Paramètres › Apparence): Automatic (follows the light/dark theme of the
+  phone or computer), Light or Dark; in dark mode, base maps are slightly dimmed. The choice is
+  remembered by the browser.
 - **Scale** in metres at the bottom of the map.
 - **Show all / Group** (eye button): shows every summit at its real position instead of grouping
   them by area.
@@ -42,7 +45,7 @@
   over 30° shown by default. Data: the `crampon`, `ski` and `snowshoe` fields of the catalogue
   (see [Editing the catalogue](catalogue.md)). You can add your own summits there, attached to
   the activity.
-- **Mes 3000** (My 3000s): progress ring over the 45 catalogue summits, breakdown by range, latest
+- **Mes 3000** (My 3000s): progress ring over the 58 catalogue summits, breakdown by range, latest
   dated ascents and wish list (expandable; tapping a summit opens it).
 - **Ascent date and wish list**: ticking "done" records today's date, editable in the card;
   ★ Envie (Wish) flags summits to do first (star marker, « Envies » filter).

@@ -58,8 +58,8 @@ export function peakImageStyle(p, width, height, scale = 1) {
     `background-position:${Math.round(bx)}px ${Math.round(by)}px`;
 }
 
-// Chargement différé : l'image n'est demandée que lorsque l'élément devient visible (liste de 45
-// sommets sur mobile : pas 45 téléchargements d'un coup).
+// Chargement différé : l'image n'est demandée que lorsque l'élément devient visible (liste d'une
+// soixantaine de sommets sur mobile : pas 58 téléchargements d'un coup).
 const observer = 'IntersectionObserver' in window
   ? new IntersectionObserver(entries => {
     entries.forEach(entry => {

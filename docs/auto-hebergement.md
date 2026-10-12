@@ -55,6 +55,30 @@ cd Altus3k
    préalable : si le pull échoue, l'appli continue de tourner avec la
    version actuelle. Ne touche jamais à `data/`, qui reste hors git).
 
+## Mentions légales
+
+La page **`/legal`** (accessible sans compte, liée depuis la page de connexion et le menu
+Profil) regroupe mentions légales, politique de confidentialité, cookies et conditions
+d'utilisation. Ce qui dépend de ton instance se règle dans un fichier `.env` à côté de
+`docker-compose.yml` (jamais commité), puis `docker compose up -d` :
+
+```bash
+ALTUS_LEGAL_EDITOR="Prénom Nom"          # éditeur du site
+ALTUS_LEGAL_CONTACT="contact@exemple.fr"   # adresse de contact (lien mailto)
+ALTUS_LEGAL_HOST="Serveur personnel, à domicile, en France"
+ALTUS_LEGAL_RELAY="Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, États-Unis"
+```
+
+Toutes sont facultatives : une variable vide est simplement omise de la page (sauf
+`ALTUS_LEGAL_HOST`, remplacée par « serveur personnel de l'éditeur »). En France, la loi
+(LCEN, art. 6) demande d'indiquer l'éditeur d'un site et un moyen de le contacter ; un
+particulier ne peut rester anonyme que si un hébergeur tiers détient son identité, ce qui n'est
+pas le cas en auto-hébergement. `ALTUS_LEGAL_RELAY` sert si le site passe par un relais
+(Cloudflare…) : il voit passer le trafic et doit donc être cité comme sous-traitant.
+
+Les journaux des conteneurs (qui contiennent des adresses IP) sont limités à 2 × 5 Mo et
+écrasés au fil de l'eau (`logging` dans `docker-compose.yml`).
+
 ## Mise à jour d'une instance d'avant les comptes
 
 <details>

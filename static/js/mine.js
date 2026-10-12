@@ -1,6 +1,6 @@
-// « Mes 3000 » : progression sur le catalogue (anneau X/45, par massif), ascensions et envies
+// « Mes 3000 » : progression sur le catalogue (anneau X/N, par massif), ascensions et envies
 // (dépliables ; un clic sur un sommet l'affiche sur la carte).
-// Les sommets ajoutés à la main ne comptent pas dans les 45, ils sont seulement mentionnés.
+// Les sommets ajoutés à la main ne comptent pas dans le total du catalogue, ils sont seulement mentionnés.
 import { REGIONS } from './config.js';
 import { PEAKS, doneSet, session, wishSet } from './store.js';
 import { escapeHtml, formatDate } from './util.js';
@@ -13,8 +13,8 @@ function ringSvg(done, total) {
   const ratio = total ? done / total : 0;
   return `
     <svg class="mine-ring" viewBox="0 0 128 128" aria-hidden="true">
-      <circle cx="64" cy="64" r="${r}" fill="none" stroke="rgba(27,58,44,.12)" stroke-width="12" />
-      <circle cx="64" cy="64" r="${r}" fill="none" stroke="#1b3a2c" stroke-width="12" stroke-linecap="round"
+      <circle class="mine-ring-track" cx="64" cy="64" r="${r}" fill="none" stroke-width="12" />
+      <circle class="mine-ring-fill" cx="64" cy="64" r="${r}" fill="none" stroke-width="12" stroke-linecap="round"
         stroke-dasharray="${(c * ratio).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 64 64)" />
       <text x="64" y="62" text-anchor="middle" class="mine-ring-count">${done}/${total}</text>
       <text x="64" y="82" text-anchor="middle" class="mine-ring-pct">${Math.round(ratio * 100)} %</text>

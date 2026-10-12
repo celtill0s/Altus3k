@@ -8,8 +8,8 @@
     "massif": "Vanoise / Tarentaise (frontière)",
     "region": "Alpes",
     "difficulty": "T4",
-    "notes": "Un des 3000 les plus hauts d'Europe accessible sans matériel d'alpinisme, arête rocheuse (voie normale évite le glacier).",
-    "source": "hexatrek.com",
+    "notes": "Un des 3000 les plus hauts d'Europe accessible sans matériel d'alpinisme : rester sur l'arête rocheuse W, qui longe le glacier sans y entrer. Pente sommitale parfois verglacée, surtout à partir de mi-septembre.",
+    "source": "camptocamp.org",
     "source_url": "https://www.camptocamp.org/routes/54599",
     "crampon": {
       "grade": "F à PD",
@@ -38,15 +38,15 @@
     "lon": 7.0716,
     "massif": "Vanoise",
     "region": "Alpes",
-    "difficulty": "T3",
+    "difficulty": "T2",
     "notes": "Accès relativement facile depuis Val-d'Isère / Bonneval-sur-Arc.",
-    "source": "altituderando.com",
+    "source": "camptocamp.org",
     "source_url": "https://www.camptocamp.org/routes/55120",
     "crampon": {
       "grade": "F",
       "confirmed": true,
       "season": "Fin mai – juin",
-      "note": "Pente max 40° sur 100 m (camptocamp). Choix possible entre névés tardifs ou rocher selon l'année."
+      "note": "Passage à 30° sous le dôme (camptocamp). Choix possible entre névés tardifs ou rocher selon l'année."
     },
     "image": {
       "url": "img/peaks/ouille-noire.jpg",
@@ -80,7 +80,7 @@
       "source": "https://commons.wikimedia.org/wiki/File:Chambeyron_vallon_chauvet.jpg"
     },
     "ski": {
-      "grade": "Ski 3.1–3.2",
+      "grade": "Ski 3.1",
       "route": "Versant SW / traversée SW–NW",
       "note": "Sélection limitée aux itinéraires sans matériel particulier. Couloir W (5.4) et couloir S du point 3311 (5.2) écartés : les topos mentionnent une corde, et une corde avec baudrier pour le couloir S.",
       "url": "https://skitour.fr/topos/2082"
@@ -109,6 +109,12 @@
       "route": "Vallon de Pierre Rouge",
       "note": "Plusieurs versants et niveaux de difficulté.",
       "url": "https://skitour.fr/sommets/1132"
+    },
+    "snowshoe": {
+      "grade": "R3",
+      "route": "Versant S",
+      "note": "Itinéraire à la fois raquettes, ski et rando.",
+      "url": "https://www.camptocamp.org/routes/339806"
     }
   },
   {
@@ -120,7 +126,7 @@
     "massif": "Vanoise / Maurienne",
     "region": "Alpes",
     "difficulty": "T4",
-    "notes": "Depuis Valloire, quelques passages plus raides/exposés en fin de course, pas d'escalade encordée ni glacier.",
+    "notes": "Depuis Valloire, quelques passages plus raides/exposés en fin de course, pas d'escalade encordée ni glacier. Névés jusqu'à mi-juillet.",
     "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Le-Grand-Galibier-3228m-par-Plan-Lachat-et-le-col-de-la-Ponsonniere",
     "image": {
@@ -128,11 +134,23 @@
       "author": "René Beideler",
       "license": "CC BY-SA 3.0",
       "source": "https://commons.wikimedia.org/wiki/File:Grand_Galibier.jpg"
+    },
+    "ski": {
+      "grade": "Ski 2.3",
+      "route": "Pont de l'Alpe · col de la Ponsonnière · versant SE",
+      "note": "Piolet et crampons pour l'arête finale.",
+      "url": "https://skitour.fr/topos/2511"
+    },
+    "crampon": {
+      "grade": "F",
+      "confirmed": true,
+      "season": "Printemps – début d'été, selon l'enneigement",
+      "note": "Versant SE (voie normale) : arête finale souvent neigeuse, crampons et piolet."
     }
   },
   {
     "id": "pain-de-sucre-chambeyron",
-    "name": "Pain de Sucre (Chambeyron)",
+    "name": "Pain de Sucre (Queyras)",
     "altitude_m": 3208,
     "lat": 44.6904,
     "lon": 6.9962,
@@ -149,10 +167,16 @@
       "source": "https://commons.wikimedia.org/wiki/File:PainDeSucreQueyras.JPG"
     },
     "ski": {
-      "grade": "Ski 2.3",
+      "grade": "Ski 2.3–4.1",
       "route": "Tour et sommet",
-      "note": "Itinéraire documenté en ski-alpinisme.",
+      "note": "2.3 pour le tour ; le sommet à ski est en 4.1, exposé (à pied : F, piolet et crampons).",
       "url": "https://www.alpes-sud.net/ski/pain-de-sucre.php"
+    },
+    "crampon": {
+      "grade": "F",
+      "confirmed": true,
+      "season": "Printemps – début d'été, selon l'enneigement",
+      "note": "Face W depuis le refuge Agnel, F à pied ; arête sommitale exposée."
     }
   },
   {
@@ -165,7 +189,7 @@
     "region": "Alpes",
     "difficulty": "T2",
     "notes": "Itinéraire classique depuis Valfréjus ou Névache, belvédère facile.",
-    "source": "ffrandonnee.fr",
+    "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Mont-Thabor-3178m-par-Valfrejus-et-le-Lavoir",
     "image": {
       "url": "img/peaks/mont-thabor.jpg",
@@ -214,7 +238,7 @@
     "massif": "Champsaur",
     "region": "Alpes",
     "difficulty": "T3",
-    "notes": "Longue ascension depuis Saint-Michel-de-Chaillol via le Col de Côte Longue.",
+    "notes": "Longue ascension depuis Saint-Michel-de-Chaillol via le Col de Côte Longue. Névés jusqu'à mi-juillet.",
     "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Vieux-Chaillol-3163m-par-le-Col-de-la-Pisse-et-le-Col-de-Cote-Longue",
     "image": {
@@ -244,8 +268,8 @@
     "lon": 6.8728,
     "massif": "Vanoise / Val-Cenis",
     "region": "Alpes",
-    "difficulty": "T2",
-    "notes": "Arête sud-ouest depuis Sollières-Sardières.",
+    "difficulty": "T3",
+    "notes": "Arête sud-ouest depuis Sollières-Sardières : schistes instables, mains sur la partie finale.",
     "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Signal-du-Petit-Mont-Cenis-3162m-voie-normale-de-l-arete-sud-ouest",
     "image": {
@@ -253,6 +277,12 @@
       "author": "Florian Pépellin",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Signal_du_Petit_Mont-Cenis_depuis_Lac_du_Mont-Cenis_(septembre_2024).JPG"
+    },
+    "ski": {
+      "grade": "Ski 3.2",
+      "route": "Face W depuis Termignon",
+      "note": "Pas de matériel particulier selon le topo.",
+      "url": "https://skitour.fr/topos/2164"
     }
   },
   {
@@ -265,7 +295,7 @@
     "region": "Alpes",
     "difficulty": "T3",
     "notes": "Cirque du Lac des Neuf Couleurs, possibilité de coucher en refuge.",
-    "source": "ffrandonnee.fr",
+    "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Tete-de-la-Frema-3151m-par-le-col-de-la-Gypiere-retour-par-le-pas-de-la",
     "image": {
       "url": "img/peaks/tete-de-la-frema.jpg",
@@ -327,8 +357,8 @@
     "massif": "Briançonnais",
     "region": "Alpes",
     "difficulty": "T3",
-    "notes": "Ancien chemin militaire jusqu'au fort sommital ; cotation officielle « Difficile » (pas facile) — hautes marches et prises de main nécessaires notamment à la descente du col, pente finale soutenue.",
-    "source": "hexatrek.com",
+    "notes": "Ancien chemin militaire jusqu'au fort sommital, cotation « Difficile » sur altituderando : hautes marches et pente finale soutenue, quelques appuis des mains à la descente du col.",
+    "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Mont-Chaberton-3131m",
     "image": {
       "url": "img/peaks/mont-chaberton.jpg",
@@ -341,6 +371,12 @@
       "route": "Col du Chaberton / faces",
       "note": "La voie normale est modérée ; les couloirs sont très difficiles.",
       "url": "https://skitour.fr/sommets/160"
+    },
+    "snowshoe": {
+      "grade": "R4",
+      "route": "Versant NW par le col du Chaberton",
+      "note": "Neige souvent dure sur la pente finale, alors assez exposée (camptocamp).",
+      "url": "https://www.camptocamp.org/routes/49687"
     }
   },
   {
@@ -353,7 +389,7 @@
     "region": "Alpes",
     "difficulty": "T3",
     "notes": "Depuis le parking des Claux (Ceillac), sentier bien tracé sans passage vertigineux ni technique, mais course longue (~7h30 A/R) demandant une bonne condition physique.",
-    "source": "visorando.com",
+    "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Tete-de-Longet-3146m-et-Tete-de-la-Cula-3121m",
     "ski": {
       "grade": "Ski 2.1",
@@ -390,7 +426,7 @@
     "massif": "Vanoise / Briançonnais",
     "region": "Alpes",
     "difficulty": "T3",
-    "notes": "Depuis les lacs du Grand Ban, Névache.",
+    "notes": "Depuis les lacs du Grand Ban, Névache. Ressaut en face N et névé final : piolet et crampons s'il reste de la neige ou de la glace. À faire de début août à mi-septembre, par temps sec.",
     "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Pointe-des-Cerces-3098m-par-le-lac-du-Grand-Ban-le-lac-Rond-et-le-lac-des",
     "crampon": {
@@ -421,8 +457,8 @@
     "massif": "Chablais / Giffre",
     "region": "Alpes",
     "difficulty": "T3",
-    "notes": "\"Mont-Blanc des dames\", long dôme neigeux/rocheux, classique d'acclimatation sans matériel technique.",
-    "source": "hexatrek.com",
+    "notes": "« Mont-Blanc des dames » : long sommet rocheux par le vallon de Bérard, classique d'acclimatation sans matériel technique. Névés au col de Salenton jusqu'à mi ou fin juillet ; corniches possibles au sommet.",
+    "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Mont-Buet-3096m-par-Vallorcine-village-du-Buet",
     "image": {
       "url": "img/peaks/mont-buet.jpg",
@@ -431,10 +467,10 @@
       "source": "https://commons.wikimedia.org/wiki/File:Mont_Buet_(51051945476).jpg"
     },
     "ski": {
-      "grade": "Topo publié",
-      "route": "Vallorcine / Bérard",
+      "grade": "Ski 2.3",
+      "route": "Vallon de Bérard · versant SE (voie normale hivernale)",
       "note": "Très longue course ; sommet parfois atteint à pied selon l’enneigement.",
-      "url": "https://www.chamonix.net/francais/sports-hiver/ski-de-randonnee/routes/le-buet"
+      "url": "https://www.camptocamp.org/routes/45964"
     },
     "snowshoe": {
       "grade": "Très exigeant",
@@ -452,7 +488,7 @@
     "massif": "Vanoise",
     "region": "Alpes",
     "difficulty": "T2",
-    "notes": "Ascension courte possible depuis Bonneval-sur-Arc.",
+    "notes": "Ascension courte depuis le Pont de la Neige (Iseran). Névé raide, parfois dur, sous le col des Fours jusqu'à début ou mi-août certaines années.",
     "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Pointe-des-Fours-3072m-par-le-Pont-de-la-Neige",
     "ski": {
@@ -460,6 +496,12 @@
       "route": "Face NW",
       "note": "Course classique de printemps au départ du Pont de la Neige.",
       "url": "https://skitour.fr/sommets/4920"
+    },
+    "image": {
+      "url": "img/peaks/pointe-des-fours.jpg",
+      "author": "Nouill",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Lac_du_Grand_Fond_3.jpg"
     }
   },
   {
@@ -471,8 +513,8 @@
     "massif": "Queyras (frontière, secteur Refuge du Viso)",
     "region": "Alpes",
     "difficulty": "T3",
-    "notes": "Depuis le Col de Valante puis le Passo della Losetta, bon sentier menant facilement au sommet ; course longue et isolée côté frontière italienne.",
-    "source": "bivouak.net",
+    "notes": "Depuis le vallon de Soustra (côté italien) ; course longue et isolée, sur la frontière.",
+    "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Pointe-Joanne-3052m-par-le-vallon-de-Soustre",
     "ski": {
       "grade": "Ski 2.1–3.1",
@@ -489,7 +531,7 @@
     "lon": 6.7059,
     "massif": "Mercantour / Haute-Provence",
     "region": "Alpes",
-    "difficulty": "T3",
+    "difficulty": "T2",
     "notes": "Point culminant des Alpes-de-Haute-Provence, longue rando depuis Allos.",
     "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Mont-Pelat-3051m-en-boucle-par",
@@ -515,7 +557,7 @@
     "massif": "Mercantour (frontière)",
     "region": "Alpes",
     "difficulty": "T3",
-    "notes": "Sommet le plus méridional des Alpes à plus de 3000m, exactement sur la frontière franco-italienne. Depuis Pont du Countet (Belvédère) par le Refuge de Nice et les lacs du Mont Clapier ; aucun passage d'escalade, de via ferrata ni de glacier, mais éboulis instables et cairns peu fiables sur la fin, bon sens de l'orientation requis.",
+    "notes": "Sommet le plus méridional des Alpes à plus de 3000m, exactement sur la frontière franco-italienne. Depuis Pont du Countet (Belvédère) par le Refuge de Nice et les lacs du Mont Clapier ; aucun passage d'escalade, de via ferrata ni de glacier, mais éboulis instables et cairns peu fiables sur la fin, bon sens de l'orientation requis. Deux passages délicats et chutes de pierres : casque conseillé.",
     "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Mont-Clapier-3045m",
     "image": {
@@ -540,7 +582,7 @@
     "massif": "Écrins sud / Ubaye",
     "region": "Alpes",
     "difficulty": "T3",
-    "notes": "Itinéraire de crête avec lacs, vallon des Houerts.",
+    "notes": "Itinéraire de crête avec lacs, vallon des Houerts. Névés jusqu'à mi-juillet.",
     "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Pointe-d-Escreins-3038m-par-le-vallon-des-Houerts",
     "image": {
@@ -567,7 +609,13 @@
     "difficulty": "T3",
     "notes": "Par le vallon de Clausis, aucune difficulté technique mais crête sommitale un peu aérienne, délicate pour les personnes sensibles au vertige.",
     "source": "altituderando.com",
-    "source_url": "https://www.altituderando.com/Pointe-des-Sagnes-Longues-3032m-par-le-vallon-de-Clausis"
+    "source_url": "https://www.altituderando.com/Pointe-des-Sagnes-Longues-3032m-par-le-vallon-de-Clausis",
+    "ski": {
+      "grade": "Ski 2.3",
+      "route": "Vallon de Clausis · arête W (versant NW)",
+      "note": "Classique du Queyras, course de printemps.",
+      "url": "https://skitour.fr/topos/351"
+    }
   },
   {
     "id": "mont-tenibre",
@@ -577,8 +625,8 @@
     "lon": 6.9717,
     "massif": "Mercantour (frontière)",
     "region": "Alpes",
-    "difficulty": "T3",
-    "notes": "Boucle de 2 jours depuis le refuge de Rabuons, non technique mais engagée par la longueur.",
+    "difficulty": "T4",
+    "notes": "Boucle de 2 jours depuis le refuge de Rabuons, engagée par la longueur ; passage délicat de roches aériennes vers le pas de Rabuons, mains nécessaires. Névés durs jusqu'à fin juin.",
     "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Mont-Tenibre-3031m-par-le-refuge-de-Rabuons",
     "image": {
@@ -604,7 +652,7 @@
     "region": "Alpes",
     "difficulty": "T2",
     "notes": "Depuis le Col Agnel, sentier large et bien tracé, aucune difficulté technique.",
-    "source": "ffrandonnee.fr",
+    "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Pic-de-Caramantran-3025m-par-le-col-Agnel",
     "image": {
       "url": "img/peaks/pic-de-caramantran.jpg",
@@ -658,8 +706,8 @@
     "lon": 6.6851,
     "massif": "Vanoise",
     "region": "Alpes",
-    "difficulty": "T3",
-    "notes": "Sentier balcon au-dessus d'Aussois ; dernier tronçon depuis le Col d'Aussois nécessite les mains (rochers, recherche d'itinéraire), non technique mais plus qu'un simple sentier.",
+    "difficulty": "T2",
+    "notes": "Sentier balcon au-dessus d'Aussois ; dernier tronçon depuis le col d'Aussois dans les rochers faciles, avec un peu de recherche d'itinéraire, sans difficulté technique.",
     "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Pointe-de-l-Observatoire-3015m-par-Aussois",
     "crampon": {
@@ -690,9 +738,9 @@
     "massif": "Néouvielle",
     "region": "Pyrénées",
     "difficulty": "T4",
-    "notes": "Arête rocheuse avec un court passage d'escalade facile (~20 m), glissant par temps humide.",
-    "source": "outside.fr",
-    "source_url": "https://www.altituderando.com/Pic-de-Campbieil-3173m",
+    "notes": "Boucle par le pic d'Estaragne : dalles assez couchées, délicates et exposées par temps humide ; éviter le gendarme. Crampons et piolet en début de saison.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/787206",
     "image": {
       "url": "img/peaks/pic-de-campbieil.jpg",
       "author": "MeMyselfandI",
@@ -704,6 +752,12 @@
       "route": "Cap de Long / Val d’Estaragne",
       "note": "Plusieurs itinéraires ; le couloir SW est nettement plus difficile.",
       "url": "https://skitour.fr/sommets/606"
+    },
+    "snowshoe": {
+      "grade": "R4",
+      "route": "Par le col d'Estaragne",
+      "note": "Course de printemps en terrain de haute montagne.",
+      "url": "https://www.camptocamp.org/routes/349799"
     }
   },
   {
@@ -714,15 +768,15 @@
     "lon": -0.1358,
     "massif": "Vignemale",
     "region": "Pyrénées",
-    "difficulty": "T4",
-    "notes": "Satellite du Vignemale côté Gavarnie.",
-    "source": "altituderando.com",
+    "difficulty": "T3",
+    "notes": "Satellite du Vignemale côté Gavarnie. Névés jusqu'à mi-juillet.",
+    "source": "le-bouquetin-boiteux.fr",
     "source_url": "https://www.le-bouquetin-boiteux.fr/2018/10/topo-pic-milieu-grand-pic-tapou-barrage-ossoue-aller-retour.html",
     "crampon": {
       "grade": "F (estimé)",
       "confirmed": false,
       "season": "Jusqu'à mi-juillet",
-      "note": "Pentes finales larges et faciles en ascension directe. Ne pas confondre avec la traversée de crête vers le Pic du Milieu (AD-, écartée ci-dessous)."
+      "note": "Pentes finales larges et faciles en ascension directe. La traversée intégrale des crêtes depuis le Petit Vignemale (AD-) n'est pas retenue ; du col, le Pic du Milieu se fait sans difficulté."
     },
     "image": {
       "url": "img/peaks/grand-pic-de-tapou.jpg",
@@ -746,14 +800,26 @@
     "massif": "Gavarnie (frontière)",
     "region": "Pyrénées",
     "difficulty": "T3",
-    "notes": "L'un des 3000 pyrénéens les plus accessibles, passe par la Brèche de Roland.",
-    "source": "outside.fr",
+    "notes": "L'un des 3000 pyrénéens les plus accessibles, passe par la Brèche de Roland. Névés jusqu'à mi-juillet.",
+    "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Le-Pic-du-Taillon-3144m",
     "image": {
       "url": "img/peaks/le-taillon.jpg",
       "author": "Tigerente",
       "license": "CC BY 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Pic_du_Taillon_Puerto_de_Bujaruelo_Pyrenees_France_20060820a.jpg"
+    },
+    "ski": {
+      "grade": "Ski 2.3",
+      "route": "Espécières · Sarradets · brèche de Roland · combe W",
+      "note": "Pas de matériel particulier selon le topo ; l'itinéraire glaciaire par les Gabiétous n'est pas retenu.",
+      "url": "https://skitour.fr/topos/1399"
+    },
+    "crampon": {
+      "grade": "F",
+      "confirmed": true,
+      "season": "Printemps – début d'été, selon l'enneigement",
+      "note": "Voie normale depuis le col des Tentes : crampons et piolet au printemps (camptocamp)."
     }
   },
   {
@@ -766,7 +832,7 @@
     "region": "Pyrénées",
     "difficulty": "T3",
     "notes": "Point culminant de l'Ariège, longue randonnée depuis Vicdessos.",
-    "source": "outside.fr",
+    "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Pic-du-Montcalm-3077m-Pique-d-Estats-3143m-Pic-Verdaguer-3131m",
     "image": {
       "url": "img/peaks/pica-d-estats.jpg",
@@ -778,7 +844,13 @@
       "grade": "Ski 3.3",
       "route": "Refuge du Pinet / Riufred",
       "note": "Itinéraire pyrénéen long ; final de crête potentiellement à pied.",
-      "url": "https://www.camptocamp.org/waypoints/40244/ca"
+      "url": "https://skitour.fr/topos/2465"
+    },
+    "crampon": {
+      "grade": "F",
+      "confirmed": true,
+      "season": "Printemps – début d'été, selon l'enneigement",
+      "note": "Par le refuge du Pinet : crampons et piolet obligatoires s'il y a de la neige (camptocamp)."
     }
   },
   {
@@ -790,8 +862,8 @@
     "massif": "Vignemale",
     "region": "Pyrénées",
     "difficulty": "T3",
-    "notes": "Secteur du massif du Vignemale, Gavarnie.",
-    "source": "altituderando.com",
+    "notes": "Secteur du massif du Vignemale, Gavarnie. Névés jusqu'à mi-juillet.",
+    "source": "le-bouquetin-boiteux.fr",
     "source_url": "https://www.le-bouquetin-boiteux.fr/2018/10/topo-pic-milieu-grand-pic-tapou-barrage-ossoue-aller-retour.html",
     "image": {
       "url": "img/peaks/pic-du-milieu.jpg",
@@ -800,10 +872,10 @@
       "source": "https://commons.wikimedia.org/wiki/File:Pic_du_milieu.jpg"
     },
     "ski": {
-      "grade": "Ski alpinisme",
-      "route": "Vallée d’Ossoue",
-      "note": "Peut se combiner avec le Grand Pic de Tapou ; cime rocheuse, final à pied à confirmer.",
-      "url": "https://skitour.fr/sommets/5390"
+      "grade": "Ski 3.1",
+      "route": "Vallée d'Ossoue (voie normale du Grand Pic de Tapou)",
+      "note": "Le Pic du Milieu se rejoint depuis le col, juste à côté du Grand Pic de Tapou ; final à pied selon l'enneigement. La face S (Ski 4.3, 50°) n'est pas retenue.",
+      "url": "https://www.camptocamp.org/routes/49619"
     }
   },
   {
@@ -814,9 +886,9 @@
     "lon": 0.1151,
     "massif": "Néouvielle",
     "region": "Pyrénées",
-    "difficulty": "T3",
-    "notes": "Réserve naturelle du Néouvielle ; petite cheminée à l'arrivée nécessitant les mains. Attention : crampons et piolet souvent indispensables une bonne partie de la saison (névés/glace persistants) — se renseigner sur les conditions avant de partir, pas seulement 'en début de saison'.",
-    "source": "altituderando.com",
+    "difficulty": "T4",
+    "notes": "Réserve naturelle du Néouvielle ; cheminée facile à l'arrivée, avec les mains. Névé raide sur l'ancien glacier en juin et juillet, crampons et piolet alors indispensables : partir à partir de fin juillet ou en août, quand il a fondu.",
+    "source": "topopyrenees.com",
     "source_url": "https://www.topopyrenees.com/randonnee-pic-neouvielle-3091m/",
     "crampon": {
       "grade": "F",
@@ -831,16 +903,16 @@
       "source": "https://commons.wikimedia.org/wiki/File:Pic_du_Neouvielle_(19).jpg"
     },
     "ski": {
-      "grade": "Ski alpinisme",
-      "route": "Refuge de la Glère / Lienz",
-      "note": "Glacier et passages rocheux près du sommet : selon conditions, skis à déposer avant la cime.",
-      "url": "https://www.carnets-de-montagne.com/pic-de-neouvielle-3091-m-depuis-le-plateau-de-lienz/"
+      "grade": "Ski 2.3",
+      "route": "Lac d'Aubert · versant N",
+      "note": "Montée finale F : piolet et crampons. L'itinéraire par la Glère et la brèche de Chausenque, dont le topo prévoit une corde si glace, n'est pas retenu.",
+      "url": "https://skitour.fr/topos/2207"
     },
     "snowshoe": {
-      "grade": "R6 · crampons/piolet",
-      "route": "Route de Lienz · refuge de la Glère · brèche de Chausenque · sommet",
-      "note": "18,6 km · 6 h 30 à l’aller, 4 h 30 au retour. Très exposé aux avalanches; brèche raide, glacier et crête sommitale. Crampons et piolet indispensables; encordement préférable selon les conditions.",
-      "url": "https://www.rando-marche.fr/_38221_102_randonnees-pic-de-neouvielle"
+      "grade": "R4 · crampons/piolet",
+      "route": "Lac d'Aubert · versant N (voie normale)",
+      "note": "Itinéraire de printemps ; crampons et piolet pour la montée finale. L'itinéraire par la brèche de Chausenque, où l'encordement est conseillé, n'est pas retenu.",
+      "url": "https://www.camptocamp.org/routes/49568"
     }
   },
   {
@@ -853,7 +925,7 @@
     "region": "Pyrénées",
     "difficulty": "T4",
     "notes": "Sommet lui-même sans corde ni piolet nécessaire, MAIS l'accès classique au refuge de Tuquerouye passe par un couloir raide (40-45°) souvent enneigé/glacé, typiquement engagé (crampons/piolet) tant qu'il n'est pas totalement déneigé — se renseigner sur une variante d'accès et les conditions avant de partir.",
-    "source": "altituderando.com",
+    "source": "topopyrenees.com",
     "source_url": "https://www.topopyrenees.com/les-astazous-3071m-en-boucle-par-tuquerouye/",
     "image": {
       "url": "img/peaks/grand-astazou.jpg",
@@ -881,10 +953,16 @@
       "source": "https://commons.wikimedia.org/wiki/File:Pic_Maubic.jpg"
     },
     "ski": {
-      "grade": "Ski de randonnée",
-      "route": "Versant NE / col d’Estaragne",
+      "grade": "Ski 2.3",
+      "route": "Versant NE depuis le barrage de Cap de Long",
       "note": "Topo publié ; course de printemps en terrain de haute montagne.",
       "url": "https://www.camptocamp.org/routes/49587/fr/pic-maubic-versant-ne"
+    },
+    "snowshoe": {
+      "grade": "R3",
+      "route": "Versant NE",
+      "note": "Depuis le barrage de Cap de Long, par le vallon de Cap de Long et la moraine du Pays Baché ; course de printemps.",
+      "url": "https://www.camptocamp.org/routes/49587"
     }
   },
   {
@@ -897,7 +975,7 @@
     "region": "Pyrénées",
     "difficulty": "T3",
     "notes": "Depuis Barèges, secteur du massif du Néouvielle.",
-    "source": "altituderando.com",
+    "source": "topopyrenees.com",
     "source_url": "https://www.topopyrenees.com/randonnee-turon-de-neouvielle-3035m/",
     "image": {
       "url": "img/peaks/turon-de-neouvielle.jpg",
@@ -906,16 +984,16 @@
       "source": "https://commons.wikimedia.org/wiki/File:Turon_de_N%C3%A9ouvielle_11.09.2022.jpg"
     },
     "ski": {
-      "grade": "Ski alpinisme",
-      "route": "Refuge de la Glère",
-      "note": "Peut se combiner avec le Pic de Néouvielle ; terrain glaciaire et transitions.",
-      "url": "https://fr.wikiloc.com/itineraires-ski-de-rando/neouvielle-3-091-m-y-turon-de-neouvielle-3-035-m-7055004"
+      "grade": "Ski 2.1",
+      "route": "Refuge de la Glère · lacs de Maniportet",
+      "note": "Pas de matériel particulier selon le topo ; peut se combiner avec le Pic de Néouvielle.",
+      "url": "https://skitour.fr/topos/2188"
     },
     "snowshoe": {
-      "grade": "R6 · course alpine",
-      "route": "Refuge de la Glère · col de Coume Estrète · sommet",
-      "note": "17,5 km · +1550 m · environ 5 h à la montée et 3 h 30 au retour. Pentes raides jusqu’à 40° et itinéraire exposé aux avalanches; réservé aux pratiquants expérimentés, neige stabilisée indispensable.",
-      "url": "https://www.rando-marche.fr/_38221_387_randonnees-turon-de-neouvielle"
+      "grade": "R3",
+      "route": "Refuge de la Glère · lacs de Maniportet",
+      "note": "Long itinéraire de printemps ; neige stabilisée indispensable.",
+      "url": "https://www.camptocamp.org/routes/47407"
     }
   },
   {
@@ -941,25 +1019,6 @@
       "route": "Vallon d’Estaragne",
       "note": "Le topo rejoint le col vers 2950 m ; arête sommitale à terminer à pied.",
       "url": "https://skitour.fr/topos/1588"
-    }
-  },
-  {
-    "id": "la-grande-fache",
-    "name": "La Grande Fache",
-    "altitude_m": 3005,
-    "lat": 42.8082,
-    "lon": -0.2379,
-    "massif": "Marcadau",
-    "region": "Pyrénées",
-    "difficulty": "T4",
-    "notes": "Accès depuis le Pont d'Espagne, itinéraire cairné ; les derniers ~350 m de dénivelé comportent un passage rocheux (niveau II) nécessitant régulièrement les mains — plus engagé qu'un simple sentier, mais non technique (pas de corde, pas de glacier obligatoire).",
-    "source": "outside.fr",
-    "source_url": "https://www.topopyrenees.com/randonnee-la-grande-fache-3005m/",
-    "image": {
-      "url": "img/peaks/la-grande-fache.jpg",
-      "author": "Luap78",
-      "license": "CC BY-SA 4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Grande_Fache.jpg"
     }
   },
   {
@@ -989,8 +1048,8 @@
     "lon": 1.4059884,
     "massif": "Ariège (Vicdessos)",
     "region": "Pyrénées",
-    "difficulty": "T4",
-    "notes": "Souvent enchaîné avec la Pica d'Estats voisine (déjà dans la liste) ; passages d'escalade facile (I/II) dans une petite cheminée en fin de course, pas de corde nécessaire en conditions normales/sèches, mais section impressionnante demandant de bien poser les pieds.",
+    "difficulty": "T3",
+    "notes": "Souvent enchaîné avec la Pica d'Estats voisine (déjà dans la liste) par le refuge du Pinet ; sente nord jusqu'au sommet, sans passage d'escalade en conditions sèches (les mains ne servent que sur la crête vers l'Estats et le Verdaguer). Névés jusqu'à mi-juillet.",
     "source": "altituderando.com",
     "source_url": "https://www.altituderando.com/Pic-du-Montcalm-3077m-Pique-d-Estats-3143m-Pic-Verdaguer-3131m",
     "image": {
@@ -1010,6 +1069,12 @@
       "route": "L’Artigue · refuge du Pinet · col de Riufret · sommet",
       "note": "16 km · +1950 m · 7 h 30 à la montée, 4 h 45 au retour. Traversées raides, secteur avalancheux et corniches; crampons et piolet nécessaires selon l’état de la neige.",
       "url": "https://www.rando-marche.fr/_38219_546_randonnees-pic-du-montcalm"
+    },
+    "crampon": {
+      "grade": "F",
+      "confirmed": true,
+      "season": "Printemps – début d'été, selon l'enneigement",
+      "note": "Même itinéraire que la Pica d'Estats par le Pinet ; crampons et piolet dès qu'il y a de la neige."
     }
   },
   {
@@ -1020,9 +1085,9 @@
     "lon": -0.135,
     "massif": "Vignemale",
     "region": "Pyrénées",
-    "difficulty": "T2",
+    "difficulty": "T3",
     "notes": "Depuis le barrage d'Ossoue via le refuge de Bayssellance et le col de la Hourquette d'Ossoue — voie distincte du Grand Vignemale/Pique Longue, qui lui nécessite le glacier d'Ossoue. Aucune difficulté par beau temps sans neige ; crampons/piolet utiles si névés persistants sur la crête finale (variable selon saison).",
-    "source": "altituderando.com, topopyrenees.com",
+    "source": "topopyrenees.com",
     "source_url": "https://www.topopyrenees.com/randonnee-petit-vignemale-3032m/",
     "crampon": {
       "grade": "F à PD- (estimé)",
@@ -1046,33 +1111,14 @@
     "massif": "Frontière franco-espagnole",
     "region": "Pyrénées",
     "difficulty": "T4",
-    "notes": "Sommet occidental (3034m), atteint depuis le Pic de Cauarère en ~45 min de crête, sans la cheminée technique (celle-ci concerne uniquement la suite de la crête vers le sommet oriental, hors de cet itinéraire) ; quelques passages hors-sentier nécessitant les mains, non technique.",
-    "source": "topopyrenees.com, rando-marche.fr",
+    "notes": "Sommet occidental (3034 m), depuis le Pic de Cauarère par la crête, longée côté S en suivant les cairns ; la cheminée de 5 m (II+) et le gendarme s'évitent par ce versant. Quelques passages hors sentier avec les mains.",
+    "source": "topopyrenees.com",
     "source_url": "https://www.topopyrenees.com/les-3-pics-de-batoua-3034m-depuis-le-refuge-de-lhospice-de-rioumajou/",
     "image": {
       "url": "img/peaks/pic-de-batoua.jpg",
       "author": "Fabrice742",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Cauar%C3%A8re-Batoua_11.06.2008.jpg"
-    }
-  },
-  {
-    "id": "pic-du-marbore",
-    "name": "Pic du Marboré",
-    "altitude_m": 3248,
-    "lat": 42.6928,
-    "lon": 0.0116,
-    "massif": "Cirque de Gavarnie (frontière)",
-    "region": "Pyrénées",
-    "difficulty": "T4",
-    "notes": "Depuis le refuge des Sarradets. En conditions sèches d'été : pas de corde ni de piolet permanents nécessaires, deux courts passages d'escalade facile (mains, niveau II+). Névés/glace peuvent persister sur la moraine et un replat, surtout en début de saison — se renseigner sur les conditions avant de partir.",
-    "source": "topopyrenees.com",
-    "source_url": "https://www.topopyrenees.com/randonnee-pic-du-marbore-3248m/",
-    "image": {
-      "url": "img/peaks/pic-du-marbore.jpg",
-      "author": "Tigerente",
-      "license": "CC BY-SA 4.0",
-      "source": "https://commons.wikimedia.org/wiki/File:Pic_de_Marbor%C3%A9_Pyrenees_20080821.jpg"
     }
   },
   {
@@ -1098,6 +1144,273 @@
       "route": "Plan d’Amont / col de la Masse",
       "note": "Course de ski de randonnée par conditions hivernales.",
       "url": "https://skitour.fr/sommets/397"
+    }
+  },
+  {
+    "id": "bric-de-rubren",
+    "name": "Bric de Rubren",
+    "altitude_m": 3340,
+    "lat": 44.6194,
+    "lon": 6.9497,
+    "massif": "Ubaye (frontière)",
+    "region": "Alpes",
+    "difficulty": "T3",
+    "notes": "Depuis Maljasset par le col de Rubren, bon chemin cairné jusqu'au sommet.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/290947",
+    "image": {
+      "url": "img/peaks/bric-de-rubren.jpg",
+      "author": "Luca Bergamasco",
+      "license": "CC BY 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Mongioia_cresta_Salza.jpg"
+    }
+  },
+  {
+    "id": "bric-froid",
+    "name": "Bric Froid",
+    "altitude_m": 3302,
+    "lat": 44.8643,
+    "lon": 6.9315,
+    "massif": "Queyras (frontière)",
+    "region": "Alpes",
+    "difficulty": "T4",
+    "notes": "Depuis le Roux d'Abriès par le col des Thures, sente dans les rochers en évitant un gendarme.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/234143",
+    "image": {
+      "url": "img/peaks/bric-froid.jpg",
+      "author": "Ytterbium",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Bric_Froid.jpg"
+    }
+  },
+  {
+    "id": "tete-de-vautisse",
+    "name": "Tête de Vautisse",
+    "altitude_m": 3156,
+    "lat": 44.701,
+    "lon": 6.4853,
+    "massif": "Écrins",
+    "region": "Alpes",
+    "difficulty": "T3",
+    "notes": "Depuis la cabane de l'Alp (Freissinières), arête SE raide, sans équipement.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/286266"
+  },
+  {
+    "id": "le-cimet",
+    "name": "Le Cimet",
+    "altitude_m": 3020,
+    "lat": 44.2905,
+    "lon": 6.7041,
+    "massif": "Mercantour / Haute-Provence",
+    "region": "Alpes",
+    "difficulty": "T2",
+    "notes": "Par le vallon de la Grande Cayolle et le col du Petit Talon, puis l'arête S.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/121255",
+    "image": {
+      "url": "img/peaks/le-cimet.jpg",
+      "author": "Filoucelli (recadrage : Ludwig Sebastian Micheler)",
+      "license": "CC BY-SA 3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Chapeau_de_Gendarme,_Cimet_and_Massif_du_Parpaillon_from_Mont_Pelat_(cropped).jpg"
+    }
+  },
+  {
+    "id": "pointe-de-la-saume",
+    "name": "Pointe de la Saume",
+    "altitude_m": 3043,
+    "lat": 44.6392,
+    "lon": 6.7628,
+    "massif": "Queyras (Ceillac / Saint-Véran)",
+    "region": "Alpes",
+    "difficulty": "T2",
+    "notes": "Depuis Ceillac : montée par les sentes du vallon NW, retour par le sentier normal balisé jaune. Une partie du sommet s'est écroulée en 2016 et la mairie de Ceillac déconseillait alors le sommet : se renseigner avant de partir.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/1136811",
+    "image": {
+      "url": "img/peaks/pointe-de-la-saume.jpg",
+      "author": "ThomasInTheSky",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pointe_de_la_Saume_depuis_le_Sentier_des_Balcons.jpeg"
+    }
+  },
+  {
+    "id": "pic-turbat",
+    "name": "Pic Turbat",
+    "altitude_m": 3028,
+    "lat": 44.8531,
+    "lon": 6.1699,
+    "massif": "Écrins / Valgaudemar",
+    "region": "Alpes",
+    "difficulty": "T3",
+    "notes": "Voie normale depuis Villar-Loubière par le refuge des Souffles ; sentier cairné, final avec les mains.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/235195",
+    "image": {
+      "url": "img/peaks/pic-turbat.jpg",
+      "author": "Nouill",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_Turbat_3.jpg"
+    }
+  },
+  {
+    "id": "aiguille-de-l-epaisseur",
+    "name": "Aiguille de l'Épaisseur",
+    "altitude_m": 3230,
+    "lat": 45.1326,
+    "lon": 6.3558,
+    "massif": "Arves / Maurienne",
+    "region": "Alpes",
+    "difficulty": "T3",
+    "notes": "Grand versant SE depuis Bonnenuit (Valloire). Névés jusqu'à mi-juillet.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/46008",
+    "image": {
+      "url": "img/peaks/aiguille-de-l-epaisseur.jpg",
+      "author": "Rémih",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Aiguille_de_l%27%C3%89paisseur_@_Les_Tufs.jpg"
+    }
+  },
+  {
+    "id": "pelaou-blanc",
+    "name": "Pélaou Blanc",
+    "altitude_m": 3135,
+    "lat": 45.3988,
+    "lon": 7.0079,
+    "massif": "Vanoise",
+    "region": "Alpes",
+    "difficulty": "T3",
+    "notes": "Depuis le Pont de la Neige (Iseran) par le Grand Fond, arête S facile. Névé raide, parfois dur, sous le col des Fours jusqu'à début ou mi-août : partir à partir de mi-août.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/1028959",
+    "image": {
+      "url": "img/peaks/pelaou-blanc.jpg",
+      "author": "Nouill",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:P%C3%A9laou_Blanc_2.jpg"
+    }
+  },
+  {
+    "id": "pointe-sud-de-bezin",
+    "name": "Pointe Sud de Bézin",
+    "altitude_m": 3061,
+    "lat": 45.3812,
+    "lon": 7.0077,
+    "massif": "Vanoise",
+    "region": "Alpes",
+    "difficulty": "T2",
+    "notes": "Depuis le Pont de la Neige (Iseran), par le vallon des Illards puis une arête facile.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/1788895"
+  },
+  {
+    "id": "pointe-de-la-rechasse",
+    "name": "Pointe de la Réchasse",
+    "altitude_m": 3212,
+    "lat": 45.3734,
+    "lon": 6.802,
+    "massif": "Vanoise",
+    "region": "Alpes",
+    "difficulty": "T3",
+    "notes": "Uniquement par le versant SE (Drare des Fées) depuis le refuge du col de la Vanoise : la voie normale passe par le glacier de la Réchasse et n'est pas retenue.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/1676842",
+    "image": {
+      "url": "img/peaks/pointe-de-la-rechasse.jpg",
+      "author": "Rémih",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pointe_de_la_R%C3%A9chasse_@_Col_du_Gollet.jpg"
+    }
+  },
+  {
+    "id": "mont-de-peclet",
+    "name": "Mont de Péclet",
+    "altitude_m": 3012,
+    "lat": 45.3116,
+    "lon": 6.5952,
+    "massif": "Vanoise / Val Thorens",
+    "region": "Alpes",
+    "difficulty": "T2",
+    "notes": "Boucle depuis Val Thorens par le lac du Montaulever, itinéraire balisé.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/133141",
+    "image": {
+      "url": "img/peaks/mont-de-peclet.jpg",
+      "author": "Rémih",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Mont_de_P%C3%A9clet_@_Combe_de_Thorens.jpg"
+    }
+  },
+  {
+    "id": "tete-de-siguret",
+    "name": "Tête de Siguret",
+    "altitude_m": 3032,
+    "lat": 44.4415,
+    "lon": 6.7881,
+    "massif": "Ubaye",
+    "region": "Alpes",
+    "difficulty": "T3",
+    "notes": "Par le lac de la Motte et la crête SE, hors sentier sur une arête schisteuse au rocher médiocre ; itinéraire peu fréquenté. Éviter l'arête de Cuguret, équipée de câbles.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/outings/1336082"
+  },
+  {
+    "id": "pic-du-port-de-sullo",
+    "name": "Pic du Port de Sullo",
+    "altitude_m": 3072,
+    "lat": 42.6687,
+    "lon": 1.3874,
+    "massif": "Ariège (frontière)",
+    "region": "Pyrénées",
+    "difficulty": "T4",
+    "notes": "Depuis le refuge du Pinet par le Port de Sullo, arête E : mains, sans vraie escalade. Névés jusqu'à mi-juillet.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/912417",
+    "image": {
+      "url": "img/peaks/pic-du-port-de-sullo.jpg",
+      "author": "Ezequiel from Súria",
+      "license": "CC BY-SA 2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_de_Sotllo.jpg"
+    }
+  },
+  {
+    "id": "pic-de-lustou",
+    "name": "Pic de Lustou",
+    "altitude_m": 3023,
+    "lat": 42.7348,
+    "lon": 0.36,
+    "massif": "Aure / Rioumajou",
+    "region": "Pyrénées",
+    "difficulty": "T4",
+    "notes": "Par le vallon d'Arsoué et l'arête NW uniquement (le pas de III est sur l'arête NE) : 450 m d'arête, mains fréquentes et passages aériens, rien au-dessus de II.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/1937178",
+    "image": {
+      "url": "img/peaks/pic-de-lustou.jpg",
+      "author": "Fabrice742",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_de_Lustou.jpg"
+    }
+  },
+  {
+    "id": "pic-de-maupas",
+    "name": "Pic de Maupas",
+    "altitude_m": 3109,
+    "lat": 42.7014,
+    "lon": 0.5456,
+    "massif": "Luchonnais (frontière)",
+    "region": "Pyrénées",
+    "difficulty": "T4",
+    "notes": "Depuis la vallée du Lis par le refuge du Maupas ; « Mal Pas » franchi avec les mains, quelques pas d'escalade facile, sans glacier ni équipement. Névés jusqu'à mi-juillet.",
+    "source": "camptocamp.org",
+    "source_url": "https://www.camptocamp.org/routes/53638",
+    "image": {
+      "url": "img/peaks/pic-de-maupas.jpg",
+      "author": "ThomasLuchon",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Pic_de_Maupas.jpg"
     }
   }
 ]

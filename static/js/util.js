@@ -28,6 +28,14 @@ export function formatDate(iso) {
   return m ? `${m[3]}/${m[2]}/${m[1]}` : '';
 }
 
+// « 2025-08-12 » → « 12 août 2025 » (fiche d'un sommet, où la place ne manque pas en largeur).
+export function formatLongDate(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+  if (!m) return '';
+  const date = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
 // Date du jour (heure locale) au format AAAA-MM-JJ.
 export function todayIso() {
   const d = new Date();
