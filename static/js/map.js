@@ -2,7 +2,8 @@
 import { DIFF_COLORS, DIFF_LABELS, DIFFS } from './config.js';
 import { PEAKS, passesBaseFilter, peakState } from './store.js';
 import { MOUNTAIN_PATH, makeIcon } from './icons.js';
-import { ROTATE_OPTIONS, createCollapsibleLegend, createCompassControl, createLocateControl, createMarkerLayers, createSeparateAllControl, placeControls } from './map-controls.js';
+import { createCollapsibleLegend, createLocateControl, createMarkerLayers, createSeparateAllControl, placeControls } from './map-controls.js';
+import { ROTATE_OPTIONS, createCompassControl } from './map-rotation.js';
 import { openPeakPanel } from './panel.js';
 
 export const map = L.map('map', { zoomControl: true, ...ROTATE_OPTIONS });

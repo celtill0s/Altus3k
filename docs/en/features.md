@@ -16,8 +16,10 @@
   remembered by the browser.
 - **Map rotation**: with two fingers on a phone, like Google Maps (Shift + mouse wheel on a
   computer). Zoom and rotation are separate: pinching only zooms; the map only rotates when the
-  fingers clearly turn (20°), and then stays in rotate mode until they are lifted. The **compass** (above the zoom buttons) shows north; tapping it puts north back at
-  the top. Also works in the crampon, ski and snowshoe views.
+  fingers clearly turn (20°), and then stays in rotate mode until they are lifted. Once the map is
+  rotated, there is no threshold any more: rotation and zoom are fluid until north is reset.
+  The **compass** (above the zoom buttons) shows north; tapping it puts north back at the top.
+  Also works in the crampon, ski and snowshoe views.
 - **3D view** ("Vue 3D" button on a summit card): the terrain around the summit, tilted, with IGN
   aerial imagery or topographic map and the GPX track if loaded. Rotate and tilt it with two
   fingers (right-click + drag on a computer). MapLibre GL is only downloaded the first time; it

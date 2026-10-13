@@ -1,0 +1,174 @@
+/* Couleurs et thèmes. Tout le reste du CSS n'utilise que ces variables : un thème ne fait que
+   les redéfinir. Thème clair par défaut ; thème sombre automatique (selon le système) ou forcé
+   depuis ⚙ Paramètres › Apparence (js/theme.js pose data-theme="light" ou "dark" sur <html>). */
+
+:root {
+  /* Mise en page */
+  --sidebar-w: 360px;
+  /* Fonds, textes, bordures */
+  --bg: #f5f3ee;
+  --panel: #ffffff;
+  --text: #23272b;
+  --text-soft: #3f4650;
+  --muted: #6b7280;
+  --border: #e2e0d8;
+  --hairline: rgba(0, 0, 0, 0.08);
+  --hairline-strong: rgba(0, 0, 0, 0.12);
+  /* Couleur de la marque (vert) : texte, fonds pleins, remplissages */
+  --accent: #2c5f4a;
+  --accent-bg: #2c5f4a;
+  --brand-text: #1b3a2c;
+  --brand-bg: #1b3a2c;
+  --brand-fill: #1b3a2c;
+  /* Cotations randonnée (marqueurs, pastilles) et activité non cotée */
+  --t2: #2e8b57;
+  --t3: #d98c1e;
+  --t4: #c0392b;
+  --activity-unrated: #77838e;
+  /* Verre dépoli au-dessus de la carte (liste, panneaux, barre d'onglets) */
+  --glass-sidebar: rgba(245, 243, 238, 0.42);
+  --glass-sidebar-mobile: rgba(245, 243, 238, 0.7);
+  --glass-edge: rgba(255, 255, 255, 0.55);
+  --glass-strong: rgba(255, 255, 255, 0.9);
+  --glass-pill: rgba(255, 255, 255, 0.78);
+  --glass-tabbar: rgba(255, 255, 255, 0.94);
+  /* Fiches de la liste, teintes de survol et de fond */
+  --card: rgba(255, 255, 255, 0.93);
+  --card-hover: #fff;
+  --card-done: rgba(236, 245, 239, 0.93);
+  --tint: rgba(27, 58, 44, 0.06);
+  --tint-strong: rgba(27, 58, 44, 0.1);
+  --hover-tint: #eef4f0;
+  --thumb-bg: #d9dfd5;
+  --map-bg: #e3e9e6;
+  --input-bg: #fff;
+  /* Textes d'état */
+  --extras: #3f6b55;
+  --wish-text: #a2650f;
+  --danger-text: #b3261e;
+  --danger-border: #e3b4b0;
+  --ok-text: #1e6b3a;
+  /* Avertissements (vues d'activité, espace consulté) */
+  --warn-bg: rgba(255, 248, 228, 0.95);
+  --warn-border: #ecd9a4;
+  --warn-text: #4a3b12;
+  --warn-strong: #8a4b08;
+  --warn-marker: #c58a2e;
+  --warn-btn-bg: #fff;
+  --warn-btn-hover: #fff3d6;
+  /* Traces GPX */
+  --gpx: #1f5f8b;
+  color-scheme: light;
+}
+
+/* Thème sombre : automatique (système en sombre, sauf thème clair forcé)… */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* Fonds, textes, bordures */
+    --bg: #15191a;
+    --panel: #1f2526;
+    --text: #e4e7e5;
+    --text-soft: #c3c9c6;
+    --muted: #9ba4a1;
+    --border: #343d3d;
+    --hairline: rgba(255, 255, 255, 0.1);
+    --hairline-strong: rgba(255, 255, 255, 0.14);
+    /* Couleur de la marque (vert) : texte, fonds pleins, remplissages */
+    --accent: #7cc4a0;
+    --accent-bg: #2f7a58;
+    --brand-text: #9fd4b6;
+    --brand-bg: #2f6b50;
+    --brand-fill: #6fbf95;
+    /* Verre dépoli au-dessus de la carte (liste, panneaux, barre d'onglets) */
+    --glass-sidebar: rgba(21, 25, 26, 0.5);
+    --glass-sidebar-mobile: rgba(21, 25, 26, 0.8);
+    --glass-edge: rgba(255, 255, 255, 0.06);
+    --glass-strong: rgba(31, 37, 38, 0.92);
+    --glass-pill: rgba(31, 37, 38, 0.82);
+    --glass-tabbar: rgba(31, 37, 38, 0.95);
+    /* Fiches de la liste, teintes de survol et de fond */
+    --card: rgba(31, 37, 38, 0.93);
+    --card-hover: #283031;
+    --card-done: rgba(32, 52, 43, 0.93);
+    --tint: rgba(255, 255, 255, 0.05);
+    --tint-strong: rgba(255, 255, 255, 0.1);
+    --hover-tint: #2a3632;
+    --thumb-bg: #2b3331;
+    --map-bg: #1a2021;
+    --input-bg: #171c1d;
+    /* Textes d'état */
+    --extras: #8fc7a6;
+    --wish-text: #e8a85a;
+    --danger-text: #f28b82;
+    --danger-border: #6e3a36;
+    --ok-text: #8fd0a5;
+    /* Avertissements (vues d'activité, espace consulté) */
+    --warn-bg: rgba(58, 47, 22, 0.95);
+    --warn-border: #6b5624;
+    --warn-text: #efdcae;
+    --warn-strong: #f0b464;
+    --warn-marker: #d9a05a;
+    --warn-btn-bg: #2e2614;
+    --warn-btn-hover: #3d331b;
+    /* Traces GPX */
+    --gpx: #6fb3e0;
+    color-scheme: dark;
+  }
+}
+/* … ou forcé. Mêmes valeurs. */
+:root[data-theme="dark"] {
+  /* Fonds, textes, bordures */
+  --bg: #15191a;
+  --panel: #1f2526;
+  --text: #e4e7e5;
+  --text-soft: #c3c9c6;
+  --muted: #9ba4a1;
+  --border: #343d3d;
+  --hairline: rgba(255, 255, 255, 0.1);
+  --hairline-strong: rgba(255, 255, 255, 0.14);
+  /* Couleur de la marque (vert) : texte, fonds pleins, remplissages */
+  --accent: #7cc4a0;
+  --accent-bg: #2f7a58;
+  --brand-text: #9fd4b6;
+  --brand-bg: #2f6b50;
+  --brand-fill: #6fbf95;
+  /* Verre dépoli au-dessus de la carte (liste, panneaux, barre d'onglets) */
+  --glass-sidebar: rgba(21, 25, 26, 0.5);
+  --glass-sidebar-mobile: rgba(21, 25, 26, 0.8);
+  --glass-edge: rgba(255, 255, 255, 0.06);
+  --glass-strong: rgba(31, 37, 38, 0.92);
+  --glass-pill: rgba(31, 37, 38, 0.82);
+  --glass-tabbar: rgba(31, 37, 38, 0.95);
+  /* Fiches de la liste, teintes de survol et de fond */
+  --card: rgba(31, 37, 38, 0.93);
+  --card-hover: #283031;
+  --card-done: rgba(32, 52, 43, 0.93);
+  --tint: rgba(255, 255, 255, 0.05);
+  --tint-strong: rgba(255, 255, 255, 0.1);
+  --hover-tint: #2a3632;
+  --thumb-bg: #2b3331;
+  --map-bg: #1a2021;
+  --input-bg: #171c1d;
+  /* Textes d'état */
+  --extras: #8fc7a6;
+  --wish-text: #e8a85a;
+  --danger-text: #f28b82;
+  --danger-border: #6e3a36;
+  --ok-text: #8fd0a5;
+  /* Avertissements (vues d'activité, espace consulté) */
+  --warn-bg: rgba(58, 47, 22, 0.95);
+  --warn-border: #6b5624;
+  --warn-text: #efdcae;
+  --warn-strong: #f0b464;
+  --warn-marker: #d9a05a;
+  --warn-btn-bg: #2e2614;
+  --warn-btn-hover: #3d331b;
+  /* Traces GPX */
+  --gpx: #6fb3e0;
+  color-scheme: dark;
+}
+
+/* Hauteur de la barre d'onglets mobile (panels.css), utilisée partout pour s'arrêter au-dessus. */
+@media (max-width: 760px) {
+  :root { --tabbar-h: calc(58px + env(safe-area-inset-bottom, 0px)); }
+}

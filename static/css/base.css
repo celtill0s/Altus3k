@@ -1,0 +1,110 @@
+/* Base : mise en page générale, composants partagés (filtres, puces, pastilles, boutons,
+   fenêtres), bandeaux d'état et états de la page (invité, lecture seule). */
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--text); background: var(--bg); }
+/* Appli : carte en plein écran, hauteur réellement visible (dvh) — avec 100vh, la page dépasse
+   de la barre d'adresse des navigateurs mobiles, défile, et laisse voir un espace vide sous la
+   carte au glissé. Pas de rebond ni de « tirer pour actualiser ». */
+#app { position: relative; height: 100vh; height: 100dvh; width: 100vw; overflow: hidden; }
+html:has(#app), html:has(#app) body { overflow: hidden; overscroll-behavior: none; }
+
+/* ---- Filtres (⚙ Paramètres) : groupes de puces ---- */
+.filter-group { display: flex; flex-direction: column; gap: 6px; }
+.filter-group .label { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-size: 12.5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.chip.active { background: var(--accent-bg); color: #fff; border-color: var(--accent-bg); }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+/* Pastille de cotation (T2, Ski 2.3…), couleur donnée par le JavaScript. */
+.badge {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 5px;
+  color: #fff;
+  margin-right: 6px;
+}
+
+/* ---- Boutons ---- */
+.btn-primary, .btn-secondary, .btn-danger {
+  font: inherit; font-size: 13px; font-weight: 600; border-radius: 6px; padding: 8px 12px; cursor: pointer;
+}
+.btn-primary { background: var(--accent-bg); color: #fff; border: 1px solid var(--accent-bg); }
+.btn-primary:disabled { opacity: .6; cursor: default; }
+.btn-secondary { background: var(--panel); color: var(--accent); border: 1px solid var(--border); }
+.btn-danger { background: var(--panel); color: var(--danger-text); border: 1px solid var(--danger-border); }
+
+/* ---- Fenêtres (mot de passe, ajout d'un sommet…) et champs de formulaire ---- */
+.modal { position: fixed; inset: 0; z-index: 7000; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.modal[hidden] { display: none; }
+.modal-box { background: var(--panel); border-radius: 10px; padding: 20px; width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+.modal-box h2 { margin: 0; font-size: 17px; }
+.modal-hint { margin: -6px 0 0; font-size: 12px; color: var(--muted); }
+.modal-box label, .admin-card label, .login-box label { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; font-weight: 600; color: var(--text); }
+.modal-box input, .modal-box select, .modal-box textarea, .admin-card input, .admin-card select, .login-box input {
+  font: inherit; font-size: 15px; font-weight: 400; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--input-bg); color: var(--text);
+}
+.modal-box textarea { resize: vertical; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.modal-status { font-size: 12.5px; color: var(--danger-text); min-height: 1em; }
+.modal-status.ok { color: var(--ok-text); }
+
+/* ---- Compte (js/account.js) et bandeaux d'état ---- */
+#account-bar { display: flex; flex-direction: column; gap: 10px; }
+#account-name { font-size: 13.5px; font-weight: 600; color: var(--text); }
+/* Admin consultant l'espace d'un autre. */
+#space-banner {
+  padding: 8px 18px;
+  background: var(--warn-bg);
+  border-bottom: 1px solid var(--warn-border);
+  font-size: 12.5px;
+  color: var(--warn-text);
+}
+#space-banner a { color: var(--accent); font-weight: 600; }
+/* Quota dépassé (js/storage.js) : la page devient une colonne bandeau + appli. */
+#storage-banner {
+  padding: 10px 18px; background: #b3261e; color: #fff; font-size: 13.5px; font-weight: 600; line-height: 1.4;
+}
+#storage-banner[hidden] { display: none; }
+body.has-storage-banner { display: flex; flex-direction: column; }
+body.has-storage-banner #app { flex: 1; min-height: 0; height: auto; }
+/* Nouvelle version du site (js/update-check.js) : « Recharger ». */
+#update-banner {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + var(--tabbar-h, 0px)); z-index: 8000;
+  display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; border-radius: 999px;
+  background: var(--brand-bg); color: #fff; font-size: 13px; font-weight: 600; box-shadow: 0 6px 20px rgba(0,0,0,.3);
+  max-width: calc(100vw - 24px); box-sizing: border-box;
+}
+#update-banner button {
+  font: inherit; padding: 5px 12px; border: none; border-radius: 999px; background: #fff; color: #1b3a2c; cursor: pointer;
+}
+
+/* ---- États de la page (classes sur <body>) ---- */
+/* Invité (pas d'espace personnel) : rien de ce qu'un utilisateur ajoute n'est affiché. */
+body.no-space .personal-only,
+body.no-space .done-check,
+body.no-space .pop-done-row,
+body.no-space .pop-comment-row,
+body.no-space .photos-row,
+body.no-space .gpx-row { display: none !important; }
+/* Lecture seule (admin consultant l'espace d'un autre) : pas de boutons de modification. */
+body.readonly .editable-only,
+body.readonly .photos-add,
+body.readonly .photo-del,
+body.readonly .gpx-import,
+body.readonly .gpx-replace,
+body.readonly .gpx-delete { display: none !important; }
+body.readonly .done-check:disabled, body.readonly .pop-done-checkbox:disabled { cursor: not-allowed; }

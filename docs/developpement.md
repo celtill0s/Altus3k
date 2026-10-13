@@ -6,16 +6,28 @@
 
 - **`static/index.html`** — la page de l'appli : liste des sommets, carte, barre d'outils
   (sélecteur À pied · Crampons · Ski · Raquettes), fiche flottante d'un sommet, Mes 3000,
-  Paramètres, barre d'onglets mobile.
+  Paramètres, barre d'onglets mobile. `login.html` (connexion) et `legal.html` (mentions
+  légales, complétée par le serveur) sont les deux autres pages.
+- **`static/css/`** — les styles, un fichier par partie de l'appli, chargés dans cet ordre :
+  `theme.css` (toutes les couleurs, en variables, thèmes clair et sombre), `base.css` (mise en
+  page, boutons, fenêtres, bandeaux), `map.css` (carte, marqueurs, contrôles, barre d'outils),
+  `list.css` (liste des sommets), `panel.css` (fiche d'un sommet), `views.css` (vues d'activité,
+  vue 3D), `panels.css` (Paramètres, Mes 3000, onglets, ajout d'un sommet, admin) ; les pages de
+  connexion et légale chargent `theme.css`, `base.css` et `pages.css`. Pas de couleur en dur hors
+  de `theme.css`, sauf celles qui ne changent pas avec le thème (marqueurs, cotations).
 - **`static/js/`** — le code du frontend, en modules ES natifs (pas de bundler, pas de
   `npm install` pour faire tourner l'appli) :
   - `main.js` (point d'entrée), `store.js` (état partagé), `config.js` ;
-  - `map.js` (carte à pied, fonds, calques) et `map-controls.js` (briques communes à toutes les
-    cartes : regroupement des marqueurs, bouton œil, « me localiser », légende) ;
+  - `map.js` (carte à pied, fonds, calques), `map-controls.js` (briques communes à toutes les
+    cartes : regroupement des marqueurs, bouton œil, « me localiser », légende) et
+    `map-rotation.js` (rotation à deux doigts, boussole) ;
   - `mountain-map-view.js` (vues d'activité) avec `crampon.js`, `ski.js`, `snowshoe.js` ;
   - `sidebar.js` (liste), `panel.js` (fiche d'un sommet), `peak-image.js` (vignettes),
     `gpx.js`, `photos.js`, `lightbox.js`, `mine.js` (Mes 3000), `tabs.js` (onglets mobiles),
-    `custom-peak.js` (sommets perso), `settings.js`, `account.js`, `admin.js`… ;
+    `custom-peak.js` (sommets perso), `view3d.js` (vue 3D, MapLibre chargé à la demande),
+    `settings.js`, `account.js`, `admin.js`, `update-check.js` (bandeau de nouvelle version)… ;
+  - `theme.js` est à part : un script classique chargé dans le `<head>` de chaque page, qui
+    applique le thème choisi avant le premier affichage ;
   - `eslint.config.mjs` sert uniquement à la CI.
 - **`static/img/peaks/`** — photos libres des sommets (Wikimedia Commons), crédits dans
   `mountains.json`.
@@ -27,9 +39,9 @@
   sessions), `storage.py` (catalogue et espaces personnels sur disque),
   `files.py` (pages versionnées, GPX, miniatures), `cli.py` (commandes
   d'administration).
-- **`static/vendor/`** — Leaflet 1.9.4 et Leaflet.markercluster 1.5.3,
-  copiés tels quels (avec leur licence) : aucun script chargé depuis un
-  CDN tiers.
+- **`static/vendor/`** — Leaflet 1.9.4, Leaflet.markercluster 1.5.3, leaflet-rotate 0.2.8 et
+  MapLibre GL 4.7.1 (build CSP), copiés tels quels (avec leur licence) : aucun script chargé
+  depuis un CDN tiers.
 - **`data/`** (généré à l'exécution, jamais commité) — `users.json`
   (comptes), `sessions.json` (sessions), et un dossier par utilisateur
   `users/<identifiant>/` : `progress.json` (sommets faits, commentaires,

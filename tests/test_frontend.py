@@ -347,8 +347,9 @@ def test_compass_rotates_and_resets_north(open_page):
     assert round(page.evaluate(bearing)) == 60
     expect(compass).to_have_class(re.compile("active"))
     assert "rotate(60deg)" in compass.locator("svg").get_attribute("style")
-    compass.click()
-    assert page.evaluate(bearing) == 0
+    compass.click()  # retour au nord animé (≈ 0,3 s)
+    page.wait_for_function(f"async () => (await import({map_module})).map.getBearing() === 0")
+    expect(compass).not_to_have_class(re.compile("active"))
     page.click("#ski-view-open")
     expect(page.locator("#ski-map .compass-control a")).to_be_visible()
 

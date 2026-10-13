@@ -3,7 +3,8 @@
 // carte à pied et la même fiche de sommet, complétée d'un bloc « itinéraire ».
 import { escapeHtml } from './util.js';
 import { createBaseLayer, createSlopesLayer, map as baseMap, onBaseLayerChange, visibleCenter } from './map.js';
-import { ROTATE_OPTIONS, createCollapsibleLegend, createCompassControl, createLocateControl, createMarkerLayers, createSeparateAllControl, placeControls } from './map-controls.js';
+import { createCollapsibleLegend, createLocateControl, createMarkerLayers, createSeparateAllControl, placeControls } from './map-controls.js';
+import { ROTATE_OPTIONS, createCompassControl } from './map-rotation.js';
 import { makeIcon } from './icons.js';
 import { createPeakItem } from './sidebar.js';
 import { ACTIVITY_PEAKS, peakState } from './store.js';

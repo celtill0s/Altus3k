@@ -19,8 +19,9 @@
 - **Rotation de la carte** : à deux doigts sur téléphone, comme Google Maps (Maj + molette sur
   ordinateur). Zoom et rotation sont séparés : un pincement ne fait que zoomer ; la carte ne
   tourne que si les doigts tournent nettement (20°), et reste alors en mode « tourner » jusqu'à ce
-  qu'on les lève. La **boussole** (au-dessus des boutons de zoom) montre le nord ; un appui remet le
-  nord en haut. Valable aussi dans les vues crampons, ski et raquettes.
+  qu'on les lève. Une fois la carte tournée, plus de seuil : rotation et zoom sont fluides,
+  jusqu'au retour au nord. La **boussole** (au-dessus des boutons de zoom) montre le nord ; un
+  appui remet le nord en haut. Valable aussi dans les vues crampons, ski et raquettes.
 - **Vue 3D** (bouton « Vue 3D » de la fiche d'un sommet) : le relief autour du sommet, incliné,
   en photos aériennes ou Plan IGN, avec la trace GPX si elle est chargée. On le fait tourner et
   pencher à deux doigts (clic droit + glisser sur ordinateur). MapLibre GL n'est téléchargé qu'à

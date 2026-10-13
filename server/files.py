@@ -32,13 +32,13 @@ VIDEO_EXTS = {".mp4", ".webm", ".mov", ".m4v", ".ogv", ".avi", ".mkv"}
 THUMB_SIZES = {480, 1920}
 
 # URLs versionnées des fichiers du site : les pages (jamais mises en cache) référencent
-# /v/<empreinte>/js/main.js, /v/<empreinte>/style.css… L'empreinte change dès qu'un fichier
+# /v/<empreinte>/js/main.js, /v/<empreinte>/css/base.css… L'empreinte change dès qu'un fichier
 # change, donc chaque mise à jour produit de nouvelles URLs qu'aucun cache (navigateur,
 # Cloudflare…) ne peut servir périmées — y compris les modules importés en relatif par
 # main.js, qui héritent du préfixe. Ces fichiers peuvent alors être cachés longtemps.
 ASSET_PREFIX = "/v/"
 RELATIVE_ASSET_RE = re.compile(r'((?:href|src)=")(?![a-z]+:|/|#)([^"]+)"')
-# Extensions autorisées pour le service de fichiers statiques génériques (style.css, app.js…) —
+# Extensions autorisées pour le service de fichiers statiques génériques (css/base.css, js/main.js…) —
 # whitelist explicite plutôt que "tout ce qui n'est pas une route API", pour ne jamais exposer
 # par erreur un fichier qui traînerait dans static/ (ex. un .py ou un .bak).
 STATIC_ASSET_EXTS = {".css", ".js", ".png", ".jpg", ".jpeg", ".svg", ".ico", ".webmanifest"}
@@ -58,7 +58,7 @@ def asset_version() -> str:
 
 
 def render_page(name: str) -> bytes:
-    """Page HTML de static/ avec ses références relatives (style.css, js/main.js, vendor/…)
+    """Page HTML de static/ avec ses références relatives (css/…, js/main.js, vendor/…)
     réécrites vers le préfixe versionné."""
     html = (storage.STATIC_DIR / name).read_text(encoding="utf-8")
     prefix = f"{ASSET_PREFIX}{asset_version()}/"

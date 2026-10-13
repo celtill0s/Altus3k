@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Mêmes couleurs que le site (static/style.css, manifest.webmanifest). -->
+    <!-- Mêmes couleurs que le site (static/css/theme.css, manifest.webmanifest). -->
     <color name="brand_dark">#1B3A2C</color>
     <color name="accent">#2C5F4A</color>
     <color name="background">#F5F3EE</color>

@@ -6,15 +6,28 @@
 
 - **`static/index.html`** — the app page: summit list, map, toolbar (À pied · Crampons · Ski ·
   Raquettes view switcher), floating summit card, My 3000s, Settings, mobile tab bar.
+  `login.html` (sign-in) and `legal.html` (legal notice, completed by the server) are the two
+  other pages.
+- **`static/css/`** — the styles, one file per part of the app, loaded in this order:
+  `theme.css` (every colour, as variables, light and dark themes), `base.css` (layout, buttons,
+  dialogs, banners), `map.css` (map, markers, controls, toolbar), `list.css` (summit list),
+  `panel.css` (summit card), `views.css` (activity views, 3D view), `panels.css` (Settings, My
+  3000s, tabs, add-a-summit dialog, admin); the sign-in and legal pages load `theme.css`,
+  `base.css` and `pages.css`. No hard-coded colour outside `theme.css`, except those that do not
+  change with the theme (markers, grades).
 - **`static/js/`** — the frontend code, as native ES modules (no bundler, no `npm install` needed
   to run the app):
   - `main.js` (entry point), `store.js` (shared state), `config.js`;
-  - `map.js` (walking map, base maps, overlays) and `map-controls.js` (building blocks shared by
-    every map: marker clustering, eye button, "locate me", legend);
+  - `map.js` (walking map, base maps, overlays), `map-controls.js` (building blocks shared by
+    every map: marker clustering, eye button, "locate me", legend) and `map-rotation.js`
+    (two-finger rotation, compass);
   - `mountain-map-view.js` (activity views) with `crampon.js`, `ski.js`, `snowshoe.js`;
   - `sidebar.js` (list), `panel.js` (summit card), `peak-image.js` (thumbnails), `gpx.js`,
     `photos.js`, `lightbox.js`, `mine.js` (My 3000s), `tabs.js` (mobile tabs), `custom-peak.js`
-    (personal summits), `settings.js`, `account.js`, `admin.js`…;
+    (personal summits), `view3d.js` (3D view, MapLibre loaded on demand), `settings.js`,
+    `account.js`, `admin.js`, `update-check.js` (new-version banner)…;
+  - `theme.js` stands apart: a classic script loaded in the `<head>` of every page, which applies
+    the chosen theme before the first paint;
   - `eslint.config.mjs` is only used by the CI.
 - **`static/img/peaks/`** — free photos of the summits (Wikimedia Commons), credited in
   `mountains.json`.
@@ -24,8 +37,9 @@
   `app.py` (HTTP server, route table, startup), `auth.py` (accounts, sessions), `storage.py`
   (catalogue and personal spaces on disk), `files.py` (versioned pages, GPX, thumbnails), `cli.py`
   (admin commands).
-- **`static/vendor/`** — Leaflet 1.9.4 and Leaflet.markercluster 1.5.3, copied as is (with their
-  licenses): no script is loaded from a third-party CDN.
+- **`static/vendor/`** — Leaflet 1.9.4, Leaflet.markercluster 1.5.3, leaflet-rotate 0.2.8 and
+  MapLibre GL 4.7.1 (CSP build), copied as is (with their licenses): no script is loaded from a
+  third-party CDN.
 - **`data/`** (created at runtime, never committed) — `users.json` (accounts), `sessions.json`
   (sessions), and one folder per user `users/<username>/`: `progress.json` (summits done, notes,
   photo/video/GPX references, keyed by summit `id`), `custom_peaks.json` (summits added by hand,

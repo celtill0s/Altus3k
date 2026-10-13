@@ -103,6 +103,20 @@ public class MainActivity extends Activity {
         });
     }
 
+    // Prévient la page des passages en arrière-plan / au premier plan (visibilitychange) : au
+    // retour dans l'appli, le site vérifie s'il a été mis à jour et propose de recharger.
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (webView != null) webView.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (webView != null) webView.onResume();
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
