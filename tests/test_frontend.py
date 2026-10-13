@@ -376,6 +376,34 @@ def test_update_banner_when_server_has_new_version(open_page):
     expect(banner.locator("button")).to_have_text("Recharger")
 
 
+def test_android_back_and_exit_button(browser, site):
+    """Appli Android simulée (pont window.SommetsApp) : le retour ferme la vue 3D puis les vues
+    d'activité, et le bouton natif de déconnexion est masqué pendant la vue 3D."""
+    ctx = browser.new_context(viewport={"width": 390, "height": 844}, service_workers="block")
+    ctx.route(TILES, lambda route: route.abort())
+    ctx.add_init_script("window.SommetsApp = { exit: [], setExitButtonVisible(v) { this.exit.push(v); }, saveFile() {} };")
+    page = ctx.new_page()
+    page.goto(f"{site}/login")
+    page.fill("#login-form input:not([type=password])", "bob")
+    page.fill("#login-form input[type=password]", PASSWORD)
+    page.click("#login-form button[type=submit]")
+    page.wait_for_selector(".peak-item", state="attached")
+    exit_visible = "SommetsApp.exit[SommetsApp.exit.length - 1]"
+    assert page.evaluate(exit_visible) is True
+    page.evaluate("document.querySelector('.peak-item').click()")
+    page.click("#peak-panel .pop-3d-btn")
+    expect(page.locator("#view-3d")).to_be_visible()
+    page.wait_for_function(f"{exit_visible} === false")
+    assert page.evaluate("window.__appBack()") is True  # retour : ferme la vue 3D
+    expect(page.locator("#view-3d")).to_have_count(0)
+    page.wait_for_function(f"{exit_visible} === true")
+    page.click("#ski-view-open")
+    expect(page.locator("#ski-view")).to_be_visible()
+    assert page.evaluate("window.__appBack()") is True  # retour : vue ski → carte à pied
+    expect(page.locator("#ski-view")).to_be_hidden()
+    ctx.close()
+
+
 def test_legend_collapsed_by_default(open_page):
     page = open_page("bob")
     toggle = page.locator("#legend .legend-toggle")

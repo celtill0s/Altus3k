@@ -109,7 +109,7 @@
   background: transparent; color: #fff; cursor: pointer;
 }
 .view-3d-bases button[aria-pressed="true"] { background: #fff; color: #1b3a2c; }
-.view-3d-close { flex: none; background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 6px; }
+.view-3d-close { flex: none; background: none; border: none; color: #fff; font-size: 20px; line-height: 1; cursor: pointer; padding: 4px 8px; margin-left: -4px; border-radius: 6px; }
 .view-3d-close:hover { background: rgba(255,255,255,.15); }
 .view-3d-map { position: relative; flex: 1; min-height: 0; background: var(--map-bg); }
 .view-3d-status { margin: 0; padding: 24px; color: var(--muted); text-align: center; }

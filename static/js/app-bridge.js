@@ -1,5 +1,6 @@
 // Intégration avec l'appli Android (android/) : inactive dans un navigateur normal. L'appli
-// expose window.SommetsApp (pont natif) et appelle window.__appBack() au bouton retour.
+// expose window.SommetsApp (pont natif), appelle window.__appBack() au bouton retour, et pose un
+// bouton natif de déconnexion en haut à droite, que le site masque quand un écran le recouvre.
 
 export const nativeApp = window.SommetsApp || null;
 
@@ -8,10 +9,13 @@ export const nativeApp = window.SommetsApp || null;
 // à fermer (l'appli quitte alors).
 const CLOSABLES = [
   ['#photo-lightbox:not([hidden])', '#photo-lightbox-close'],
-  ['#crampon-view:not([hidden])', '#crampon-view-close'],
+  ['#view-3d', '.view-3d-close'],
+  ['#admin-view:not([hidden])', '#admin-view-close'],
   ['#settings-panel:not([hidden])', '#settings-close'],
   ['#peak-panel:not([hidden])', '#peak-panel-close'],
   ['#mine-view:not([hidden])', '#mine-close'],
+  ['.summit-map-view.mobile-list-open:not([hidden])', '#tab-map'], // liste d'une vue → sa carte
+  ['.summit-map-view:not([hidden])', '#mountain-view-open'], // vue crampons / ski / raquettes → carte à pied
   ['#app.mobile-list-open', '#tab-map'],
 ];
 
@@ -35,8 +39,27 @@ export function saveFileNatively(filename, mimeType, text) {
   return nativeApp.saveFile(filename, mimeType, btoa(binary));
 }
 
-// (La déconnexion est un bouton natif de l'appli, indépendant de la version du site.)
+// Bouton natif de déconnexion : masqué quand un écran plein écran le recouvre (vue 3D, visionneuse,
+// liste, utilisateurs), dont les boutons sont eux aussi en haut. L'appli a sa propre surveillance
+// (versions antérieures) : la liste ci-dessous la contient, pour ne pas se contredire.
+const COVERING = '#view-3d, #photo-lightbox:not([hidden]), #admin-view:not([hidden]), #crampon-view:not([hidden]), #app.mobile-list-open';
+
+function watchExitButton() {
+  if (typeof nativeApp.setExitButtonVisible !== 'function') return;
+  let last = null;
+  const update = () => {
+    const covered = !!document.querySelector(COVERING);
+    if (covered !== last) {
+      last = covered;
+      nativeApp.setExitButtonVisible(!covered);
+    }
+  };
+  new MutationObserver(update).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['hidden', 'class'] });
+  update();
+}
+
 export function initAppBridge() {
   if (!nativeApp) return;
   window.__appBack = appBack;
+  watchExitButton();
 }

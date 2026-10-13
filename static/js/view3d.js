@@ -85,12 +85,12 @@ export async function open3dView(p) {
   root.setAttribute('aria-label', `Vue 3D : ${p.name}`);
   root.innerHTML = `
     <div class="view-3d-bar">
+      <button type="button" class="view-3d-close" aria-label="Retour à la carte" title="Retour à la carte">&#8592;</button>
       <h2>${escapeHtml(p.name)} <span>${escapeHtml(p.altitude_m)} m</span></h2>
       <div class="view-3d-bases" role="group" aria-label="Fond">
         ${Object.entries(BASES).map(([key, [label]]) =>
           `<button type="button" data-base="${key}" aria-pressed="${key === 'photos'}">${label}</button>`).join('')}
       </div>
-      <button type="button" class="view-3d-close" aria-label="Fermer la vue 3D">&#10005;</button>
     </div>
     <div class="view-3d-map"><p class="view-3d-status">Chargement du relief…</p></div>`;
   document.body.appendChild(root);
